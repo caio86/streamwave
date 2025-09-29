@@ -1,0 +1,35 @@
+:root {
+    --bs-primary: #8A2BE2;
+    /* Purple instead of blue */
+    --bs-secondary: #6C757D;
+    /* Keep or change secondary */
+    --bs-success: #198754;
+    /* Green */
+    --bs-info: #0DCAF0;
+    /* Cyan */
+    --bs-warning: #FFC107;
+    /* Yellow */
+    --bs-danger: #DC3545;
+    /* Red */
+    --bs-light: #F8F9FA;
+    /* Light gray */
+    --bs-dark: #212529;
+    /* Dark gray */
+}
+
+body {
+    height: 100vh;
+}
+
+#navbar div img {
+    width: 456px;
+    height: 94px;
+}
+
+#content aside {
+    width: 250px;
+}
+
+.txt {
+    font-size: 2em;
+}
