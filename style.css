@@ -1,35 +1,53 @@
 :root {
-    --bs-primary: #8A2BE2;
-    /* Purple instead of blue */
-    --bs-secondary: #6C757D;
-    /* Keep or change secondary */
-    --bs-success: #198754;
-    /* Green */
-    --bs-info: #0DCAF0;
-    /* Cyan */
-    --bs-warning: #FFC107;
-    /* Yellow */
-    --bs-danger: #DC3545;
-    /* Red */
-    --bs-light: #F8F9FA;
-    /* Light gray */
-    --bs-dark: #212529;
-    /* Dark gray */
+  --bs-primary: #8a2be2;
+  /* Purple instead of blue */
+  --bs-secondary: #6c757d;
+  /* Keep or change secondary */
+  --bs-success: #198754;
+  /* Green */
+  --bs-info: #0dcaf0;
+  /* Cyan */
+  --bs-warning: #ffc107;
+  /* Yellow */
+  --bs-danger: #dc3545;
+  /* Red */
+  --bs-light: #f8f9fa;
+  /* Light gray */
+  --bs-dark: #212529;
+  /* Dark gray */
 }
 
 body {
-    height: 100vh;
+  height: 100vh;
+  font-size: 1.2em;
 }
 
-#navbar div img {
-    width: 456px;
-    height: 94px;
+.navbar {
+  background-color: #212529;
+}
+
+.navbar a {
+  color: white;
+  cursor: pointer;
+}
+
+.navbar img {
+  width: 3em;
+}
+
+.navbar navbar-toggler i {
+  background: red !important;
+  color: red !important;
+}
+
+.form-text button {
+  width: 100%;
 }
 
 #content aside {
-    width: 250px;
+  width: 18em;
 }
 
-.txt {
-    font-size: 2em;
+#content main {
+  background-color: #000;
 }
