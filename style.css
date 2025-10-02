@@ -49,5 +49,5 @@ body {
 }
 
 #content main {
-  background-color: #000;
+  background: url(./backg.png);
 }
