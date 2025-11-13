@@ -1,6 +1,6 @@
-# SynchroStream
+# StreamWave
 
-SynchroStream é uma aplicação web focada em entregar conteúdo de vídeo pré-gravado (VOD) com a experiência e disciplina de uma transmissão ao vivo (Live TV). Seu principal objetivo é a sincronização perfeita: garantir que todos os espectadores assistindo à transmissão vejam o mesmo quadro, no mesmo instante, não importando o momento em que se conectem. Ela transforma um arquivo de mídia em uma "programação" linear com hora marcada.
+StreamWave é uma aplicação web focada em entregar conteúdo de vídeo pré-gravado (VOD) com a experiência e disciplina de uma transmissão ao vivo (Live TV). Seu principal objetivo é a sincronização perfeita: garantir que todos os espectadores assistindo à transmissão vejam o mesmo quadro, no mesmo instante, não importando o momento em que se conectem. Ela transforma um arquivo de mídia em uma "programação" linear com hora marcada.
 
 ## Como Funciona (Visão Geral):
 
@@ -26,7 +26,7 @@ SynchroStream é uma aplicação web focada em entregar conteúdo de vídeo pré
 
 ## Experiência do Usuário
 
-Ao acessar o SynchroStream, o usuário é imediatamente colocado no ponto da série que está sendo transmitida. O foco é a simplicidade da visualização.
+Ao acessar o StreamWave, o usuário é imediatamente colocado no ponto da série que está sendo transmitida. O foco é a simplicidade da visualização.
 
 **Player Minimalista**: O player ocupa o centro da tela, com controles de volume e seleção de qualidade (quando disponível), mas sem o seek bar ou controle de pausa/reprodução não-linear.
 
