@@ -1,0 +1,224 @@
+{
+  "usuarios": [
+    {
+      "id": "u1",
+      "username": "johndoe",
+      "email": "johndoe@email.com",
+      "senha": "hashed_password_123",
+      "nome_completo": "John Doe",
+      "data_nascimento": "1990-05-15",
+      "foto_perfil": "https://example.com/images/johndoe.jpg",
+      "data_criacao": "2020-03-01",
+      "ultimo_login": "2025-10-30",
+      "status": "ativo",
+      "favoritos": ["s1", "s3", "f1"]
+    },
+    {
+      "id": "u2",
+      "username": "janedoe",
+      "email": "janedoe@email.com",
+      "senha": "hashed_password_456",
+      "nome_completo": "Jane Doe",
+      "data_nascimento": "1995-07-22",
+      "foto_perfil": "https://example.com/images/janedoe.jpg",
+      "data_criacao": "2021-05-10",
+      "ultimo_login": "2025-10-28",
+      "status": "ativo",
+      "favoritos": ["s2", "s3", "s5", "f2", "f4"]
+    }
+  ],
+  "series": [
+    {
+      "id": "s1",
+      "nome": "Breaking Bad",
+      "genero": "Crime, Drama, Thriller",
+      "programacao": "Segunda a Sexta, 21h",
+      "sinopse": "Um professor de química se envolve no mundo do crime ao tentar garantir o futuro financeiro de sua família após ser diagnosticado com câncer terminal.",
+      "data_lancamento": "2008-01-20",
+      "classificacao": "18 anos",
+      "episodios": [
+        {
+          "titulo": "Piloto",
+          "numero_temporada": 1,
+          "numero_episodio": 1,
+          "duracao": 58
+        },
+        {
+          "titulo": "Cat's in the Bag",
+          "numero_temporada": 1,
+          "numero_episodio": 2,
+          "duracao": 48
+        }
+      ],
+      "destaque": true,
+      "tipo": "serie"
+    },
+    {
+      "id": "s2",
+      "nome": "Friends",
+      "genero": "Comédia, Romance",
+      "programacao": "Segunda a Sexta, 19h",
+      "sinopse": "Seis amigos que moram em Nova York enfrentam as situações da vida com humor e apoio uns dos outros.",
+      "data_lancamento": "1994-09-22",
+      "classificacao": "10 anos",
+      "episodios": [
+        {
+          "titulo": "The One Where Monica Gets a Roommate",
+          "numero_temporada": 1,
+          "numero_episodio": 1,
+          "duracao": 22
+        },
+        {
+          "titulo": "The One with the Sonogram at the End",
+          "numero_temporada": 1,
+          "numero_episodio": 2,
+          "duracao": 22
+        }
+      ],
+      "destaque": false,
+      "tipo": "serie"
+    },
+    {
+      "id": "s3",
+      "nome": "Stranger Things",
+      "genero": "Drama, Horror, Mistério",
+      "programacao": "Todos os episódios disponíveis",
+      "sinopse": "Quando uma criança desaparece, um grupo de amigos começa uma investigação sobre o caso e acaba desvendando uma série de mistérios sobrenaturais.",
+      "data_lancamento": "2016-07-15",
+      "classificacao": "16 anos",
+      "episodios": [
+        {
+          "titulo": "Chapter One: The Vanishing of Will Byers",
+          "numero_temporada": 1,
+          "numero_episodio": 1,
+          "duracao": 47
+        },
+        {
+          "titulo": "Chapter Two: The Weirdo on Maple Street",
+          "numero_temporada": 1,
+          "numero_episodio": 2,
+          "duracao": 48
+        }
+      ],
+      "destaque": true,
+      "tipo": "serie"
+    },
+    {
+      "id": "s4",
+      "nome": "The Crown",
+      "genero": "Biografia, Drama, História",
+      "programacao": "Todos os episódios disponíveis",
+      "sinopse": "A série conta a história da vida da rainha Elizabeth II e dos eventos históricos durante seu reinado.",
+      "data_lancamento": "2016-11-04",
+      "classificacao": "12 anos",
+      "episodios": [
+        {
+          "titulo": "Wolferton Splash",
+          "numero_temporada": 1,
+          "numero_episodio": 1,
+          "duracao": 60
+        },
+        {
+          "titulo": "The Queen's Speech",
+          "numero_temporada": 1,
+          "numero_episodio": 2,
+          "duracao": 60
+        }
+      ],
+      "destaque": false,
+      "tipo": "serie"
+    },
+    {
+      "id": "s5",
+      "nome": "Black Mirror",
+      "genero": "Sci-Fi, Drama, Thriller",
+      "programacao": "Todos os episódios disponíveis",
+      "sinopse": "Cada episódio da série apresenta uma história autônoma que explora os impactos da tecnologia na sociedade.",
+      "data_lancamento": "2011-12-04",
+      "classificacao": "16 anos",
+      "episodios": [
+        {
+          "titulo": "The National Anthem",
+          "numero_temporada": 1,
+          "numero_episodio": 1,
+          "duracao": 60
+        },
+        {
+          "titulo": "Fifteen Million Merits",
+          "numero_temporada": 1,
+          "numero_episodio": 2,
+          "duracao": 60
+        }
+      ],
+      "destaque": true,
+      "tipo": "serie"
+    }
+  ],
+  "filmes": [
+    {
+      "id": "f1",
+      "nome": "O Poderoso Chefão",
+      "genero": "Crime, Drama",
+      "duracao_total": 175,
+      "sinopse": "Uma família mafiosa luta para estabelecer sua supremacia nos Estados Unidos depois da Segunda Guerra Mundial.",
+      "data_lancamento": "1972-03-24",
+      "classificacao": "18 anos",
+      "destaque": true,
+      "tipo": "filme",
+      "diretor": "Francis Ford Coppola",
+      "elenco": ["Marlon Brando", "Al Pacino", "James Caan"]
+    },
+    {
+      "id": "f2",
+      "nome": "Interestelar",
+      "genero": "Ficção Científica, Drama, Aventura",
+      "duracao_total": 169,
+      "sinopse": "Um grupo de astronautas viaja através de um buraco de minhoca em busca de um novo lar para a humanidade.",
+      "data_lancamento": "2014-11-07",
+      "classificacao": "10 anos",
+      "destaque": true,
+      "tipo": "filme",
+      "diretor": "Christopher Nolan",
+      "elenco": ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"]
+    },
+    {
+      "id": "f3",
+      "nome": "Parasita",
+      "genero": "Comédia, Drama, Thriller",
+      "duracao_total": 132,
+      "sinopse": "Uma família pobre coreana se infiltra na casa de uma família rica, criando uma relação de dependência que leva a consequências inesperadas.",
+      "data_lancamento": "2019-05-30",
+      "classificacao": "16 anos",
+      "destaque": false,
+      "tipo": "filme",
+      "diretor": "Bong Joon-ho",
+      "elenco": ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong"]
+    },
+    {
+      "id": "f4",
+      "nome": "Cidade de Deus",
+      "genero": "Crime, Drama",
+      "duracao_total": 130,
+      "sinopse": "Dois jovens seguem caminhos diferentes na violenta favela Cidade de Deus no Rio de Janeiro.",
+      "data_lancamento": "2002-08-30",
+      "classificacao": "18 anos",
+      "destaque": true,
+      "tipo": "filme",
+      "diretor": "Fernando Meirelles",
+      "elenco": ["Alexandre Rodrigues", "Leandro Firmino", "Phellipe Haagensen"]
+    },
+    {
+      "id": "f5",
+      "nome": "Toy Story",
+      "genero": "Animação, Aventura, Comédia",
+      "duracao_total": 81,
+      "sinopse": "Os brinquedos de um menino ganham vida quando ele não está por perto, criando aventuras e amizades inesquecíveis.",
+      "data_lancamento": "1995-11-22",
+      "classificacao": "Livre",
+      "destaque": false,
+      "tipo": "filme",
+      "diretor": "John Lasseter",
+      "elenco": ["Tom Hanks", "Tim Allen", "Don Rickles"]
+    }
+  ]
+}
