@@ -3,7 +3,70 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>StreamWave</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
   </head>
-  <body></body>
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="#" class="logo">
+          <span class="logo-icon">⚡</span>
+          StreamWave
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Filmes</a></li>
+          <li><a href="#">Series</a></li>
+          <li><a href="#">Favoritos</a></li>
+
+          <div class="mobile-auth">
+            <button class="btn btn-login">Login</button>
+            <button class="btn btn-signup">Sign Up</button>
+          </div>
+        </ul>
+
+        <div class="auth-buttons">
+          <button class="btn btn-login">Login</button>
+          <button class="btn btn-signup">Sign Up</button>
+        </div>
+
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <div id="noContent">
+          <h2 class="no-content-title" id="title">Sem Conteudo</h2>
+          <p class="no-content-description" id="description">
+            No momento, não há conteudo para mostar
+          </p>
+        </div>
+
+        <div class="list-horizontal-wrapper">
+          <h2>Filmes</h2>
+          <div class="list-horizontal">
+            <div class="card">
+              <a>
+                <img
+                  class="card-img"
+                  src="https://picsum.photos/300/169"
+                  alt="banner filme"
+                />
+
+                <p class="card-name">Filme 1</p>
+                <p class="card-year">2025</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>

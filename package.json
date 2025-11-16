@@ -4,7 +4,7 @@
   "description": "StreamWave é uma plataforma de streaming VOD, desenvolvida com uma arquitetura escalável para entregar vídeo de forma eficiente e confiável. Ela combina a performance do streaming adaptativo com a experiência social de assistir em grupo, tudo em um único serviço.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "json-server data/db.json",
+    "server": "json-server db.json",
     "dev": "live-server"
   },
   "repository": {
