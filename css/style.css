@@ -39,7 +39,7 @@
   --shadow-dark: rgba(0, 0, 0, 0.6);
 
   /* Interactive states */
-  --hover-overlay: rgba(255, 255, 255, 0.05);
+  --hover-overlay: rgba(0, 0, 0, 0.75);
   --active-overlay: rgba(255, 255, 255, 0.1);
   --focus-glow: rgba(126, 87, 194, 0.4);
 
@@ -60,13 +60,13 @@ body {
 }
 
 .container {
-  max-width: 93.4vw;
+  max-width: 100vw;
   padding-top: 6em;
   margin: 0 auto;
 }
 
 #noContent {
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -89,22 +89,56 @@ body {
   padding-left: 3.3vw;
 }
 
-.card {
-  width: 23.1vw;
+.list-name {
+  font-size: 1.5em;
+  margin-bottom: 0.2em;
 }
 
-.card img {
+.card {
+  margin-top: 0.2em;
+  width: 18.7vw;
+}
+
+.card-img-wrapper {
+  position: relative;
   width: 100%;
+  overflow: hidden;
+}
+.card-img {
+  width: 100%;
+  height: auto;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  width: 100%;
+  height: 98%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  transition: var(--transition);
+  background-color: var(--hover-overlay);
+}
+
+.card:hover .card-overlay {
+  opacity: 1;
 }
 
 .card-name {
-  color: var(--text-primary);
+  color: var(--text-secondary);
   text-align: center;
   font-size: 1em;
 }
 
 .card-year {
-  color: var(--text-secondary);
+  color: var(--text-muted);
   text-align: center;
   font-size: 0.8em;
 }
