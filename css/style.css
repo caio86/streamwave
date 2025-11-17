@@ -89,24 +89,39 @@ body {
   padding-left: 3.3vw;
 }
 
+.list-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 1.2em;
+}
+
 .list-name {
   font-size: 1.5em;
   margin-bottom: 0.2em;
 }
 
 .card {
-  margin-top: 0.2em;
-  width: 18.7vw;
+  width: 72vw;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.card-link {
+  text-decoration: none;
+  display: block;
 }
 
 .card-img-wrapper {
   position: relative;
   width: 100%;
   overflow: hidden;
+  border-radius: 0.2em;
 }
 .card-img {
   width: 100%;
   height: auto;
+  aspect-ratio: 16/9;
+  object-fit: cover;
 }
 
 .card-overlay {
@@ -141,4 +156,40 @@ body {
   color: var(--text-muted);
   text-align: center;
   font-size: 0.8em;
+}
+
+/* Improved with standard breakpoints */
+@media (min-width: 576px) {
+  /* ~36em - Mobile landscape */
+  .card {
+    width: 45.5vw;
+  }
+}
+
+@media (min-width: 768px) {
+  /* ~48em - Tablet */
+  .card {
+    width: 30vw;
+  }
+}
+
+@media (min-width: 992px) {
+  /* ~62em - Small desktop */
+  .card {
+    width: 23.1vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  /* ~75em - Desktop */
+  .card {
+    width: 18.7vw;
+  }
+}
+
+@media (min-width: 1400px) {
+  /* ~87.5em - Large desktop */
+  .card {
+    width: 17.4vw; /* or keep 18.7vw */
+  }
 }
