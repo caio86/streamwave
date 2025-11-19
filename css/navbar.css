@@ -37,7 +37,7 @@ header {
 
 .nav-links a {
   text-decoration: none;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   padding: 25px 20px;
   display: block;
   font-weight: 500;
@@ -45,8 +45,12 @@ header {
   position: relative;
 }
 
+.nav-links a.active {
+  color: var(--text-primary);
+}
+
 .nav-links a:hover {
-  color: var(--text-secondary);
+  color: var(--accent-hover);
 }
 
 .nav-links a::after {
