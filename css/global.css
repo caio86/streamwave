@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+a {
+  color: inherit;
+}
+
 :root {
   /* Dark background colors */
   --bg-primary: #0a0a0a;
