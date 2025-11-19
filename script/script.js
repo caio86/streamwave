@@ -1,13 +1,7 @@
+import { capitalizeString } from "./utils.js";
+
 const noContent = document.querySelector("#noContent");
 const container = document.querySelector(".container");
-
-function capitalizeString(str) {
-  if (typeof str !== "string" || str.length === 0) {
-    return "";
-  }
-
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-}
 
 function createMovieList(headingName, movies) {
   // Create main wrapper
