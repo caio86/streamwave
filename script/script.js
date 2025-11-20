@@ -1,4 +1,4 @@
-import { listaFilmes, listaSeries } from "./api.js";
+import { listaConteudo } from "./api.js";
 import { capitalizeString } from "./utils.js";
 
 const noContent = document.querySelector("#noContent");
@@ -55,10 +55,7 @@ function createMediaList(headingName, media) {
   return listWrapper;
 }
 
-const conteudo = {
-  series: await listaSeries(),
-  filmes: await listaFilmes(),
-};
+const conteudo = await listaConteudo();
 
 Object.keys(conteudo).forEach((key) => {
   if (conteudo[key].length <= 0) {
