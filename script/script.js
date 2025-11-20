@@ -16,6 +16,7 @@ function createMediaCard({ nome, data_lancamento, banner, id }) {
           alt="${nome}"
           class="card-img"
           loading="lazy"
+          onerror="this.src = '/public/fallback-image.png'"
         >
         <div class="card-overlay">P</div>
       </div>
