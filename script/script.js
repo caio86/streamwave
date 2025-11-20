@@ -9,19 +9,19 @@ function createMediaCard({ nome, data_lancamento, banner, id }) {
   card.className = "card";
 
   card.innerHTML = `
-    <a href="./details.html?id=${id}" class="card-link">
-      <div class="card-img-wrapper">
+    <a href="./details.html?id=${id}" class="card__link">
+      <div class="card__img-wrapper">
         <img
           src="${banner}"
           alt="${nome}"
-          class="card-img"
+          class="card__img"
           loading="lazy"
           onerror="this.src = '/public/fallback-image.png'"
         >
-        <div class="card-overlay">P</div>
+        <div class="card__overlay">P</div>
       </div>
-      <p class="card-name">${nome}</p>
-      <p class="card-year">${data_lancamento.split("-")[0]}</p>
+      <p class="card__name">${nome}</p>
+      <p class="card__year">${data_lancamento.split("-")[0]}</p>
     </a>
   `;
 
