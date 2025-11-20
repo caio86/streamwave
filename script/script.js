@@ -4,7 +4,30 @@ import { capitalizeString } from "./utils.js";
 const noContent = document.querySelector("#noContent");
 const container = document.querySelector(".container");
 
-function createMovieList(headingName, movies) {
+function createMediaCard({ nome, data_lancamento, banner, id }) {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  card.innerHTML = `
+    <a href="./details.html?id=${id}" class="card-link">
+      <div class="card-img-wrapper">
+        <img
+          src="${banner}"
+          alt="${nome}"
+          class="card-img"
+          loading="lazy"
+        >
+        <div class="card-overlay">P</div>
+      </div>
+      <p class="card-name">${nome}</p>
+      <p class="card-year">${data_lancamento.split("-")[0]}</p>
+    </a>
+  `;
+
+  return card;
+}
+
+function createMediaList(headingName, media) {
   // Create main wrapper
   const listWrapper = document.createElement("div");
   listWrapper.className = "list-horizontal-wrapper";
@@ -19,49 +42,14 @@ function createMovieList(headingName, movies) {
   listHorizontal.className = "list-horizontal";
 
   // Create cards for each movie
-  movies.forEach(({ nome, data_lancamento, banner }) => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    const cardLink = document.createElement("a");
-    cardLink.href = "./details.html";
-    cardLink.className = "card-link";
-
-    const cardImgWrapper = document.createElement("div");
-    cardImgWrapper.className = "card-img-wrapper";
-
-    const cardImg = document.createElement("img");
-    cardImg.className = "card-img";
-    cardImg.src = banner;
-    cardImg.alt = "banner filme";
-
-    const cardOverlay = document.createElement("div");
-    cardOverlay.className = "card-overlay";
-    cardOverlay.textContent = "P";
-
-    const cardNameElement = document.createElement("p");
-    cardNameElement.className = "card-name";
-    cardNameElement.textContent = nome;
-
-    const cardYearElement = document.createElement("p");
-    cardYearElement.className = "card-year";
-    cardYearElement.textContent = data_lancamento.split("-")[0];
-
-    // Assemble card
-    cardImgWrapper.appendChild(cardImg);
-    cardImgWrapper.appendChild(cardOverlay);
-
-    cardLink.appendChild(cardImgWrapper);
-    cardLink.appendChild(cardNameElement);
-    cardLink.appendChild(cardYearElement);
-
-    card.appendChild(cardLink);
-    listHorizontal.appendChild(card);
+  const fragment = document.createDocumentFragment();
+  media.forEach((media) => {
+    fragment.appendChild(createMediaCard(media));
   });
 
   // Assemble final structure
-  listWrapper.appendChild(heading);
-  listWrapper.appendChild(listHorizontal);
+  listHorizontal.appendChild(fragment);
+  listWrapper.append(heading, listHorizontal);
 
   return listWrapper;
 }
@@ -76,7 +64,7 @@ Object.keys(conteudo).forEach((key) => {
     return;
   }
 
-  const list = createMovieList(capitalizeString(key), conteudo[key]);
+  const list = createMediaList(capitalizeString(key), conteudo[key]);
 
   container.appendChild(list);
 
