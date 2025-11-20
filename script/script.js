@@ -56,15 +56,18 @@ function createMediaList(headingName, media) {
 }
 
 const conteudo = await listaConteudo();
+let hasContent = false;
 
-Object.keys(conteudo).forEach((key) => {
+for (let key in conteudo) {
   if (conteudo[key].length <= 0) {
-    return;
+    continue;
   }
 
   const list = createMediaList(capitalizeString(key), conteudo[key]);
+  if (list) {
+    container.appendChild(list);
+    hasContent = true;
+  }
+}
 
-  container.appendChild(list);
-
-  noContent.style.display = "none";
-});
+noContent.style.display = hasContent ? "none" : "flex";
