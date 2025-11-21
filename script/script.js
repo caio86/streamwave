@@ -4,15 +4,22 @@ import { capitalizeString } from "./utils.js";
 const noContent = document.querySelector("#noContent");
 const container = document.querySelector(".container");
 
-function createMediaCard({ nome, data_lancamento, banner, id }) {
+function createMediaCard({
+  nome,
+  data_lancamento,
+  banner,
+  poster,
+  id,
+  vertical = false,
+}) {
   const card = document.createElement("div");
-  card.className = "card";
+  card.className = `card card--${vertical ? "vertical" : "horizontal"}`;
 
   card.innerHTML = `
     <a href="./details.html?id=${id}" class="card__link">
       <div class="card__img-wrapper">
         <img
-          src="${banner}"
+          src="${vertical ? poster : banner}"
           alt="${nome}"
           class="card__img"
           loading="lazy"
@@ -45,7 +52,7 @@ function createMediaList(headingName, media) {
   // Create cards for each movie
   const fragment = document.createDocumentFragment();
   media.forEach((media) => {
-    fragment.appendChild(createMediaCard(media));
+    fragment.appendChild(createMediaCard({ vertical: false, ...media }));
   });
 
   // Assemble final structure
