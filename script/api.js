@@ -48,13 +48,51 @@ export async function fetchData(endpoint) {
 }
 
 export async function listaFilmes() {
-  const data = await fetchData("/filmes");
-  return data;
+  try {
+    const res = await fetchWithBackup("/filmes");
+    return await res.json();
+  } catch (error) {
+    console.error(`Failed to fetch /filmes:`, error);
+    return [];
+  }
 }
 
 export async function listaSeries() {
-  const data = await fetchData("/series");
-  return data;
+  try {
+    const res = await fetchWithBackup("/series");
+    return await res.json();
+  } catch (error) {
+    console.error(`Failed to fetch /series:`, error);
+    return [];
+  }
+}
+
+export async function getFilmeByID(id) {
+  if (!id?.trim()) {
+    throw new Error("ID is required");
+  }
+
+  try {
+    const res = await fetchWithBackup(`/filmes/${id}`);
+    return await res.json();
+  } catch (error) {
+    console.error(`Failed to fetch /filmes/${id}:`, error);
+    return {};
+  }
+}
+
+export async function getSerieByID(id) {
+  if (!id?.trim()) {
+    throw new Error("ID is required");
+  }
+
+  try {
+    const res = await fetchWithBackup(`/series/${id}`);
+    return await res.json();
+  } catch (error) {
+    console.error(`Failed to fetch /series/${id}:`, error);
+    return {};
+  }
 }
 
 export async function listaConteudo() {
