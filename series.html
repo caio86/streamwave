@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StreamWave - Séries</title>
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="./index.html" class="logo">
+          <span class="logo-icon">⚡</span>
+          StreamWave
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./filmes.html">Filmes</a></li>
+          <li><a href="./series.html" class="active">Series</a></li>
+          <li><a href="#">Favoritos</a></li>
+
+          <div class="mobile-auth">
+            <button class="btn btn-login">Login</button>
+            <button class="btn btn-signup">Sign Up</button>
+          </div>
+        </ul>
+
+        <div class="auth-buttons">
+          <button class="btn btn-login">Login</button>
+          <button class="btn btn-signup">Sign Up</button>
+        </div>
+
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <div id="noContent">
+          <h2>Carregando...</h2>
+          <p>Buscando séries disponíveis</p>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="./script/series.js"></script>
+  </body>
+</html>
