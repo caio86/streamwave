@@ -60,6 +60,7 @@ body {
     var(--bg-secondary) 0%,
     var(--accent-secondary) 100%
   );
+  background-attachment: fixed;
   color: var(--text-primary);
   /* padding: 40px 20px; */
   min-height: 100vh;
