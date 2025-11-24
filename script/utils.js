@@ -6,6 +6,23 @@ export function capitalizeString(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
+export function converterMinutos(minutos) {
+  const horas = Math.floor(minutos / 60);
+  const minRestantes = minutos % 60;
+
+  const partes = [];
+
+  if (horas > 0) {
+    partes.push(`${horas}h`);
+  }
+
+  if (minRestantes > 0) {
+    partes.push(`${minRestantes}m`);
+  }
+
+  return partes.length > 0 ? partes.join(" ") : "0m";
+}
+
 export function createMediaCard({
   nome,
   data_lancamento,
