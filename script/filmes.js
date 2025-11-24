@@ -10,9 +10,9 @@ function agruparGenero(lista) {
   lista.forEach((item) => {
     if (!item.genero) return;
 
-    const generosDoItem = item.genero.split(",").map((g) => g.trim());
+    const generosItem = item.genero.split(",").map((g) => g.trim());
 
-    generosDoItem.forEach((genero) => {
+    generosItem.forEach((genero) => {
       if (!grupos[genero]) {
         grupos[genero] = [];
       }
@@ -23,24 +23,24 @@ function agruparGenero(lista) {
   return grupos;
 }
 
-// 1. Busca os filmes
+// 1. Busca os filmes na api
 const filmes = await listaFilmes();
 
-// 2. Verifica se tem conteúdo
+// 2. Verifica se tem conteudo para exibir
 if (filmes && filmes.length > 0) {
   noContent.style.display = "none";
 
-  // 3. Agrupa os filmes por gênero
+  // 3. Agrupa os filmes por genero
   const filmesGenero = agruparGenero(filmes);
 
-  // 4. Cria uma lista para cada gênero (ordenados alfabeticamente)
+  // 4. Cria uma lista para cada genero e adiciona no container
   const generosOrdenados = Object.keys(filmesGenero).sort();
 
   generosOrdenados.forEach((genero) => {
     const lista = createMediaList(
       genero, 
       filmesGenero[genero], 
-      true // false = layout horizontal (banner) para filmes
+      false // BOTAR TRUE NO DE SERIES
     );
     container.appendChild(lista);
   });
