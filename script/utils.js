@@ -65,18 +65,18 @@ export function createMediaList(headingName, media, vertical = false) {
 }
 
 export function agruparGenero(lista) {
-  const grupos = {};
+  const grupos = {}; // 1. Objeto para armazenar os grupos
 
-  lista.forEach((item) => {
-    if (!item.genero) return;
+  lista.forEach((item) => { // 2. Main loop
+    if (!item.genero) return; // 2.1. Se não tiver gênero, pula pq senao dá erro
 
-    const generosItem = item.genero.split(",").map((g) => g.trim());
+    const generosItem = item.genero.split(",").map((g) => g.trim()); // transforma string em array
 
-    generosItem.forEach((genero) => {
-      if (!grupos[genero]) {
+    generosItem.forEach((genero) => { // 3. Loop nos gêneros do item (filme ou seroe)
+      if (!grupos[genero]) { // 3.1. Se nao existe a prateleira ela é criada
         grupos[genero] = [];
       }
-      grupos[genero].push(item);
+      grupos[genero].push(item); // 4. Coloca o item na prateleira
     });
   });
 
