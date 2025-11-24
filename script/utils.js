@@ -63,3 +63,22 @@ export function createMediaList(headingName, media, vertical = false) {
 
   return listWrapper;
 }
+
+export function agruparGenero(lista) {
+  const grupos = {};
+
+  lista.forEach((item) => {
+    if (!item.genero) return;
+
+    const generosItem = item.genero.split(",").map((g) => g.trim());
+
+    generosItem.forEach((genero) => {
+      if (!grupos[genero]) {
+        grupos[genero] = [];
+      }
+      grupos[genero].push(item);
+    });
+  });
+
+  return grupos;
+}

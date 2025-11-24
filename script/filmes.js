@@ -1,27 +1,8 @@
 import { listaFilmes } from "./api.js";
-import { createMediaList } from "./utils.js";
+import { createMediaList, agruparGenero } from "./utils.js";
 
 const noContent = document.querySelector("#noContent");
 const container = document.querySelector(".container");
-
-function agruparGenero(lista) {
-  const grupos = {};
-
-  lista.forEach((item) => {
-    if (!item.genero) return;
-
-    const generosItem = item.genero.split(",").map((g) => g.trim());
-
-    generosItem.forEach((genero) => {
-      if (!grupos[genero]) {
-        grupos[genero] = [];
-      }
-      grupos[genero].push(item);
-    });
-  });
-
-  return grupos;
-}
 
 // 1. Busca os filmes na api
 const filmes = await listaFilmes();
