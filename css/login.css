@@ -1,0 +1,72 @@
+
+/* garante cálculo correto de altura */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Ajuste do main para centralizar corretamente a caixa de login.
+   padding-top deve ser igual à altura do seu header/navbar (ajuste se necessário). */
+main {
+  display: flex;              /* ativa flexbox */
+  justify-content: center;    /* centraliza horizontalmente */
+  align-items: center;        /* centraliza verticalmente */
+  padding-top: 80px;          /* reservar espaço para o header (mude o valor se seu header tiver altura diferente) */
+  background-color: inherit;  /* mantém o mesmo fundo que o resto da página */
+}
+
+/* estilo da caixa de login — remova margin-top inline do HTML */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* foca no topo */
+    padding-top: 120px; /* sobe o card */
+}
+
+.login-card {
+    width: 350px;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+
+    /* animação suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+
+.login-card h3 {
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login-card .form-label {
+    color: white;
+}
+
+.login-card a {
+    color: #b18cff;
+}
+
+.btn-group-center {
+    display: flex;
+    justify-content: center; /* centraliza horizontalmente */
+    gap: 10px;               /* espaço entre os botões */
+    width: 100%;             /* garante que ocupe a linha toda */
+    margin-top: 10px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}

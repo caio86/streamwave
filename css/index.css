@@ -1,6 +1,7 @@
 @import "./global.css";
 @import "./navbar.css";
 @import "./card.css";
+@import "./login.css";
 
 .container {
   max-width: 100vw;
