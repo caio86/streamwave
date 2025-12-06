@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StreamWave</title>
     <link rel="stylesheet" href="css/index.css" />
-    
-    
   </head>
   <body>
-    <header>
+   <header>
       <nav class="navbar">
         <a href="./index.html" class="logo">
           <span class="logo-icon">⚡</span>
@@ -17,20 +15,20 @@
         </a>
 
         <ul class="nav-links">
-          <li><a href="./index.html" class="active">Home</a></li>
+          <li><a href="./index.html">Home</a></li>
           <li><a href="./filmes.html">Filmes</a></li>
           <li><a href="./series.html">Series</a></li>
           <li><a href="#">Favoritos</a></li>
 
           <div class="mobile-auth">
-            <button class="btn btn-login"><a href="./login.html">Login</a></button>
-            <button class="btn btn-signup">Sign Up</button>
+            <a class="btn btn-login" href="./login.html">Login</a>
+            <a class="btn btn-signup" href="./register.html">Sign Up</a>
           </div>
         </ul>
 
         <div class="auth-buttons">
-          <button class="btn btn-login"><a href="./login.html">Login</a></button>
-          <button class="btn btn-signup">Sign Up</button>
+          <a class="btn btn-login" href="./login.html">Login</a>
+          <a class="btn btn-signup" href="./register.html">Sign Up</a>
         </div>
 
         <div class="hamburger">
@@ -42,18 +40,18 @@
     </header>
 
 <main>
-  <div class="login-container"> 
+  <div class="login-container">
   <div class="login-card">
     <div class="btn-container">
       <h2 class="text-center mb-3">Login</h2>
-    </div> 
+    </div>
     <form>
-      <div class="btn-container mb-4">  
+      <div class="btn-container mb-4">
         <label for="fullname" class="form-label">Nome completo</label>
         <input type="text" class="form-control" placeholder="Digite seu nome completo" required>
-      </div>  
+      </div>
 
-      <div  class="btn-container mb-4">  
+      <div  class="btn-container mb-4">
         <label for="birthdate" class="form-label">Data de nascimento</label>
         <input type="date" class="form-control" placeholder="Digite sua data de nascimento" required>
       </div>
@@ -71,15 +69,15 @@
       <div class="btn-container mb-4">
         <label for="password" class="form-label">Senha</label>
         <input type="password" class="form-control" placeholder="Digite sua senha" required>
-      
+
       </div>
       <div class="btn-container mb-4">
         <button class="btn btn-dark">Cadastrar</button>
-      
+
       </div>
       <div class="btn-container">
         <a href="./login.html" class="link-secondary link-underline-opacity-0">Já tem uma conta? Faça login</a>
-    </div>  
+    </div>
     </form>
   </div>
 </main>
