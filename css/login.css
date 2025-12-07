@@ -1,3 +1,5 @@
+@import "./global.css";
+@import "./navbar.css";
 
 /* garante cálculo correto de altura */
 *,
@@ -9,64 +11,123 @@
 /* Ajuste do main para centralizar corretamente a caixa de login.
    padding-top deve ser igual à altura do seu header/navbar (ajuste se necessário). */
 main {
-  display: flex;              /* ativa flexbox */
-  justify-content: center;    /* centraliza horizontalmente */
-  align-items: center;        /* centraliza verticalmente */
-  padding-top: 80px;          /* reservar espaço para o header (mude o valor se seu header tiver altura diferente) */
-  background-color: inherit;  /* mantém o mesmo fundo que o resto da página */
+  display: flex; /* ativa flexbox */
+  justify-content: center; /* centraliza horizontalmente */
+  align-items: center; /* centraliza verticalmente */
+  background-color: inherit; /* mantém o mesmo fundo que o resto da página */
+  padding: 1rem;
 }
 
 /* estilo da caixa de login — remova margin-top inline do HTML */
 
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* foca no topo */
-    padding-top: 120px; /* sobe o card */
+  width: 100%;
+  max-width: 26rem;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .login-card {
-    width: 350px;
-    background: rgba(0, 0, 0, 0.75);
-    padding: 30px;
-    border-radius: 18px;
-    box-shadow: 0 0 25px rgba(0,0,0,0.4);
-    backdrop-filter: blur(4px);
+  background-color: var(--bg-card);
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 0 25px var(--shadow-light);
+  backdrop-filter: blur(4px);
 
-    /* animação suave */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* animação suave */
+  transition: var(--transition);
 }
 
-.login-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+/* .login-card:hover { */
+/*   transform: translateY(-5px); */
+/*   box-shadow: 0 0 40px var(--shadow-dark); */
+/* } */
+
+.form-group {
+  margin-bottom: 1.75rem;
 }
 
-.login-card h3 {
-    color: white;
-    margin-bottom: 20px;
-    text-align: center;
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 1rem;
 }
 
-.login-card .form-label {
-    color: white;
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 0.3rem solid var(--border-primary);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: var(--transition);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
-.login-card a {
-    color: #b18cff;
+.form-control:focus {
+  outline: none;
+  border-color: var(--border-accent);
+  background-color: var(--bg-tertiary);
+  box-shadow: 0 0 0 0.3rem var(--focus-glow);
 }
 
-.btn-group-center {
-    display: flex;
-    justify-content: center; /* centraliza horizontalmente */
-    gap: 10px;               /* espaço entre os botões */
-    width: 100%;             /* garante que ocupe a linha toda */
-    margin-top: 10px;
+.form-control::placeholder {
+  color: var(--text-muted);
 }
 
-.btn-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
+.btn-submit {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--accent-primary);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-submit:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.3rem 0.9rem var(--shadow-light);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+.btn-submit:focus {
+  outline: 0.125rem solid var(--accent-primary);
+  outline-offset: 0.125rem;
+}
+
+.login-footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-primary);
+}
+
+.login-footer a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: var(--transition);
+  display: block;
+  text-align: center;
+  font-weight: 500;
+}
+
+.login-footer a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
 }
