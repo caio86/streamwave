@@ -1,0 +1,133 @@
+@import "./global.css";
+@import "./navbar.css";
+
+/* garante cálculo correto de altura */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Ajuste do main para centralizar corretamente a caixa de login.
+   padding-top deve ser igual à altura do seu header/navbar (ajuste se necessário). */
+main {
+  display: flex; /* ativa flexbox */
+  justify-content: center; /* centraliza horizontalmente */
+  align-items: center; /* centraliza verticalmente */
+  background-color: inherit; /* mantém o mesmo fundo que o resto da página */
+  padding: 1rem;
+}
+
+/* estilo da caixa de login — remova margin-top inline do HTML */
+
+.login-container {
+  width: 100%;
+  max-width: 26rem;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-card {
+  background-color: var(--bg-card);
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 0 25px var(--shadow-light);
+  backdrop-filter: blur(4px);
+
+  /* animação suave */
+  transition: var(--transition);
+}
+
+/* .login-card:hover { */
+/*   transform: translateY(-5px); */
+/*   box-shadow: 0 0 40px var(--shadow-dark); */
+/* } */
+
+.form-group {
+  margin-bottom: 1.75rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 0.3rem solid var(--border-primary);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: var(--transition);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--border-accent);
+  background-color: var(--bg-tertiary);
+  box-shadow: 0 0 0 0.3rem var(--focus-glow);
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+}
+
+.btn-submit {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--accent-primary);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-submit:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.3rem 0.9rem var(--shadow-light);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+.btn-submit:focus {
+  outline: 0.125rem solid var(--accent-primary);
+  outline-offset: 0.125rem;
+}
+
+.login-footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-primary);
+}
+
+.login-footer a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: var(--transition);
+  display: block;
+  text-align: center;
+  font-weight: 500;
+}
+
+.login-footer a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}

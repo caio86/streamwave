@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StreamWave</title>
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="./index.html" class="logo">
+          <span class="logo-icon">⚡</span>
+          StreamWave
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./filmes.html">Filmes</a></li>
+          <li><a href="./series.html">Series</a></li>
+          <li><a href="#">Favoritos</a></li>
+
+          <div class="mobile-auth">
+            <a class="btn btn-login" href="./login.html">Login</a>
+            <a class="btn btn-signup" href="./register.html">Sign Up</a>
+          </div>
+        </ul>
+
+        <div class="auth-buttons">
+          <a class="btn btn-login" href="./login.html">Login</a>
+          <a class="btn btn-signup" href="./register.html">Sign Up</a>
+        </div>
+
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="login-container">
+        <div class="login-card">
+          <div class="login-title">
+            <h2>Registrar</h2>
+          </div>
+
+          <form id="registerForm">
+            <div class="form-group">
+              <label for="fullname" class="form-label">Nome completo</label>
+              <input
+                type="text"
+                name="fullname"
+                id="fullname"
+                class="form-control"
+                placeholder="Digite seu nome completo"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="birthdate" class="form-label"
+                >Data de nascimento</label
+              >
+              <input
+                type="date"
+                name="birthdate"
+                id="birthdate"
+                class="form-control"
+                placeholder="Digite sua data de nascimento"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="username" class="form-label">Nome de usuário</label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                class="form-control"
+                placeholder="Digite seu nome de usuário"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">E-mail</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control"
+                placeholder="Digite seu e-mail"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password" class="form-label">Senha</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                placeholder="Digite sua senha"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <button class="btn-submit">Cadastrar</button>
+            </div>
+          </form>
+
+          <div class="login-footer">
+            <a href="./login.html">Já tem uma conta? Faça login</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
