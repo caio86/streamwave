@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "json-server db.json",
-    "dev": "live-server"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,6 @@
   "homepage": "https://github.com/caio86/streamwave#readme",
   "devDependencies": {
     "json-server": "^1.0.0-beta.3",
-    "live-server": "^1.2.2"
+    "vite": "^7.3.1"
   }
 }
