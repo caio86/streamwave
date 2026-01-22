@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StreamWave - Adicionar</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/add.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="./index.html" class="logo">
+          <span class="logo-icon">⚡</span>
+          StreamWave
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./filmes.html">Filmes</a></li>
+          <li><a href="./series.html">Series</a></li>
+          <li><a href="#">Favoritos</a></li>
+          <li><a href="./add.html" class="active">Adicionar</a></li>
+
+          <div class="mobile-auth">
+            <a class="btn btn-login" href="./login.html">Login</a>
+            <a class="btn btn-signup" href="./register.html">Sign Up</a>
+          </div>
+        </ul>
+
+        <div class="auth-buttons">
+          <a class="btn btn-login" href="./login.html">Login</a>
+          <a class="btn btn-signup" href="./register.html">Sign Up</a>
+        </div>
+
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="add-page">
+          <header class="add-header">
+            <h1>Adicionar ao catálogo</h1>
+            <p>Escolha filme ou série e preencha os detalhes. Upload de vídeo é opcional.</p>
+          </header>
+
+          <section class="add-grid">
+            <!-- ESQUERDA: UPLOAD -->
+            <aside class="panel">
+              <h2>Arquivo de vídeo (opcional)</h2>
+
+              <div class="field">
+                <label for="tipoConteudo">Tipo</label>
+                <select id="tipoConteudo">
+                  <option value="filme">Filme</option>
+                  <option value="serie">Série</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="videoFile">Selecionar vídeo</label>
+                <input id="videoFile" type="file" accept="video/*" />
+                <small class="hint">
+                  Dica: a duração é lida do próprio arquivo. Conversão para MP4 fica para o backend depois.
+                </small>
+              </div>
+
+              <div class="preview">
+                <video id="videoPreview" controls preload="metadata"></video>
+                <div class="preview-meta">
+                  <div><strong>Arquivo:</strong> <span id="fileName">—</span></div>
+                  <div><strong>Duração:</strong> <span id="fileDuration">—</span></div>
+                </div>
+              </div>
+
+              <div class="status" id="statusBox" aria-live="polite"></div>
+            </aside>
+
+            <!-- DIREITA: FORM -->
+            <section class="panel">
+              <form id="addForm" novalidate>
+                <!-- FILME -->
+                <div id="formFilme">
+                  <h2>Detalhes do filme</h2>
+
+                  <div class="two">
+                    <div class="field">
+                      <label for="filmeNome">Nome</label>
+                      <input id="filmeNome" type="text" placeholder="Ex: Interestelar" required />
+                    </div>
+
+                    <div class="field">
+                      <label for="filmeDuracao">Duração (min)</label>
+                      <input id="filmeDuracao" type="number" min="1" placeholder="Ex: 169" required />
+                      <small class="hint">Se você selecionar um vídeo, esse campo trava automaticamente.</small>
+                    </div>
+                  </div>
+
+                  <div class="two">
+                    <div class="field">
+                      <label for="filmeData">Data de lançamento</label>
+                      <input id="filmeData" type="date" required />
+                    </div>
+
+                    <div class="field">
+                      <label for="filmeClassificacao">Classificação</label>
+                      <select id="filmeClassificacao" required>
+                        <option value="" selected disabled>Selecione...</option>
+                        <option value="Livre">Livre</option>
+                        <option value="10 anos">10 anos</option>
+                        <option value="12 anos">12 anos</option>
+                        <option value="14 anos">14 anos</option>
+                        <option value="16 anos">16 anos</option>
+                        <option value="18 anos">18 anos</option>
+                      </select>
+
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="filmeGenero">Gênero (separado por vírgula)</label>
+                    <select id="filmeGenero" multiple required size="8">
+                      <option value="Ação">Ação</option>
+                      <option value="Aventura">Aventura</option>
+                      <option value="Animação">Animação</option>
+                      <option value="Biografia">Biografia</option>
+                      <option value="Comédia">Comédia</option>
+                      <option value="Crime">Crime</option>
+                      <option value="Documentário">Documentário</option>
+                      <option value="Drama">Drama</option>
+                      <option value="Fantasia">Fantasia</option>
+                      <option value="Ficção Científica">Ficção Científica</option>
+                      <option value="História">História</option>
+                      <option value="Horror">Horror</option>
+                      <option value="Mistério">Mistério</option>
+                      <option value="Romance">Romance</option>
+                      <option value="Sci-Fi">Sci-Fi</option>
+                      <option value="Thriller">Thriller</option>
+                    </select>
+                    <small class="hint">Dica: segure Ctrl (ou Cmd) para selecionar vários.</small>
+                  </div>
+
+                  <div class="two">
+                    <div class="field">
+                      <label for="filmeDiretor">Diretor</label>
+                      <input id="filmeDiretor" type="text" placeholder="Ex: Christopher Nolan" />
+                    </div>
+
+                    <div class="field">
+                      <label for="filmeElenco">Elenco (separado por vírgula)</label>
+                      <input id="filmeElenco" type="text" placeholder="Ex: Ator 1, Ator 2" />
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="filmeSinopse">Sinopse</label>
+                    <textarea id="filmeSinopse" rows="4" placeholder="Resumo do filme..."></textarea>
+                  </div>
+
+                  <div class="two">
+                    <div class="field">
+                      <label for="filmeBanner">Banner (URL)</label>
+                      <input id="filmeBanner" type="url" placeholder="https://..." />
+                    </div>
+                    <div class="field">
+                      <label for="filmePoster">Poster (URL)</label>
+                      <input id="filmePoster" type="url" placeholder="https://..." />
+                    </div>
+                  </div>
+
+                  <div class="field check">
+                    <input id="filmeDestaque" type="checkbox" />
+                    <label for="filmeDestaque">Destaque</label>
+                  </div>
+                </div>
+
+                <!-- SÉRIE -->
+                <div id="formSerie" class="hidden">
+                  <h2>Detalhes da série</h2>
+
+                  <div class="two">
+                    <div class="field">
+                      <label for="serieNome">Nome</label>
+                      <input id="serieNome" type="text" placeholder="Ex: Breaking Bad" required />
+                    </div>
+
+                    <div class="field">
+                      <label for="serieProgramacao">Programação</label>
+                      <input id="serieProgramacao" type="text" placeholder="Ex: Todos os episódios disponíveis" />
+                    </div>
+                  </div>
+
+                  <div class="two">
+                    <div class="field">
+                      <label for="serieData">Data de lançamento</label>
+                      <input id="serieData" type="date" required />
+                    </div>
+
+                    <div class="field">
+                      <label for="serieClassificacao">Classificação</label>
+                      <select id="serieClassificacao" required>
+                        <option value="" selected disabled>Selecione...</option>
+                        <option value="Livre">Livre</option>
+                        <option value="10 anos">10 anos</option>
+                        <option value="12 anos">12 anos</option>
+                        <option value="14 anos">14 anos</option>
+                        <option value="16 anos">16 anos</option>
+                        <option value="18 anos">18 anos</option>
+                      </select>
+
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="serieGenero">Gênero (separado por vírgula)</label>
+                    <select id="serieGenero" multiple required size="8">
+                      <option value="Ação">Ação</option>
+                      <option value="Aventura">Aventura</option>
+                      <option value="Animação">Animação</option>
+                      <option value="Biografia">Biografia</option>
+                      <option value="Comédia">Comédia</option>
+                      <option value="Crime">Crime</option>
+                      <option value="Documentário">Documentário</option>
+                      <option value="Drama">Drama</option>
+                      <option value="Fantasia">Fantasia</option>
+                      <option value="Ficção Científica">Ficção Científica</option>
+                      <option value="História">História</option>
+                      <option value="Horror">Horror</option>
+                      <option value="Mistério">Mistério</option>
+                      <option value="Romance">Romance</option>
+                      <option value="Sci-Fi">Sci-Fi</option>
+                      <option value="Thriller">Thriller</option>
+                    </select>
+                    <small class="hint">Dica: segure Ctrl (ou Cmd) para selecionar vários.</small>
+                  </div>
+
+                  <div class="field">
+                    <label for="serieSinopse">Sinopse</label>
+                    <textarea id="serieSinopse" rows="4" placeholder="Resumo da série..."></textarea>
+                  </div>
+
+                  <div class="two">
+                    <div class="field">
+                      <label for="serieBanner">Banner (URL)</label>
+                      <input id="serieBanner" type="url" placeholder="https://..." />
+                    </div>
+                    <div class="field">
+                      <label for="seriePoster">Poster (URL)</label>
+                      <input id="seriePoster" type="url" placeholder="https://..." />
+                    </div>
+                  </div>
+
+                  <div class="field check">
+                    <input id="serieDestaque" type="checkbox" />
+                    <label for="serieDestaque">Destaque</label>
+                  </div>
+
+                  <hr class="sep" />
+
+                  <h3>Episódios</h3>
+                  <p class="hint">
+                    Você pode adicionar episódios agora. (O upload à esquerda pode ajudar a preencher título/duração do episódio
+                    que você estiver montando.)
+                  </p>
+
+                  <div class="episode-editor">
+                    <div class="two">
+                      <div class="field">
+                        <label for="epTitulo">Título do episódio</label>
+                        <input id="epTitulo" type="text" placeholder="Ex: Piloto" />
+                      </div>
+
+                      <div class="field">
+                        <label for="epDuracao">Duração (min)</label>
+                        <input id="epDuracao" type="number" min="1" placeholder="Ex: 58" />
+                      </div>
+                    </div>
+
+                    <div class="three">
+                      <div class="field">
+                        <label for="epTemp">Temporada</label>
+                        <input id="epTemp" type="number" min="1" placeholder="1" />
+                      </div>
+                      <div class="field">
+                        <label for="epNum">Episódio</label>
+                        <input id="epNum" type="number" min="1" placeholder="1" />
+                      </div>
+                      <div class="field">
+                        <label>&nbsp;</label>
+                        <button type="button" id="btnAddEp" class="btn-primary">Adicionar episódio</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="episode-list">
+                    <h4>Lista de episódios</h4>
+                    <ul id="epList"></ul>
+                  </div>
+                </div>
+
+                <div class="actions">
+                  <button type="submit" class="btn-primary">Salvar no catálogo</button>
+                  <a href="./index.html" class="btn-secondary">Cancelar</a>
+                </div>
+              </form>
+            </section>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="./script/add.js"></script>
+  </body>
+</html>
