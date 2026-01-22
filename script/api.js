@@ -1,6 +1,3 @@
-/**
- * @param {string} endpoint
- */
 async function fetchWithBackup(endpoint) {
   const urls = [
     "http://localhost:3000",
@@ -12,10 +9,6 @@ async function fetchWithBackup(endpoint) {
   }
 
   endpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
-
-  if (endpoint[0] != "/") {
-    endpoint = "/" + endpoint;
-  }
 
   let lastError;
 
@@ -68,10 +61,6 @@ export async function listaSeries() {
 }
 
 export async function getFilmeByID(id) {
-  if (!id?.trim()) {
-    throw new Error("ID is required");
-  }
-
   try {
     const res = await fetchWithBackup(`/filmes/${id}`);
     return await res.json();
@@ -82,10 +71,6 @@ export async function getFilmeByID(id) {
 }
 
 export async function getSerieByID(id) {
-  if (!id?.trim()) {
-    throw new Error("ID is required");
-  }
-
   try {
     const res = await fetchWithBackup(`/series/${id}`);
     return await res.json();
@@ -97,6 +82,31 @@ export async function getSerieByID(id) {
 
 export async function listaConteudo() {
   const [filmes, series] = await Promise.all([listaFilmes(), listaSeries()]);
-
   return { filmes, series };
+}
+
+async function postLocal(endpoint, data) {
+  const baseUrl = "http://localhost:3000";
+
+  endpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+
+  const res = await fetch(`${baseUrl}${endpoint}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Falha ao salvar (POST ${endpoint})`);
+  }
+
+  return await res.json();
+}
+
+export async function createFilme(payload) {
+  return await postLocal("/filmes", payload);
+}
+
+export async function createSerie(payload) {
+  return await postLocal("/series", payload);
 }

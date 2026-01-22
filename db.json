@@ -11,7 +11,11 @@
       "data_criacao": "2020-03-01",
       "ultimo_login": "2025-10-30",
       "status": "ativo",
-      "favoritos": ["s1", "s3", "f1"]
+      "favoritos": [
+        "s1",
+        "s3",
+        "f1"
+      ]
     },
     {
       "id": "u2",
@@ -24,7 +28,13 @@
       "data_criacao": "2021-05-10",
       "ultimo_login": "2025-10-28",
       "status": "ativo",
-      "favoritos": ["s2", "s3", "s5", "f2", "f4"]
+      "favoritos": [
+        "s2",
+        "s3",
+        "s5",
+        "f2",
+        "f4"
+      ]
     }
   ],
   "series": [
@@ -178,7 +188,11 @@
       "destaque": true,
       "tipo": "filme",
       "diretor": "Francis Ford Coppola",
-      "elenco": ["Marlon Brando", "Al Pacino", "James Caan"]
+      "elenco": [
+        "Marlon Brando",
+        "Al Pacino",
+        "James Caan"
+      ]
     },
     {
       "id": "f2",
@@ -193,7 +207,11 @@
       "destaque": true,
       "tipo": "filme",
       "diretor": "Christopher Nolan",
-      "elenco": ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"]
+      "elenco": [
+        "Matthew McConaughey",
+        "Anne Hathaway",
+        "Jessica Chastain"
+      ]
     },
     {
       "id": "f3",
@@ -208,7 +226,11 @@
       "destaque": false,
       "tipo": "filme",
       "diretor": "Bong Joon-ho",
-      "elenco": ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong"]
+      "elenco": [
+        "Song Kang-ho",
+        "Lee Sun-kyun",
+        "Cho Yeo-jeong"
+      ]
     },
     {
       "id": "f4",
@@ -223,7 +245,11 @@
       "destaque": true,
       "tipo": "filme",
       "diretor": "Fernando Meirelles",
-      "elenco": ["Alexandre Rodrigues", "Leandro Firmino", "Phellipe Haagensen"]
+      "elenco": [
+        "Alexandre Rodrigues",
+        "Leandro Firmino",
+        "Phellipe Haagensen"
+      ]
     },
     {
       "id": "f5",
@@ -238,7 +264,11 @@
       "destaque": false,
       "tipo": "filme",
       "diretor": "John Lasseter",
-      "elenco": ["Tom Hanks", "Tim Allen", "Don Rickles"]
+      "elenco": [
+        "Tom Hanks",
+        "Tim Allen",
+        "Don Rickles"
+      ]
     }
   ]
 }

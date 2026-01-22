@@ -55,26 +55,22 @@ export function createMediaCard({
 }
 
 export function createMediaList(headingName, media, vertical = false) {
-  // Create main wrapper
   const listWrapper = document.createElement("div");
   listWrapper.className = "list-horizontal-wrapper";
 
-  // Create heading
   const heading = document.createElement("h2");
   heading.className = "list-name";
   heading.textContent = headingName;
 
-  // Create horizontal list
   const listHorizontal = document.createElement("div");
   listHorizontal.className = "list-horizontal";
 
-  // Create cards for each movie
   const fragment = document.createDocumentFragment();
+
   media.forEach((media) => {
     fragment.appendChild(createMediaCard({ vertical, ...media }));
   });
 
-  // Assemble final structure
   listHorizontal.appendChild(fragment);
   listWrapper.append(heading, listHorizontal);
 
@@ -82,18 +78,18 @@ export function createMediaList(headingName, media, vertical = false) {
 }
 
 export function agruparGenero(lista) {
-  const grupos = {}; // 1. Objeto para armazenar os grupos
+  const grupos = {};
 
-  lista.forEach((item) => { // 2. Main loop
-    if (!item.genero) return; // 2.1. Se não tiver gênero, pula pq senao dá erro
+  lista.forEach((item) => {
+    if (!item.genero) return;
 
-    const generosItem = item.genero.split(",").map((g) => g.trim()); // transforma string em array
+    const generosItem = item.genero.split(",").map((g) => g.trim());
 
-    generosItem.forEach((genero) => { // 3. Loop nos gêneros do item (filme ou seroe)
-      if (!grupos[genero]) { // 3.1. Se nao existe a prateleira ela é criada
+    generosItem.forEach((genero) => {
+      if (!grupos[genero]) {
         grupos[genero] = [];
       }
-      grupos[genero].push(item); // 4. Coloca o item na prateleira
+      grupos[genero].push(item);
     });
   });
 
