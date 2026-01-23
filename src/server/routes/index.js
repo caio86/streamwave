@@ -1,11 +1,17 @@
-import { Router } from "express"
-import filmesRoutes from "./filmes.routes"
-import seriesRoutes from "./series.routes"
+import { Router } from "express";
+import filmesRoutes from "./filmes.routes.js";
+import seriesRoutes from "./series.routes.js";
 
+const routes = Router();
 
-const routes = Router()
+routes.use("/filmes", filmesRoutes);
+routes.use("/series", seriesRoutes);
 
-routes.use("/filmes", filmesRoutes)
-routes.use("/series", seriesRoutes)
+routes.get("/health", (_req, res) => {
+  res.json({
+    status: "healthy",
+    timestamp: new Date().toISOString(),
+  });
+});
 
-export default routes
+export default routes;
