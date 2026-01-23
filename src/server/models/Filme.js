@@ -1,6 +1,4 @@
-import { PrismaClient } from "../generated/prisma";
-
-const prisma = new PrismaClient();
+import { prisma } from "../prisma/prisma.js";
 
 class FilmeModel {
   async create(data) {
