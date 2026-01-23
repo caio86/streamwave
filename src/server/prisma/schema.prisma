@@ -7,6 +7,7 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
+  moduleFormat = "commonjs"
 }
 
 
@@ -30,11 +31,26 @@ enum TipoConteudo {
   FILME
 }
 
+
+enum Genero {
+  ACAO
+  AVENTURA
+  COMEDIA
+  DRAMA
+  FICCAO_CIENTIFICA
+  TERROR
+  ROMANCE
+  ANIMACAO
+  DOCUMENTARIO
+  SUSPENSE
+  FANTASIA
+}
+
 // MODELO: USUARIO
 
 
 model Usuario {
-  id             String   @id
+  id             String   @id @default(uuid()) @db.Uuid
   username       String   @unique
   email          String   @unique
   senha          String
@@ -43,7 +59,7 @@ model Usuario {
   fotoPerfil     String?
   dataCriacao    DateTime @default(now())
   ultimoLogin    DateTime?
-  status         StatusUsuario
+  status         StatusUsuario @default(ATIVO)
 
   favoritos      Favorito[]
 
@@ -55,15 +71,15 @@ model Usuario {
 
 
 model Conteudo {
-  id             String   @id
-  nome           String
-  banner         String
-  poster         String
-  genero         String
-  sinopse        String
-  dataLancamento DateTime
-  classificacao  String
-  destaque       Boolean
+  id             String   @id @default(uuid()) @db.Uuid
+  titulo         String
+  banner         String?
+  poster         String?
+  genero         Genero[]
+  sinopse        String?
+  dataLancamento DateTime?
+  classificacao  String?
+  destaque       Boolean      @default(false)
   tipo           TipoConteudo
 
   serie          Serie?
@@ -71,7 +87,11 @@ model Conteudo {
 
   favoritos      Favorito[]
 
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
   @@map("conteudos")
+  @@index([titulo])
 }
 
 
@@ -79,10 +99,9 @@ model Conteudo {
 
 
 model Serie {
-  conteudoId  String   @id
-  programacao String?
+  conteudoId  String   @id @db.Uuid
 
-  conteudo    Conteudo @relation(fields: [conteudoId], references: [id])
+  conteudo    Conteudo @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
   episodios   Episodio[]
 
   @@map("series")
@@ -92,12 +111,10 @@ model Serie {
 
 
 model Filme {
-  conteudoId   String   @id
+  conteudoId   String   @id @db.Uuid
   duracaoTotal Int
-  diretor      String
-  elenco       String[]
 
-  conteudo     Conteudo @relation(fields: [conteudoId], references: [id])
+  conteudo     Conteudo @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
 
   @@map("filmes")
 }
@@ -113,10 +130,12 @@ model Episodio {
   numeroEpisodio  Int
   duracao         Int
 
-  serieId         String
-  serie           Serie   @relation(fields: [serieId], references: [conteudoId])
+  serieId         String  @db.Uuid
+  serie           Serie   @relation(fields: [serieId], references: [conteudoId], onDelete: Cascade)
 
   @@map("episodios")
+  @@unique([serieId, numeroTemporada, numeroEpisodio])
+  @@index([serieId])
 }
 
 // ===============================
@@ -124,13 +143,14 @@ model Episodio {
 // ===============================
 
 model Favorito {
-  id         Int      @id @default(autoincrement())
-  usuarioId  String
-  conteudoId String
+  usuarioId  String   @db.Uuid
+  conteudoId String   @db.Uuid
 
   usuario    Usuario  @relation(fields: [usuarioId], references: [id])
   conteudo   Conteudo @relation(fields: [conteudoId], references: [id])
 
-  @@unique([usuarioId, conteudoId])
+  createdAt  DateTime @default(now())
+
+  @@id([usuarioId, conteudoId])
   @@map("favoritos")
 }
