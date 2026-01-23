@@ -5,19 +5,15 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider     = "prisma-client-js"
+  output       = "../generated/prisma"
   moduleFormat = "commonjs"
 }
-
-
 
 datasource db {
   provider = "postgresql"
   //url      = env("DATABASE_URL")
 }
-
-
 
 // ENUMS
 
@@ -30,7 +26,6 @@ enum TipoConteudo {
   SERIE
   FILME
 }
-
 
 enum Genero {
   ACAO
@@ -48,30 +43,27 @@ enum Genero {
 
 // MODELO: USUARIO
 
-
 model Usuario {
-  id             String   @id @default(uuid()) @db.Uuid
-  username       String   @unique
-  email          String   @unique
+  id             String        @id @default(uuid()) @db.Uuid
+  username       String        @unique
+  email          String        @unique
   senha          String
   nomeCompleto   String
   dataNascimento DateTime
   fotoPerfil     String?
-  dataCriacao    DateTime @default(now())
+  dataCriacao    DateTime      @default(now())
   ultimoLogin    DateTime?
   status         StatusUsuario @default(ATIVO)
 
-  favoritos      Favorito[]
+  favoritos Favorito[]
 
   @@map("usuarios")
 }
 
-
 // MODELO: CONTEUDO (BASE)
 
-
 model Conteudo {
-  id             String   @id @default(uuid()) @db.Uuid
+  id             String       @id @default(uuid()) @db.Uuid
   titulo         String
   banner         String?
   poster         String?
@@ -82,60 +74,55 @@ model Conteudo {
   destaque       Boolean      @default(false)
   tipo           TipoConteudo
 
-  serie          Serie?
-  filme          Filme?
+  serie Serie?
+  filme Filme?
 
-  favoritos      Favorito[]
+  favoritos Favorito[]
 
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@map("conteudos")
   @@index([titulo])
+  @@map("conteudos")
 }
-
 
 // MODELO: SERIE (ESPECIALIZAÇÃO)
 
-
 model Serie {
-  conteudoId  String   @id @db.Uuid
+  conteudoId String @id @db.Uuid
 
-  conteudo    Conteudo @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
-  episodios   Episodio[]
+  conteudo  Conteudo   @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
+  episodios Episodio[]
 
   @@map("series")
 }
 
 // MODELO: FILME (ESPECIALIZAÇÃO)
 
-
 model Filme {
-  conteudoId   String   @id @db.Uuid
+  conteudoId   String @id @db.Uuid
   duracaoTotal Int
 
-  conteudo     Conteudo @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
+  conteudo Conteudo @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
 
   @@map("filmes")
 }
 
-
 // MODELO: EPISODIO
 
-
 model Episodio {
-  id              Int     @id @default(autoincrement())
+  id              Int    @id @default(autoincrement())
   titulo          String
   numeroTemporada Int
   numeroEpisodio  Int
   duracao         Int
 
-  serieId         String  @db.Uuid
-  serie           Serie   @relation(fields: [serieId], references: [conteudoId], onDelete: Cascade)
+  serieId String @db.Uuid
+  serie   Serie  @relation(fields: [serieId], references: [conteudoId], onDelete: Cascade)
 
-  @@map("episodios")
   @@unique([serieId, numeroTemporada, numeroEpisodio])
   @@index([serieId])
+  @@map("episodios")
 }
 
 // ===============================
@@ -143,13 +130,13 @@ model Episodio {
 // ===============================
 
 model Favorito {
-  usuarioId  String   @db.Uuid
-  conteudoId String   @db.Uuid
+  usuarioId  String @db.Uuid
+  conteudoId String @db.Uuid
 
-  usuario    Usuario  @relation(fields: [usuarioId], references: [id])
-  conteudo   Conteudo @relation(fields: [conteudoId], references: [id])
+  usuario  Usuario  @relation(fields: [usuarioId], references: [id])
+  conteudo Conteudo @relation(fields: [conteudoId], references: [id])
 
-  createdAt  DateTime @default(now())
+  createdAt DateTime @default(now())
 
   @@id([usuarioId, conteudoId])
   @@map("favoritos")
