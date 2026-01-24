@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import routes from "./routes/index.js";
 import { PORT } from "./config/env.config.js";
+import errorHandler from "./middlewares/errorHandler.js";
 
 const app = express();
 
@@ -10,7 +11,15 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 
-app.use("/api", routes);
+app.use("/api/v1", routes);
+
+app.get("/api/health", (_req, res) => {
+  res.json({
+    status: "UP",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
 
 app.use((_req, res, _next) => {
   res.status(404).json({
@@ -19,17 +28,7 @@ app.use((_req, res, _next) => {
   });
 });
 
-app.use((err, _req, res, _next) => {
-  console.error(err);
-
-  const statusCode = err.status || 500;
-  const message = err.message || "Internal Server Error";
-
-  res.status(statusCode).json({
-    status: statusCode,
-    message: message,
-  });
-});
+app.use(errorHandler)
 
 app.listen(PORT, () => {
   console.log("Server is running...");
