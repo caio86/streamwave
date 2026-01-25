@@ -2,7 +2,10 @@ import { prisma } from "../prisma/prisma.js";
 
 class FilmeModel {
   async create(data) {
-    return await prisma.filme.create({ data });
+    return await prisma.filme.create({
+      data,
+      include: { conteudo: true }
+    });
   }
 
   async findById(conteudoId) {
@@ -23,11 +26,12 @@ class FilmeModel {
     return await prisma.filme.update({
       where: { conteudoId },
       data,
+      include: { conteudo: true }
     });
   }
 
   async delete(conteudoId) {
-    return await prisma.conteudo.delete({
+    return await prisma.filme.delete({
       where: { conteudoId },
     });
   }
