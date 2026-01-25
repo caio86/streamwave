@@ -12,7 +12,7 @@ function parseFilmeToCreateModel(data) {
         poster: data.poster,
         genero: data.genero,
         sinopse: data.sinopse,
-        data_lancamento: data.data_lancamento,
+        dataLancamento: data.data_lancamento,
         classificacao: data.classificacao,
         destaque: data.destaque,
         tipo: data.tipo,
@@ -40,12 +40,29 @@ function parseFilmeToUpdateModel(data) {
   }
 }
 
+function parseFilmeFromModel(filme) {
+  return {
+    id: filme.conteudoId,
+    titulo: filme.conteudo.titulo,
+    banner: filme.conteudo.banner,
+    poster: filme.conteudo.poster,
+    genero: filme.conteudo.genero,
+    duracao_total: filme.duracaoTotal,
+    sinopse: filme.conteudo.sinopse,
+    data_lancamento: filme.conteudo.dataLancamento,
+    classificacao: filme.conteudo.classificacao,
+    destaque: filme.conteudo.destaque,
+    tipo: filme.conteudo.tipo,
+  }
+}
+
 const routes = Router()
 
 routes.get("/", async (req, res, next) => {
   try {
     const filmes = await Filme.findAll()
-    res.json(filmes)
+    const parsedFilmes = filmes.map((filme) => parseFilmeFromModel(filme))
+    res.json(parsedFilmes)
   } catch (err) {
     next(err)
   }
@@ -56,7 +73,7 @@ routes.get("/:conteudoId", async (req, res, next) => {
     const { conteudoId } = req.params
     const filme = await Filme.findById(conteudoId)
     if (!filme) return res.status(404).json({ error: "Filme not found" })
-    res.json(filme)
+    res.json(parseFilmeFromModel(filme))
   } catch (err) {
     next(err)
   }
@@ -76,7 +93,7 @@ routes.post("/", async (req, res, next) => {
     const data = parseFilmeToCreateModel(value)
 
     const created = await Filme.create(data)
-    res.status(201).json(created)
+    res.status(201).json(parseFilmeFromModel(created))
   } catch (err) {
     next(err)
   }
@@ -98,7 +115,7 @@ routes.put("/:conteudoId", async (req, res, next) => {
     const data = parseFilmeToUpdateModel(value)
 
     const updated = await Filme.update(conteudoId, data)
-    res.json(updated)
+    res.json(parseFilmeFromModel(updated))
   } catch (err) {
     next(err)
   }
