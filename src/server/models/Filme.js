@@ -30,9 +30,9 @@ class FilmeModel {
     });
   }
 
-  async delete(conteudoId) {
-    return await prisma.filme.delete({
-      where: { conteudoId },
+  async delete(id) {
+    return await prisma.conteudo.delete({
+      where: { id },
     });
   }
 }

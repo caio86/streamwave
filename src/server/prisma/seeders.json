@@ -29,12 +29,10 @@
   ],
   "series": [
     {
-      "id": "s1",
-      "nome": "Breaking Bad",
+      "titulo": "Breaking Bad",
       "banner": "https://picsum.photos/300/169?random=6",
       "poster": "https://picsum.photos/300/169?random=6",
-      "genero": "Crime, Drama, Thriller",
-      "programacao": "Segunda a Sexta, 21h",
+      "genero": ["Crime", "Drama", "Thriller"],
       "sinopse": "Um professor de química se envolve no mundo do crime ao tentar garantir o futuro financeiro de sua família após ser diagnosticado com câncer terminal.",
       "data_lancamento": "2008-01-20",
       "classificacao": "18 anos",
@@ -56,12 +54,10 @@
       "tipo": "serie"
     },
     {
-      "id": "s2",
-      "nome": "Friends",
+      "titulo": "Friends",
       "banner": "https://picsum.photos/300/169?random=7",
       "poster": "https://picsum.photos/300/169?random=7",
-      "genero": "Comédia, Romance",
-      "programacao": "Segunda a Sexta, 19h",
+      "genero": ["Comedia", "Romance"],
       "sinopse": "Seis amigos que moram em Nova York enfrentam as situações da vida com humor e apoio uns dos outros.",
       "data_lancamento": "1994-09-22",
       "classificacao": "10 anos",
@@ -83,12 +79,10 @@
       "tipo": "serie"
     },
     {
-      "id": "s3",
-      "nome": "Stranger Things",
+      "titulo": "Stranger Things",
       "banner": "https://picsum.photos/300/169?random=8",
       "poster": "https://picsum.photos/300/169?random=8",
       "genero": "Drama, Horror, Mistério",
-      "programacao": "Todos os episódios disponíveis",
       "sinopse": "Quando uma criança desaparece, um grupo de amigos começa uma investigação sobre o caso e acaba desvendando uma série de mistérios sobrenaturais.",
       "data_lancamento": "2016-07-15",
       "classificacao": "16 anos",
@@ -110,12 +104,10 @@
       "tipo": "serie"
     },
     {
-      "id": "s4",
-      "nome": "The Crown",
+      "titulo": "The Crown",
       "banner": "https://picsum.photos/300/169?random=9",
       "poster": "https://picsum.photos/300/169?random=9",
       "genero": "Biografia, Drama, História",
-      "programacao": "Todos os episódios disponíveis",
       "sinopse": "A série conta a história da vida da rainha Elizabeth II e dos eventos históricos durante seu reinado.",
       "data_lancamento": "2016-11-04",
       "classificacao": "12 anos",
@@ -137,12 +129,10 @@
       "tipo": "serie"
     },
     {
-      "id": "s5",
-      "nome": "Black Mirror",
+      "titulo": "Black Mirror",
       "banner": "https://picsum.photos/300/169?random=10",
       "poster": "https://picsum.photos/300/169?random=10",
       "genero": "Sci-Fi, Drama, Thriller",
-      "programacao": "Todos os episódios disponíveis",
       "sinopse": "Cada episódio da série apresenta uma história autônoma que explora os impactos da tecnologia na sociedade.",
       "data_lancamento": "2011-12-04",
       "classificacao": "16 anos",
@@ -166,11 +156,10 @@
   ],
   "filmes": [
     {
-      "id": "f1",
-      "nome": "O Poderoso Chefão",
+      "titulo": "O Poderoso Chefão",
       "banner": "https://picsum.photos/300/169?random=1",
       "poster": "https://picsum.photos/300/169?random=1",
-      "genero": "Crime, Drama",
+      "genero": ["Drama", "Crime"],
       "duracao_total": 175,
       "sinopse": "Uma família mafiosa luta para estabelecer sua supremacia nos Estados Unidos depois da Segunda Guerra Mundial.",
       "data_lancamento": "1972-03-24",
@@ -181,11 +170,10 @@
       "elenco": ["Marlon Brando", "Al Pacino", "James Caan"]
     },
     {
-      "id": "f2",
-      "nome": "Interestelar",
+      "titulo": "Interestelar",
       "banner": "https://picsum.photos/300/169?random=2",
       "poster": "https://picsum.photos/300/169?random=2",
-      "genero": "Ficção Científica, Drama, Aventura",
+      "genero": ["Ficção Científica", "Drama", "Aventura"],
       "duracao_total": 169,
       "sinopse": "Um grupo de astronautas viaja através de um buraco de minhoca em busca de um novo lar para a humanidade.",
       "data_lancamento": "2014-11-07",
@@ -196,11 +184,10 @@
       "elenco": ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"]
     },
     {
-      "id": "f3",
-      "nome": "Parasita",
+      "titulo": "Parasita",
       "banner": "https://picsum.photos/300/169?random=3",
       "poster": "https://picsum.photos/300/169?random=3",
-      "genero": "Comédia, Drama, Thriller",
+      "genero": ["Comedia", "Drama", "Thriller"],
       "duracao_total": 132,
       "sinopse": "Uma família pobre coreana se infiltra na casa de uma família rica, criando uma relação de dependência que leva a consequências inesperadas.",
       "data_lancamento": "2019-05-30",
@@ -211,11 +198,10 @@
       "elenco": ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong"]
     },
     {
-      "id": "f4",
-      "nome": "Cidade de Deus",
+      "titulo": "Cidade de Deus",
       "banner": "https://picsum.photos/300/169?random=4",
       "poster": "https://picsum.photos/300/169?random=4",
-      "genero": "Crime, Drama",
+      "genero": ["Crime", "Drama"],
       "duracao_total": 130,
       "sinopse": "Dois jovens seguem caminhos diferentes na violenta favela Cidade de Deus no Rio de Janeiro.",
       "data_lancamento": "2002-08-30",
@@ -226,11 +212,10 @@
       "elenco": ["Alexandre Rodrigues", "Leandro Firmino", "Phellipe Haagensen"]
     },
     {
-      "id": "f5",
-      "nome": "Toy Story",
+      "titulo": "Toy Story",
       "banner": "https://picsum.photos/300/169?random=5",
       "poster": "https://picsum.photos/300/169?random=5",
-      "genero": "Animação, Aventura, Comédia",
+      "genero": ["Animação", "Aventura", "Comedia"],
       "duracao_total": 81,
       "sinopse": "Os brinquedos de um menino ganham vida quando ele não está por perto, criando aventuras e amizades inesquecíveis.",
       "data_lancamento": "1995-11-22",

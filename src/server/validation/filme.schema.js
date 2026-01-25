@@ -1,25 +1,11 @@
 import Joi from "joi";
 
-const validGeneros = [
-    "ACAO",
-    "AVENTURA",
-    "COMEDIA",
-    "DRAMA",
-    "FICCAO_CIENTIFICA",
-    "TERROR",
-    "ROMANCE",
-    "ANIMACAO",
-    "DOCUMENTARIO",
-    "SUSPENSE",
-    "FANTASIA"
-]
-
 export const createFilmeSchema = Joi.object({
     titulo: Joi.string().required(),
     banner: Joi.string().uri().optional(),
     poster: Joi.string().uri().optional(),
     genero: Joi.array().items(
-        Joi.string().uppercase().valid(...validGeneros)
+        Joi.string()
     ).unique().default([]),
     duracao_total: Joi.number().integer().required(),
     sinopse: Joi.string().optional(),
@@ -34,7 +20,7 @@ export const updateFilmeSchema = Joi.object({
     banner: Joi.string().uri().optional(),
     poster: Joi.string().uri().optional(),
     genero: Joi.array().items(
-        Joi.string().uppercase().valid(...validGeneros)
+        Joi.string()
     ).unique().optional(),
     duracao_total: Joi.number().integer().optional(),
     sinopse: Joi.string().optional(),

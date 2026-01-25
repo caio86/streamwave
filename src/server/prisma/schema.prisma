@@ -27,20 +27,6 @@ enum TipoConteudo {
   FILME
 }
 
-enum Genero {
-  ACAO
-  AVENTURA
-  COMEDIA
-  DRAMA
-  FICCAO_CIENTIFICA
-  TERROR
-  ROMANCE
-  ANIMACAO
-  DOCUMENTARIO
-  SUSPENSE
-  FANTASIA
-}
-
 // MODELO: USUARIO
 
 model Usuario {
@@ -67,7 +53,7 @@ model Conteudo {
   titulo         String
   banner         String?
   poster         String?
-  genero         Genero[]
+  genero         String[]
   sinopse        String?
   dataLancamento DateTime?
   classificacao  String?
@@ -86,17 +72,6 @@ model Conteudo {
   @@map("conteudos")
 }
 
-// MODELO: SERIE (ESPECIALIZAÇÃO)
-
-model Serie {
-  conteudoId String @id @db.Uuid
-
-  conteudo  Conteudo   @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
-  episodios Episodio[]
-
-  @@map("series")
-}
-
 // MODELO: FILME (ESPECIALIZAÇÃO)
 
 model Filme {
@@ -108,20 +83,46 @@ model Filme {
   @@map("filmes")
 }
 
-// MODELO: EPISODIO
+// MODELO: SERIE (ESPECIALIZAÇÃO)
 
-model Episodio {
-  id              Int    @id @default(autoincrement())
-  titulo          String
-  numeroTemporada Int
-  numeroEpisodio  Int
-  duracao         Int
+model Serie {
+  conteudoId String @id @db.Uuid
+
+  conteudo   Conteudo    @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
+  temporadas Temporada[]
+
+  @@map("series")
+}
+
+model Temporada {
+  id      Int     @id @default(autoincrement())
+  numero  Int
+  titulo  String?
+  sinopse String?
 
   serieId String @db.Uuid
   serie   Serie  @relation(fields: [serieId], references: [conteudoId], onDelete: Cascade)
 
-  @@unique([serieId, numeroTemporada, numeroEpisodio])
-  @@index([serieId])
+  episodios Episodio[]
+
+  @@unique([serieId, numero])
+  @@map("temporadas")
+}
+
+// MODELO: EPISODIO
+
+model Episodio {
+  id             Int     @id @default(autoincrement())
+  titulo         String
+  numeroEpisodio Int
+  duracao        Int
+  sinopse        String?
+
+  temporadaId Int
+  temporada   Temporada @relation(fields: [temporadaId], references: [id], onDelete: Cascade)
+
+  @@unique([temporadaId, numeroEpisodio])
+  @@index([temporadaId])
   @@map("episodios")
 }
 

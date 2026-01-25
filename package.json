@@ -10,6 +10,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "start": "NODE_ENV=production node src/server/main.js",
+    "prisma": "prisma",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:migrate:deploy": "prisma migrate deploy",
