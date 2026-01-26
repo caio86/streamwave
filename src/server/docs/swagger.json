@@ -1,0 +1,248 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "StreamWave API",
+    "version": "1.0",
+    "description": "Documentação da API do StreamWave."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "paths": {
+    "/filmes": {
+      "get": {
+        "summary": "Obter lista de filmes",
+        "description": "Retorna uma lista de todos os filmes disponíveis na plataforma.",
+        "tags": [
+          "Filmes"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de filmes retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Filme"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Adicionar um novo filme",
+        "description": "Adiciona um novo filme à plataforma.",
+        "tags": [
+          "Filmes"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Filme"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Filme criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Filme"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/filmes/{id}": {
+      "get": {
+        "summary": "Obter detalhes de um filme",
+        "description": "Retorna os detalhes de um filme específico pelo seu ID.",
+        "tags": [
+          "Filmes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do filme",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalhes do filme retornados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Filme"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Filme não encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar um filme",
+        "description": "Atualiza os detalhes de um filme existente pelo seu ID.",
+        "tags": [
+          "Filmes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do filme",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Filme"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Filme atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Filme"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Filme não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Excluir um filme",
+        "description": "Exclui um filme existente pelo seu ID.",
+        "tags": [
+          "Filmes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do filme",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Filme excluído com sucesso"
+          },
+          "404": {
+            "description": "Filme não encontrado"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Filmes",
+      "description": "Endpoints da API para gerenciamento de filmes"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Filme": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Conteudo"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "duracao_total": {
+                "type": "integer",
+                "description": "Duração total do filme em minutos"
+              }
+            }
+          }
+        ]
+      },
+      "Conteudo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do conteúdo",
+            "readOnly": true
+          },
+          "titulo": {
+            "type": "string",
+            "description": "Título do conteúdo"
+          },
+          "banner": {
+            "type": "string",
+            "description": "URL da imagem de banner do conteúdo"
+          },
+          "poster": {
+            "type": "string",
+            "description": "URL da imagem de poster do conteúdo"
+          },
+          "genero": {
+            "type": "array",
+            "description": "Gêneros do conteúdo",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sinopse": {
+            "type": "string",
+            "description": "Sinopse do conteúdo"
+          },
+          "data_lancamento": {
+            "type": "string",
+            "format": "date",
+            "description": "Data de lançamento do conteúdo"
+          },
+          "classificacao": {
+            "type": "string",
+            "description": "Classificação etária do conteúdo"
+          },
+          "destaque": {
+            "type": "boolean",
+            "description": "Indica se o conteúdo é destaque"
+          },
+          "tipo": {
+            "type": "string",
+            "description": "Tipo do conteúdo (ex.: FILME, SERIE)"
+          }
+        }
+      }
+    }
+  }
+}

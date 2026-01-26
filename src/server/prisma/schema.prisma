@@ -1,0 +1,144 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider     = "prisma-client-js"
+  output       = "../generated/prisma"
+  moduleFormat = "commonjs"
+}
+
+datasource db {
+  provider = "postgresql"
+  //url      = env("DATABASE_URL")
+}
+
+// ENUMS
+
+enum StatusUsuario {
+  ATIVO
+  INATIVO
+}
+
+enum TipoConteudo {
+  SERIE
+  FILME
+}
+
+// MODELO: USUARIO
+
+model Usuario {
+  id             String        @id @default(uuid()) @db.Uuid
+  username       String        @unique
+  email          String        @unique
+  senha          String
+  nomeCompleto   String
+  dataNascimento DateTime
+  fotoPerfil     String?
+  dataCriacao    DateTime      @default(now())
+  ultimoLogin    DateTime?
+  status         StatusUsuario @default(ATIVO)
+
+  favoritos Favorito[]
+
+  @@map("usuarios")
+}
+
+// MODELO: CONTEUDO (BASE)
+
+model Conteudo {
+  id             String       @id @default(uuid()) @db.Uuid
+  titulo         String
+  banner         String?
+  poster         String?
+  genero         String[]
+  sinopse        String?
+  dataLancamento DateTime?
+  classificacao  String?
+  destaque       Boolean      @default(false)
+  tipo           TipoConteudo
+
+  serie Serie?
+  filme Filme?
+
+  favoritos Favorito[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([titulo])
+  @@map("conteudos")
+}
+
+// MODELO: FILME (ESPECIALIZAÇÃO)
+
+model Filme {
+  conteudoId   String @id @db.Uuid
+  duracaoTotal Int
+
+  conteudo Conteudo @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
+
+  @@map("filmes")
+}
+
+// MODELO: SERIE (ESPECIALIZAÇÃO)
+
+model Serie {
+  conteudoId String @id @db.Uuid
+
+  conteudo   Conteudo    @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
+  temporadas Temporada[]
+
+  @@map("series")
+}
+
+model Temporada {
+  id      Int     @id @default(autoincrement())
+  numero  Int
+  titulo  String?
+  sinopse String?
+
+  serieId String @db.Uuid
+  serie   Serie  @relation(fields: [serieId], references: [conteudoId], onDelete: Cascade)
+
+  episodios Episodio[]
+
+  @@unique([serieId, numero])
+  @@map("temporadas")
+}
+
+// MODELO: EPISODIO
+
+model Episodio {
+  id             Int     @id @default(autoincrement())
+  titulo         String
+  numeroEpisodio Int
+  duracao        Int
+  sinopse        String?
+
+  temporadaId Int
+  temporada   Temporada @relation(fields: [temporadaId], references: [id], onDelete: Cascade)
+
+  @@unique([temporadaId, numeroEpisodio])
+  @@index([temporadaId])
+  @@map("episodios")
+}
+
+// ===============================
+// MODELO: FAVORITO
+// ===============================
+
+model Favorito {
+  usuarioId  String @db.Uuid
+  conteudoId String @db.Uuid
+
+  usuario  Usuario  @relation(fields: [usuarioId], references: [id])
+  conteudo Conteudo @relation(fields: [conteudoId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@id([usuarioId, conteudoId])
+  @@map("favoritos")
+}
