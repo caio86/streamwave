@@ -1,6 +1,19 @@
 import { listaConteudo } from "./api.js";
 import { capitalizeString, createMediaList } from "./utils.js";
 
+import { listarFilmes } from './filmes.js';
+import { listarSeries } from './series.js';
+
+async function main() {
+  const filmes = await listarFilmes();
+  const series = await listarSeries();
+
+  console.log(filmes, series);
+}
+
+main();
+
+
 const noContent = document.querySelector("#noContent");
 const container = document.querySelector(".container");
 

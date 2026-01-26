@@ -1,5 +1,7 @@
 import { createFilme, createSerie } from "./api.js";
 
+import prisma from '../src/database/prisma.js';
+
 const tipoConteudo = document.querySelector("#tipoConteudo");
 
 const videoFile = document.querySelector("#videoFile");
@@ -14,6 +16,12 @@ const formFilme = document.querySelector("#formFilme");
 const formSerie = document.querySelector("#formSerie");
 
 // filme
+export async function adicionarFilme(dados) {
+  return await prisma.filme.create({
+    data: dados
+  });
+}
+
 const filmeNome = document.querySelector("#filmeNome");
 const filmeDuracao = document.querySelector("#filmeDuracao");
 const filmeData = document.querySelector("#filmeData");

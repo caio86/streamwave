@@ -1,11 +1,16 @@
 import { listaSeries } from "./api.js";
 import { createMediaList, agruparGenero } from "./utils.js";
 
+import prisma from '../src/database/prisma.js';
+
 const noContent = document.querySelector("#noContent");
 const container = document.querySelector(".container");
 
 // 1. Busca as séries na api tambem
-const series = await listaSeries();
+export async function listarSeries() {
+  const series = await prisma.serie.findMany();
+  return series;
+}
 
 // 2. Verifica se tem conteúdo para exibir tambem
 if (series && series.length > 0) {

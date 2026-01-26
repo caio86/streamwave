@@ -1,10 +1,21 @@
 import { getFilmeByID, getSerieByID } from "./api.js";
 import { converterMinutos } from "./utils.js";
 
+import prisma from '../src/database/prisma.js';
+
 const queryParams = new URLSearchParams(window.location.search);
 const main = document.querySelector("#main");
 
 const id = queryParams.get("id");
+
+export async function detalhesConteudo(id) {
+  const conteudo = await prisma.conteudo.findUnique({
+    where: { id }
+  });
+
+  return conteudo;
+}
+
 
 let mediaData;
 

@@ -1,11 +1,18 @@
 import { listaFilmes } from "./api.js";
 import { createMediaList, agruparGenero } from "./utils.js";
 
+import prisma from '../src/database/prisma.js';
+
+
+
 const noContent = document.querySelector("#noContent");
 const container = document.querySelector(".container");
 
 // 1. Busca os filmes na api
-const filmes = await listaFilmes();
+export async function listarFilmes() {
+  const filmes = await prisma.filme.findMany();
+  return filmes;
+}
 
 // 2. Verifica se tem conteudo para exibir
 if (filmes && filmes.length > 0) {
