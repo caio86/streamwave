@@ -5,10 +5,11 @@ const queryParams = new URLSearchParams(window.location.search);
 const main = document.querySelector("#main");
 
 const id = queryParams.get("id");
+const tipo = queryParams.get("tipo");
 
 let mediaData;
 
-if (id.startsWith("f")) {
+if (tipo === "FILME") {
   mediaData = await getFilmeByID(id);
 } else mediaData = await getSerieByID(id);
 
@@ -38,19 +39,20 @@ details.innerHTML = `
       class="details__poster__img"
       src="${mediaData.poster}"
       alt="Poster"
+      onerror="this.src = '/fallback-image.png'"
     />
   </div>
   <div class="details__primary">
-    <div class="details__primary__name"><h1>${mediaData.nome}</h1></div>
+    <div class="details__primary__name"><h1>${mediaData.titulo}</h1></div>
     <div class="details__primary__info">
-      ${mediaData.data_lancamento !== "" ? `<div>${mediaData.data_lancamento.split("-")[0]}</div>` : ""}
-      ${mediaData.tipo === "filme" ? `<div>${converterMinutos(mediaData.duracao_total)}</div>` : ""}
-      <div class="infoRating">${mediaData.classificacao}</div>
+      ${mediaData.data_lancamento ? `<div>${mediaData.data_lancamento.split("-")[0]}</div>` : ""}
+      ${mediaData.tipo === "FILME" ? `<div>${converterMinutos(mediaData.duracao_total)}</div>` : ""}
+      ${mediaData.classificacao ? `<div class="infoRating">${mediaData.classificacao}</div>` : ""}
       ${mediaData.avaliacao ? `<div class="starRating">⭐${mediaData.avaliacao}</div>` : ""}
     </div>
   </div>
   <div class="details__secondary">
-    <div class="details__secondary__sinopse">${mediaData.sinopse}</div>
+    ${mediaData.sinopse ? `<div class="details__secondary__sinopse">${mediaData.sinopse}</div>` : ""}
   </div>
 `;
 

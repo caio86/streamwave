@@ -3,7 +3,7 @@
  */
 async function fetchWithBackup(endpoint) {
   const urls = [
-    "http://localhost:3000",
+    "http://localhost:3000/api/v1",
     "https://my-json-server.typicode.com/caio86/streamwave",
   ];
 

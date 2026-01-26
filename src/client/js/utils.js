@@ -24,30 +24,31 @@ export function converterMinutos(minutos) {
 }
 
 export function createMediaCard({
-  nome,
+  titulo,
   data_lancamento,
   banner,
   poster,
   id,
+  tipo,
   vertical = false,
 }) {
   const card = document.createElement("div");
   card.className = `card card--${vertical ? "vertical" : "horizontal"}`;
 
   card.innerHTML = `
-    <a href="./details.html?id=${id}" class="card__link">
+    <a href="./details.html?id=${id}&tipo=${tipo}" class="card__link">
       <div class="card__img-wrapper">
         <img
           src="${vertical ? poster : banner}"
-          alt="${nome}"
+          alt="${titulo}"
           class="card__img"
           loading="lazy"
           onerror="this.src = '/public/fallback-image.png'"
         >
         <div class="card__overlay">P</div>
       </div>
-      <p class="card__name">${nome}</p>
-      <p class="card__year">${data_lancamento.split("-")[0]}</p>
+      <p class="card__name">${titulo}</p>
+      ${data_lancamento ? `<p class="card__year">${data_lancamento.split("-")[0]}</p>` : ""}
     </a>
   `;
 
@@ -87,7 +88,7 @@ export function agruparGenero(lista) {
   lista.forEach((item) => { // 2. Main loop
     if (!item.genero) return; // 2.1. Se não tiver gênero, pula pq senao dá erro
 
-    const generosItem = item.genero.split(",").map((g) => g.trim()); // transforma string em array
+    const generosItem = item.genero.map((g) => g.trim()); // transforma string em array
 
     generosItem.forEach((genero) => { // 3. Loop nos gêneros do item (filme ou seroe)
       if (!grupos[genero]) { // 3.1. Se nao existe a prateleira ela é criada
