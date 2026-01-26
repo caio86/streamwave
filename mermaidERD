@@ -1,0 +1,62 @@
+erDiagram
+    USUARIO {
+        uuid id PK
+        string username
+        string email
+        string senha
+        string nomeCompleto
+        datetime dataNascimento
+        string fotoPerfil
+        datetime dataCriacao
+        datetime ultimoLogin
+        StatusUsuario status
+    }
+
+    CONTEUDO {
+        uuid id PK
+        string titulo
+        string banner
+        string poster
+        Genero[] genero
+        string sinopse
+        datetime dataLancamento
+        string classificacao
+        boolean destaque
+        TipoConteudo tipo
+        datetime createdAt
+        datetime updatedAt
+    }
+
+
+    FILME {
+        uuid conteudoId PK, FK
+        int duracaoTotal
+    }
+
+    SERIE {
+        uuid conteudoId PK
+    }
+    TEMPORADA {
+        uuid id PK
+        int numero
+        uuid serieId FK
+    }
+    EPISODIO {
+        int id PK
+        int numeroEpisodio
+        uuid temporadaId FK
+    }
+
+    FAVORITO {
+        uuid usuarioId PK, FK
+        uuid conteudoId PK, FK
+        datetime createdAt
+    }
+
+    %% Relationships
+    USUARIO ||--o{ FAVORITO : "bookmarks"
+    CONTEUDO ||--o{ FAVORITO : "is favorited by"
+    CONTEUDO |o--o| SERIE : "specializes as"
+    CONTEUDO |o--o| FILME : "specializes as"
+    SERIE ||--|{ TEMPORADA : "has"
+    TEMPORADA ||--|{ EPISODIO : "contains"
