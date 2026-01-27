@@ -7,6 +7,12 @@ class UsuarioModel {
     });
   }
 
+  async findById(id) {
+    return await prisma.usuario.findUniqueOrThrow({
+      where: { id },
+    });
+  }
+
   async findByEmail(email) {
     return await prisma.usuario.findUniqueOrThrow({
       where: { email },
