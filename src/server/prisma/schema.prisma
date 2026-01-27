@@ -31,7 +31,6 @@ enum TipoConteudo {
 
 model Usuario {
   id             String        @id @default(uuid()) @db.Uuid
-  username       String        @unique
   email          String        @unique
   senha          String
   nomeCompleto   String
@@ -43,6 +42,7 @@ model Usuario {
 
   favoritos Favorito[]
 
+  @@index([email])
   @@map("usuarios")
 }
 
