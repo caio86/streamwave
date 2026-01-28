@@ -4,6 +4,10 @@ import { readFileSync } from "node:fs";
 
 import { prisma } from "./prisma.js";
 
+import usuarioService from "../services/usuario.service.js";
+import filmeService from "../services/filme.service.js";
+// import serieService from "../services/serie.service.js";
+
 async function main() {
   console.log("Seeding database...");
 
@@ -15,26 +19,14 @@ async function main() {
 
   const seed = JSON.parse(readFileSync(file, "utf-8"));
 
-  for (const filmes of seed.filmes) {
-    console.log(`Seeding filme: ${filmes.titulo}`);
-    await prisma.filme.create({
-      data: {
-        duracaoTotal: filmes.duracao_total,
-        conteudo: {
-          create: {
-            titulo: filmes.titulo,
-            banner: filmes.banner,
-            poster: filmes.poster,
-            genero: filmes.genero,
-            sinopse: filmes.sinopse,
-            dataLancamento: new Date(filmes.data_lancamento),
-            classificacao: filmes.classificacao,
-            destaque: filmes.destaque || false,
-            tipo: filmes.tipo.toUpperCase(),
-          },
-        },
-      },
-    });
+  for (const usuario of seed.usuarios) {
+    console.log(`Seeding usuario: ${usuario.nomeCompleto}`);
+    await usuarioService.create(usuario);
+  }
+
+  for (const filme of seed.filmes) {
+    console.log(`Seeding filme: ${filme.titulo}`);
+    await filmeService.create(filme);
   }
 
   // for (const series of seed.series) {
