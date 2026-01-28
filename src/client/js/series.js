@@ -18,15 +18,11 @@ if (series && series.length > 0) {
   const generosOrdenados = Object.keys(seriesGenero).sort();
 
   generosOrdenados.forEach((genero) => {
-    const lista = createMediaList(
-      genero, 
-      seriesGenero[genero], 
-      true
-    );
+    const lista = createMediaList(genero, seriesGenero[genero], true);
     container.appendChild(lista);
   });
-
 } else {
   noContent.querySelector("h2").textContent = "Sem Conteúdo";
-  noContent.querySelector("p").textContent = "Não encontramos séries no momento.";
+  noContent.querySelector("p").textContent =
+    "Não encontramos séries no momento.";
 }

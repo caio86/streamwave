@@ -4,7 +4,7 @@ class SerieModel {
   async create(data) {
     return await prisma.serie.create({
       data,
-      include: { conteudo: true }
+      include: { conteudo: true },
     });
   }
 
@@ -14,7 +14,7 @@ class SerieModel {
       include: {
         conteudo: true,
         temporadas: {
-          include: { episodios: true, },
+          include: { episodios: true },
         },
       },
     });
@@ -31,7 +31,7 @@ class SerieModel {
     return await prisma.serie.update({
       where: { conteudoId },
       data,
-      include: { conteudo: true }
+      include: { conteudo: true },
     });
   }
 

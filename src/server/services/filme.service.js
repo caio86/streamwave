@@ -1,62 +1,62 @@
-import Joi from "joi"
+import Joi from "joi";
 
-import Filme from "../models/Filme.js"
+import Filme from "../models/Filme.js";
 
 class FilmeService {
   async getAll() {
-    const filmes = await Filme.findAll()
-    return filmes.map(parseFilmeFromModel)
+    const filmes = await Filme.findAll();
+    return filmes.map(parseFilmeFromModel);
   }
 
   async getById(conteudoId) {
-    const { error } = validateUuid(conteudoId)
-    if (error) throw error
+    const { error } = validateUuid(conteudoId);
+    if (error) throw error;
 
-    const filme = await Filme.findById(conteudoId)
-    if (!filme) throw new Error("Filme not found")
+    const filme = await Filme.findById(conteudoId);
+    if (!filme) throw new Error("Filme not found");
 
-    return parseFilmeFromModel(filme)
+    return parseFilmeFromModel(filme);
   }
 
   async create(data) {
-    const { error, value } = validateCreate(data)
-    if (error) throw error
+    const { error, value } = validateCreate(data);
+    if (error) throw error;
 
-    const parsedData = parseFilmeToCreateModel(value)
+    const parsedData = parseFilmeToCreateModel(value);
 
-    const created = await Filme.create(parsedData)
+    const created = await Filme.create(parsedData);
 
-    return parseFilmeFromModel(created)
+    return parseFilmeFromModel(created);
   }
 
   async update(conteudoId, data) {
-    const { error } = validateUuid(conteudoId)
-    if (error) throw error
+    const { error } = validateUuid(conteudoId);
+    if (error) throw error;
 
-    const { error: validationError, value } = validateUpdate(data)
-    if (validationError) throw validationError
+    const { error: validationError, value } = validateUpdate(data);
+    if (validationError) throw validationError;
 
-    const parsedData = parseFilmeToUpdateModel(value)
+    const parsedData = parseFilmeToUpdateModel(value);
 
-    const updated = await Filme.update(conteudoId, parsedData)
+    const updated = await Filme.update(conteudoId, parsedData);
 
-    return parseFilmeFromModel(updated)
+    return parseFilmeFromModel(updated);
   }
 
   async delete(conteudoId) {
-    const { error } = validateUuid(conteudoId)
-    if (error) throw error
+    const { error } = validateUuid(conteudoId);
+    if (error) throw error;
 
-    const filme = await Filme.findById(conteudoId)
-    if (!filme) throw new Error("Filme not found")
+    const filme = await Filme.findById(conteudoId);
+    if (!filme) throw new Error("Filme not found");
 
-    await Filme.delete(conteudoId)
+    await Filme.delete(conteudoId);
   }
 }
 
 function validateUuid(id) {
-  const uuidSchema = Joi.string().guid({ version: 'uuidv4' }).required()
-  return uuidSchema.validate(id)
+  const uuidSchema = Joi.string().guid({ version: "uuidv4" }).required();
+  return uuidSchema.validate(id);
 }
 
 function validateCreate(data) {
@@ -64,21 +64,19 @@ function validateCreate(data) {
     titulo: Joi.string().required(),
     banner: Joi.string().uri().optional(),
     poster: Joi.string().uri().optional(),
-    genero: Joi.array().items(
-      Joi.string()
-    ).unique().default([]),
+    genero: Joi.array().items(Joi.string()).unique().default([]),
     duracao_total: Joi.number().integer().required(),
     sinopse: Joi.string().optional(),
     data_lancamento: Joi.date().optional(),
     classificacao: Joi.string().optional(),
     destaque: Joi.bool().default(false),
     tipo: Joi.string().uppercase().valid("FILME").required(),
-  })
+  });
 
   return createFilmeSchema.validate(data, {
     abortEarly: false,
     stripUnknown: true,
-  })
+  });
 }
 
 function validateUpdate(data) {
@@ -86,21 +84,19 @@ function validateUpdate(data) {
     titulo: Joi.string().optional(),
     banner: Joi.string().uri().optional(),
     poster: Joi.string().uri().optional(),
-    genero: Joi.array().items(
-      Joi.string()
-    ).unique().optional(),
+    genero: Joi.array().items(Joi.string()).unique().optional(),
     duracao_total: Joi.number().integer().optional(),
     sinopse: Joi.string().optional(),
     data_lancamento: Joi.date().optional(),
     classificacao: Joi.string().optional(),
     destaque: Joi.bool().optional(),
     tipo: Joi.string().uppercase().valid("FILME").optional(),
-  })
+  });
 
   return updateFilmeSchema.validate(data, {
     abortEarly: false,
     stripUnknown: true,
-  })
+  });
 }
 
 function parseFilmeToCreateModel(data) {
@@ -117,9 +113,9 @@ function parseFilmeToCreateModel(data) {
         classificacao: data.classificacao,
         destaque: data.destaque,
         tipo: data.tipo,
-      }
-    }
-  }
+      },
+    },
+  };
 }
 
 function parseFilmeToUpdateModel(data) {
@@ -136,9 +132,9 @@ function parseFilmeToUpdateModel(data) {
         classificacao: data.classificacao,
         destaque: data.destaque,
         tipo: data.tipo,
-      }
-    }
-  }
+      },
+    },
+  };
 }
 
 function parseFilmeFromModel(filme) {
@@ -154,7 +150,7 @@ function parseFilmeFromModel(filme) {
     classificacao: filme.conteudo.classificacao,
     destaque: filme.conteudo.destaque,
     tipo: filme.conteudo.tipo,
-  }
+  };
 }
 
-export default new FilmeService()
+export default new FilmeService();

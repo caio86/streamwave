@@ -4,7 +4,7 @@ class FilmeModel {
   async create(data) {
     return await prisma.filme.create({
       data,
-      include: { conteudo: true }
+      include: { conteudo: true },
     });
   }
 
@@ -26,7 +26,7 @@ class FilmeModel {
     return await prisma.filme.update({
       where: { conteudoId },
       data,
-      include: { conteudo: true }
+      include: { conteudo: true },
     });
   }
 

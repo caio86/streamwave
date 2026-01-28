@@ -19,14 +19,14 @@ if (filmes && filmes.length > 0) {
 
   generosOrdenados.forEach((genero) => {
     const lista = createMediaList(
-      genero, 
-      filmesGenero[genero], 
-      false // BOTAR TRUE NO DE SERIES
+      genero,
+      filmesGenero[genero],
+      false, // BOTAR TRUE NO DE SERIES
     );
     container.appendChild(lista);
   });
-
 } else {
   noContent.querySelector("h2").textContent = "Sem Conteúdo";
-  noContent.querySelector("p").textContent = "Não encontramos filmes no momento.";
+  noContent.querySelector("p").textContent =
+    "Não encontramos filmes no momento.";
 }
