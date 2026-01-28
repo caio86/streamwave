@@ -15,9 +15,7 @@
       "get": {
         "summary": "Obter lista de filmes",
         "description": "Retorna uma lista de todos os filmes disponíveis na plataforma.",
-        "tags": [
-          "Filmes"
-        ],
+        "tags": ["Filmes"],
         "responses": {
           "200": {
             "description": "Lista de filmes retornada com sucesso",
@@ -37,9 +35,7 @@
       "post": {
         "summary": "Adicionar um novo filme",
         "description": "Adiciona um novo filme à plataforma.",
-        "tags": [
-          "Filmes"
-        ],
+        "tags": ["Filmes"],
         "requestBody": {
           "required": true,
           "content": {
@@ -68,9 +64,7 @@
       "get": {
         "summary": "Obter detalhes de um filme",
         "description": "Retorna os detalhes de um filme específico pelo seu ID.",
-        "tags": [
-          "Filmes"
-        ],
+        "tags": ["Filmes"],
         "parameters": [
           {
             "name": "id",
@@ -101,9 +95,7 @@
       "put": {
         "summary": "Atualizar um filme",
         "description": "Atualiza os detalhes de um filme existente pelo seu ID.",
-        "tags": [
-          "Filmes"
-        ],
+        "tags": ["Filmes"],
         "parameters": [
           {
             "name": "id",
@@ -144,9 +136,7 @@
       "delete": {
         "summary": "Excluir um filme",
         "description": "Exclui um filme existente pelo seu ID.",
-        "tags": [
-          "Filmes"
-        ],
+        "tags": ["Filmes"],
         "parameters": [
           {
             "name": "id",

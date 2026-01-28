@@ -1,19 +1,19 @@
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { readFileSync } from 'node:fs'
+import path from "path";
+import { fileURLToPath } from "url";
+import { readFileSync } from "node:fs";
 
-import { prisma } from './prisma.js';
+import { prisma } from "./prisma.js";
 
 async function main() {
   console.log("Seeding database...");
 
   await prisma.conteudo.deleteMany();
 
-  const __filename = fileURLToPath(import.meta.url)
-  const __dirname = path.dirname(__filename)
-  const file = path.join(__dirname, 'seeders.json')
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const file = path.join(__dirname, "seeders.json");
 
-  const seed = JSON.parse(readFileSync(file, 'utf-8'))
+  const seed = JSON.parse(readFileSync(file, "utf-8"));
 
   for (const filmes of seed.filmes) {
     console.log(`Seeding filme: ${filmes.titulo}`);
@@ -31,9 +31,9 @@ async function main() {
             classificacao: filmes.classificacao,
             destaque: filmes.destaque || false,
             tipo: filmes.tipo.toUpperCase(),
-          }
-        }
-      }
+          },
+        },
+      },
     });
   }
 
@@ -51,4 +51,4 @@ main()
   .catch((e) => {
     console.error(e);
     process.exit(1);
-  })
+  });

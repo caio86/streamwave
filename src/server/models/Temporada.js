@@ -11,9 +11,9 @@ class TemporadaModel {
     return await prisma.temporada.findUniqueOrThrow({
       where: { id },
       include: {
-        episodios: true, 
+        episodios: true,
         serie: true,
-      }
+      },
     });
   }
 
