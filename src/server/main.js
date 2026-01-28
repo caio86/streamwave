@@ -22,18 +22,18 @@ app.get("/api/health", (_req, res) => {
   res.json({
     status: "UP",
     timestamp: new Date().toISOString(),
-    uptime: process.uptime()
+    uptime: process.uptime(),
   });
 });
 
-app.use((_req, res, _next) => {
+app.use((_req, res) => {
   res.status(404).json({
     status: 404,
     message: "404 - Not Found",
   });
 });
 
-app.use(errorHandler)
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log("Server is running...");
