@@ -24,7 +24,6 @@ class SerieService {
     const parsedData = parseSerieToCreateModel(value);
 
     const created = await Serie.create(parsedData);
-
     return parseSerieFromModel(created);
   }
 
@@ -38,7 +37,6 @@ class SerieService {
     const parsedData = parseSerieToUpdateModel(value);
 
     const updated = await Serie.update(conteudoId, parsedData);
-
     return parseSerieFromModel(updated);
   }
 
@@ -58,12 +56,11 @@ class SerieService {
 ======================= */
 
 function validateUuid(id) {
-  const uuidSchema = Joi.string().guid({ version: "uuidv4" }).required();
-  return uuidSchema.validate(id);
+  return Joi.string().guid({ version: "uuidv4" }).required().validate(id);
 }
 
 function validateCreate(data) {
-  const createSerieSchema = Joi.object({
+  return Joi.object({
     titulo: Joi.string().required(),
     banner: Joi.string().uri().optional(),
     poster: Joi.string().uri().optional(),
@@ -73,29 +70,11 @@ function validateCreate(data) {
     classificacao: Joi.string().optional(),
     destaque: Joi.bool().default(false),
     tipo: Joi.string().uppercase().valid("SERIE").required(),
-
-    temporadas: Joi.array().items(
-      Joi.object({
-        numero: Joi.number().integer().required(),
-        episodios: Joi.array().items(
-          Joi.object({
-            titulo: Joi.string().required(),
-            numero: Joi.number().integer().required(),
-            duracao: Joi.number().integer().required(),
-          })
-        ).default([]),
-      })
-    ).default([]),
-  });
-
-  return createSerieSchema.validate(data, {
-    abortEarly: false,
-    stripUnknown: true,
-  });
+  }).validate(data, { abortEarly: false, stripUnknown: true });
 }
 
 function validateUpdate(data) {
-  const updateSerieSchema = Joi.object({
+  return Joi.object({
     titulo: Joi.string().optional(),
     banner: Joi.string().uri().optional(),
     poster: Joi.string().uri().optional(),
@@ -104,26 +83,7 @@ function validateUpdate(data) {
     data_lancamento: Joi.date().optional(),
     classificacao: Joi.string().optional(),
     destaque: Joi.bool().optional(),
-    tipo: Joi.string().uppercase().valid("SERIE").optional(),
-
-    temporadas: Joi.array().items(
-      Joi.object({
-        numero: Joi.number().integer().required(),
-        episodios: Joi.array().items(
-          Joi.object({
-            titulo: Joi.string().optional(),
-            numero: Joi.number().integer().optional(),
-            duracao: Joi.number().integer().optional(),
-          })
-        ).optional(),
-      })
-    ).optional(),
-  });
-
-  return updateSerieSchema.validate(data, {
-    abortEarly: false,
-    stripUnknown: true,
-  });
+  }).validate(data, { abortEarly: false, stripUnknown: true });
 }
 
 /* =======================
@@ -145,18 +105,6 @@ function parseSerieToCreateModel(data) {
         tipo: data.tipo,
       },
     },
-    temporadas: {
-      create: data.temporadas.map((temporada) => ({
-        numero: temporada.numero,
-        episodios: {
-          create: temporada.episodios.map((episodio) => ({
-            titulo: episodio.titulo,
-            numero: episodio.numero,
-            duracao: episodio.duracao,
-          })),
-        },
-      })),
-    },
   };
 }
 
@@ -172,27 +120,8 @@ function parseSerieToUpdateModel(data) {
         dataLancamento: data.data_lancamento,
         classificacao: data.classificacao,
         destaque: data.destaque,
-        tipo: data.tipo,
       },
     },
-    // Atualização de temporadas normalmente é mais complexa
-    // (upsert/delete). Aqui deixei simples e explícito.
-
-    ...(data.temporadas && {
-      temporadas: {
-        deleteMany: {},
-        create: data.temporadas.map((temporada) => ({
-          numero: temporada.numero,
-          episodios: {
-            create: temporada.episodios?.map((episodio) => ({
-              titulo: episodio.titulo,
-              numero: episodio.numero,
-              duracao: episodio.duracao,
-            })) || [],
-          },
-        })),
-      },
-    }),
   };
 }
 
@@ -208,15 +137,7 @@ function parseSerieFromModel(serie) {
     classificacao: serie.conteudo.classificacao,
     destaque: serie.conteudo.destaque,
     tipo: serie.conteudo.tipo,
-
-    temporadas: serie.temporadas?.map((temporada) => ({
-      numero: temporada.numero,
-      episodios: temporada.episodios.map((episodio) => ({
-        titulo: episodio.titulo,
-        numero: episodio.numero,
-        duracao: episodio.duracao,
-      })),
-    })) || [],
+    temporadas: serie.temporadas ?? [],
   };
 }
 
