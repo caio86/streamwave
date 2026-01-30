@@ -167,170 +167,6 @@
           }
         }
       }
-    },
-    "/usuarios": {
-      "post": {
-        "summary": "Criar novo usuário",
-        "description": "Cadastra um novo usuário na plataforma.",
-        "tags": ["Usuarios"],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Usuario"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Usuário criado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Dados inválidos"
-          }
-        }
-      }
-    },
-    "/usuarios/{id}": {
-      "get": {
-        "summary": "Obter usuário por ID",
-        "description": "Retorna os detalhes de um usuário específico.",
-        "tags": ["Usuarios"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "ID do usuário",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Usuário encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Usuário não encontrado"
-          }
-        }
-      },
-      "put": {
-        "summary": "Atualizar usuário",
-        "description": "Atualiza os dados de um usuário existente.",
-        "tags": ["Usuarios"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "ID do usuário",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Usuario"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Usuário atualizado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Usuário não encontrado"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Excluir usuário",
-        "description": "Remove um usuário da plataforma.",
-        "tags": ["Usuarios"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "ID do usuário",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Usuário excluído com sucesso"
-          },
-          "404": {
-            "description": "Usuário não encontrado"
-          }
-        }
-      }
-    },
-    "/usuarios/email/{email}": {
-      "get": {
-        "summary": "Obter usuário por Email",
-        "description": "Busca um usuário específico através do endereço de email.",
-        "tags": ["Usuarios"],
-        "parameters": [
-          {
-            "name": "email",
-            "in": "path",
-            "required": true,
-            "description": "Email do usuário",
-            "schema": {
-              "type": "string",
-              "format": "email"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Usuário encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Usuário não encontrado"
-          }
-        }
-      }
     }
   },
   "components": {
@@ -405,16 +241,26 @@
       },
       "Usuario": {
         "type": "object",
-        "required": ["nome", "email", "senha"],
+        "required": [
+          "nome_completo",
+          "email",
+          "senha",
+          "username",
+          "data_nascimento"
+        ],
         "properties": {
           "id": {
             "type": "string",
             "description": "Identificador único do usuário",
             "readOnly": true
           },
-          "nome": {
+          "nome_completo": {
             "type": "string",
             "description": "Nome completo do usuário"
+          },
+          "username": {
+            "type": "string",
+            "description": "Nome de usuário único"
           },
           "email": {
             "type": "string",
@@ -426,6 +272,15 @@
             "format": "password",
             "description": "Senha do usuário",
             "writeOnly": true
+          },
+          "foto_perfil": {
+            "type": "string",
+            "description": "URL da foto de perfil do usuário"
+          },
+          "data_nascimento": {
+            "type": "string",
+            "format": "date",
+            "description": "Data de nascimento do usuário"
           },
           "data_cadastro": {
             "type": "string",
