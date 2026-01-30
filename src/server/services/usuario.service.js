@@ -1,7 +1,12 @@
 import Joi from "joi";
 import bcrypt from "bcrypt";
 import Usuario from "../models/Usuario.js";
-import { BCRYPT_SALT } from "../config/env.config.js";
+import {
+  BCRYPT_SALT,
+  JWT_EXPIRES_IN,
+  JWT_SECRET,
+} from "../config/env.config.js";
+import jwt from "jsonwebtoken";
 
 const saltRounds = parseInt(BCRYPT_SALT ?? "10", 10);
 
@@ -64,6 +69,23 @@ class UsuarioService {
     if (!user) throw new Error("User not found");
 
     await Usuario.delete(value);
+  }
+
+  async login(email, password) {
+    const user = await this.getByEmail(email);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new Error("Invalid credentials");
+    }
+
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRES_IN,
+    });
+    return { user, token };
   }
 }
 

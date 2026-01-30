@@ -10,6 +10,16 @@
       "url": "http://localhost:3000/api/v1"
     }
   ],
+  "tags": [
+    {
+      "name": "Filmes",
+      "description": "Endpoints da API para gerenciamento de filmes"
+    },
+    {
+      "name": "Usuarios",
+      "description": "Endpoints da API para gerenciamento de usuários"
+    }
+  ],
   "paths": {
     "/filmes": {
       "get": {
@@ -157,14 +167,172 @@
           }
         }
       }
+    },
+    "/usuarios": {
+      "post": {
+        "summary": "Criar novo usuário",
+        "description": "Cadastra um novo usuário na plataforma.",
+        "tags": ["Usuarios"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Usuario"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          }
+        }
+      }
+    },
+    "/usuarios/{id}": {
+      "get": {
+        "summary": "Obter usuário por ID",
+        "description": "Retorna os detalhes de um usuário específico.",
+        "tags": ["Usuarios"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do usuário",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar usuário",
+        "description": "Atualiza os dados de um usuário existente.",
+        "tags": ["Usuarios"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do usuário",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Usuario"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuário atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Excluir usuário",
+        "description": "Remove um usuário da plataforma.",
+        "tags": ["Usuarios"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do usuário",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Usuário excluído com sucesso"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          }
+        }
+      }
+    },
+    "/usuarios/email/{email}": {
+      "get": {
+        "summary": "Obter usuário por Email",
+        "description": "Busca um usuário específico através do endereço de email.",
+        "tags": ["Usuarios"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "description": "Email do usuário",
+            "schema": {
+              "type": "string",
+              "format": "email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          }
+        }
+      }
     }
   },
-  "tags": [
-    {
-      "name": "Filmes",
-      "description": "Endpoints da API para gerenciamento de filmes"
-    }
-  ],
   "components": {
     "schemas": {
       "Filme": {
@@ -174,6 +342,7 @@
           },
           {
             "type": "object",
+            "required": ["duracao_total"],
             "properties": {
               "duracao_total": {
                 "type": "integer",
@@ -185,6 +354,7 @@
       },
       "Conteudo": {
         "type": "object",
+        "required": ["tipo"],
         "properties": {
           "id": {
             "type": "string",
@@ -230,6 +400,38 @@
           "tipo": {
             "type": "string",
             "description": "Tipo do conteúdo (ex.: FILME, SERIE)"
+          }
+        }
+      },
+      "Usuario": {
+        "type": "object",
+        "required": ["nome", "email", "senha"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do usuário",
+            "readOnly": true
+          },
+          "nome": {
+            "type": "string",
+            "description": "Nome completo do usuário"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Endereço de email do usuário"
+          },
+          "senha": {
+            "type": "string",
+            "format": "password",
+            "description": "Senha do usuário",
+            "writeOnly": true
+          },
+          "data_cadastro": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de cadastro",
+            "readOnly": true
           }
         }
       }
