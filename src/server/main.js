@@ -6,7 +6,7 @@ import { PORT } from "./config/env.config.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
 import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "./docs/swagger.json" with { type: "json" };
+import swaggerSpecs from "./docs/swagger.js";
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 
-app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.use("/api/v1", routes);
 
