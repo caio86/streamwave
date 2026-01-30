@@ -10,6 +10,15 @@ class UsuarioController {
     }
   }
 
+  async getByUsername(req, res, next) {
+    try {
+      const user = await usuarioService.getByUsername(req.params.username);
+      res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getByEmail(req, res, next) {
     try {
       const user = await usuarioService.getByEmail(req.params.email);
@@ -19,10 +28,10 @@ class UsuarioController {
     }
   }
 
-  async create(req, res, next) {
+  async register(req, res, next) {
     try {
-      const created = await usuarioService.create(req.body);
-      res.status(201).json(created);
+      const { user, token } = await usuarioService.create(req.body);
+      res.status(201).json({ user, token });
     } catch (error) {
       next(error);
     }

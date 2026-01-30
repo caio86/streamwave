@@ -21,6 +21,16 @@ class UsuarioService {
     return user;
   }
 
+  async getByUsername(username) {
+    const { error, value } = validateUuid(username);
+    if (error) throw error;
+
+    const user = await Usuario.findById(value);
+    if (!user) throw new Error("User not found");
+
+    return user;
+  }
+
   async getByEmail(email) {
     const { error, value } = validateEmail(email);
     if (error) throw error;
@@ -40,7 +50,11 @@ class UsuarioService {
 
     const created = await Usuario.create(value);
 
-    return created;
+    const token = jwt.sign({ userId: created.id }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRES_IN,
+    });
+
+    return { user: created, token };
   }
 
   async update(id, data) {
@@ -73,7 +87,7 @@ class UsuarioService {
 
   async login(email, password) {
     const user = await this.getByEmail(email);
-    if (!user) {
+    if (!user || user.status === "INATIVO") {
       throw new Error("User not found");
     }
 
@@ -81,6 +95,8 @@ class UsuarioService {
     if (!isPasswordValid) {
       throw new Error("Invalid credentials");
     }
+
+    await Usuario.updateLastLogin(user.id);
 
     const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
       expiresIn: JWT_EXPIRES_IN,
@@ -109,6 +125,7 @@ function validateCreateUser(data) {
       .regex(/\W/) // at least one special character
       .min(3)
       .required(),
+    username: Joi.string().alphanum().min(3).max(30).required(),
     nomeCompleto: Joi.string().required(),
     dataNascimento: Joi.date().required(),
     fotoPerfil: Joi.string().uri().optional(),
@@ -123,6 +140,7 @@ function validateUpdateUser(data) {
   const updateUserSchema = Joi.object({
     email: Joi.string().email().optional(),
     senha: Joi.string().optional(),
+    username: Joi.string().alphanum().min(3).max(30).optional(),
     nomeCompleto: Joi.string().optional(),
     dataNascimento: Joi.date().optional(),
     fotoPerfil: Joi.string().uri().optional(),

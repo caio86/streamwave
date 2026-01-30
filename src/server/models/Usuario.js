@@ -13,6 +13,12 @@ class UsuarioModel {
     });
   }
 
+  async findByUsername(username) {
+    return await prisma.usuario.findUniqueOrThrow({
+      where: { username },
+    });
+  }
+
   async findByEmail(email) {
     return await prisma.usuario.findUniqueOrThrow({
       where: { email },
@@ -30,6 +36,13 @@ class UsuarioModel {
     return await prisma.usuario.update({
       where: { id },
       data: { ativo: false },
+    });
+  }
+
+  async updateLoginTimestamp(id) {
+    return await prisma.usuario.update({
+      where: { id },
+      data: { ultimoLogin: new Date() },
     });
   }
 }
