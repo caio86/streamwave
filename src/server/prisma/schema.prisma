@@ -33,6 +33,7 @@ model Usuario {
   id             String        @id @default(uuid()) @db.Uuid
   email          String        @unique
   senha          String
+  username       String        @unique
   nomeCompleto   String
   dataNascimento DateTime
   fotoPerfil     String?
@@ -42,6 +43,7 @@ model Usuario {
 
   favoritos Favorito[]
 
+  @@index([username])
   @@index([email])
   @@map("usuarios")
 }
