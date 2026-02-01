@@ -89,17 +89,16 @@ class UsuarioService {
   }
 
   async login(email, password) {
-    const user = await this.getByEmail(email);
+    const user = await Usuario.findByEmail(email);
     if (!user || user.status === "INATIVO") {
       throw new AppError("User not found", STATUS_CODE.NOT_FOUND);
     }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.senha);
     if (!isPasswordValid) {
       throw new AppError("Invalid credentials", STATUS_CODE.UNAUTHORIZED);
     }
 
-    await Usuario.updateLastLogin(user.id);
+    await Usuario.updateLoginTimestamp(user.id);
 
     const payload = {
       sub: user.id,
@@ -139,7 +138,6 @@ function parseUsuarioFromModel(data) {
   return {
     id: data.id,
     nome_completo: data.nomeCompleto,
-    senha: data.senha ?? undefined,
     username: data.username,
     email: data.email,
     foto_perfil: data.fotoPerfil,
