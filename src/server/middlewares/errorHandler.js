@@ -1,10 +1,17 @@
 import Joi from "joi";
 import { isProd } from "../config/env.config.js";
 import { Prisma } from "../generated/prisma/index.js";
+import AppError from "../utils/appError.js";
 
-const errorHandler = (err, req, res) => {
+// eslint-disable-next-line no-unused-vars
+const errorHandler = (err, req, res, next) => {
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({
+      message: err.message,
+    });
+  }
+
   // Joi Validation Error
-
   if (err instanceof Joi.ValidationError) {
     return res.status(400).json({
       message: "Validation Error",
@@ -38,35 +45,25 @@ const errorHandler = (err, req, res) => {
     return res.status(400).json({
       message: "Database error",
       error: isProd ? undefined : err.message,
-    });
-  }
-
-  if (err instanceof Prisma.PrismaClientKnownRequestError) {
-    return res.status(400).json({
-      message: "Database Error",
       code: err.code,
-      meta: err.meta,
     });
   }
 
   if (err instanceof Prisma.PrismaClientValidationError) {
     return res.status(400).json({
       message: "Database Validation Error",
-      details: err.message,
+      details: isProd ? "Invalid data format sent to database" : err.message,
     });
   }
 
   // Generic error
 
-  if (isProd) {
-    res.status(500).json({
-      message: "Internal Server Error",
-    });
-  } else {
-    res.status(500).json({
-      message: err.message,
-    });
-  }
+  console.error({ err });
+
+  res.status(500).json({
+    message: isProd ? "Internal Server Error" : err.message,
+    stack: isProd ? undefined : err.stack,
+  });
 };
 
 export default errorHandler;
