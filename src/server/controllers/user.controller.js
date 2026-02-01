@@ -1,4 +1,4 @@
-import usuarioService from "../services/usuario.service";
+import usuarioService from "../services/usuario.service.js";
 
 class UsuarioController {
   async getById(req, res, next) {
