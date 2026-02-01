@@ -7,7 +7,7 @@ const authMiddleware = (req, res, next) => {
   if (!token)
     throw new AppError(
       "Authentication token missing",
-      STATUS_CODE.UNAUTHORIZED
+      STATUS_CODE.UNAUTHORIZED,
     );
 
   try {

@@ -7,6 +7,7 @@ import {
   JWT_SECRET,
 } from "../config/env.config.js";
 import jwt from "jsonwebtoken";
+import AppError, { STATUS_CODE } from "../utils/appError.js";
 
 class UsuarioService {
   async getById(id) {
@@ -14,14 +15,14 @@ class UsuarioService {
     if (error) throw error;
 
     const user = await Usuario.findById(value);
-    if (!user) throw new Error("User not found");
+    if (!user) throw new AppError("User not found", STATUS_CODE.NOT_FOUND);
 
     return parseUsuarioFromModel(user);
   }
 
   async getByUsername(username) {
     const user = await Usuario.findByUsername(username);
-    if (!user) throw new Error("User not found");
+    if (!user) throw new AppError("User not found", STATUS_CODE.NOT_FOUND);
 
     return parseUsuarioFromModel(user);
   }
@@ -31,7 +32,7 @@ class UsuarioService {
     if (error) throw error;
 
     const user = await Usuario.findByEmail(value);
-    if (!user) throw new Error("User not found");
+    if (!user) throw new AppError("User not found", STATUS_CODE.NOT_FOUND);
 
     return parseUsuarioFromModel(user);
   }
@@ -41,7 +42,7 @@ class UsuarioService {
     if (errorUuid) throw errorUuid;
 
     const user = await Usuario.findById(id);
-    if (!user) throw new Error("User not found");
+    if (!user) throw new AppError("User not found", STATUS_CODE.NOT_FOUND);
 
     if (data.senha !== undefined) {
       const hashedPassword = await hashPassword(data.senha);
@@ -61,7 +62,7 @@ class UsuarioService {
     if (error) throw error;
 
     const user = await Usuario.findById(value);
-    if (!user) throw new Error("User not found");
+    if (!user) throw new AppError("User not found", STATUS_CODE.NOT_FOUND);
 
     await Usuario.delete(value);
   }
@@ -90,12 +91,12 @@ class UsuarioService {
   async login(email, password) {
     const user = await this.getByEmail(email);
     if (!user || user.status === "INATIVO") {
-      throw new Error("User not found");
+      throw new AppError("User not found", STATUS_CODE.NOT_FOUND);
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new Error("Invalid credentials");
+      throw new AppError("Invalid credentials", STATUS_CODE.UNAUTHORIZED);
     }
 
     await Usuario.updateLastLogin(user.id);
