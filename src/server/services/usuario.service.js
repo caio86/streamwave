@@ -8,8 +8,6 @@ import {
 } from "../config/env.config.js";
 import jwt from "jsonwebtoken";
 
-const saltRounds = parseInt(BCRYPT_SALT ?? "10", 10);
-
 class UsuarioService {
   async getById(id) {
     const { error, value } = validateUuid(id);
@@ -18,17 +16,14 @@ class UsuarioService {
     const user = await Usuario.findById(value);
     if (!user) throw new Error("User not found");
 
-    return user;
+    return parseUsuarioFromModel(user);
   }
 
   async getByUsername(username) {
-    const { error, value } = validateUuid(username);
-    if (error) throw error;
-
-    const user = await Usuario.findById(value);
+    const user = await Usuario.findByUsername(username);
     if (!user) throw new Error("User not found");
 
-    return user;
+    return parseUsuarioFromModel(user);
   }
 
   async getByEmail(email) {
@@ -38,23 +33,7 @@ class UsuarioService {
     const user = await Usuario.findByEmail(value);
     if (!user) throw new Error("User not found");
 
-    return user;
-  }
-
-  async create(data) {
-    const { error, value } = validateCreateUser(data);
-    if (error) throw error;
-
-    const hashedPassword = await bcrypt.hash(value.senha, saltRounds);
-    value.senha = hashedPassword;
-
-    const created = await Usuario.create(value);
-
-    const token = jwt.sign({ userId: created.id }, JWT_SECRET, {
-      expiresIn: JWT_EXPIRES_IN,
-    });
-
-    return { user: created, token };
+    return parseUsuarioFromModel(user);
   }
 
   async update(id, data) {
@@ -64,15 +43,17 @@ class UsuarioService {
     const user = await Usuario.findById(id);
     if (!user) throw new Error("User not found");
 
-    const hashedPassword = await bcrypt.hash(data.senha, saltRounds);
-    data.senha = hashedPassword;
+    if (data.senha !== undefined) {
+      const hashedPassword = await hashPassword(data.senha);
+      data.senha = hashedPassword;
+    }
 
-    const { error, value } = validateUpdateUser(data);
+    const { error, value } = validateUpdateUser(parseUsuarioToModel(data));
     if (error) throw error;
 
     const updated = await Usuario.update(id, value);
 
-    return updated;
+    return parseUsuarioFromModel(updated);
   }
 
   async delete(id) {
@@ -83,6 +64,27 @@ class UsuarioService {
     if (!user) throw new Error("User not found");
 
     await Usuario.delete(value);
+  }
+
+  async create(data) {
+    const { error, value } = validateCreateUser(data);
+    if (error) throw error;
+
+    const hashedPassword = await hashPassword(value.senha);
+    value.senha = hashedPassword;
+
+    const created = await Usuario.create(parseUsuarioToModel(value));
+
+    const user = parseUsuarioFromModel(created);
+
+    const payload = {
+      sub: user.id,
+      username: user.username,
+    };
+
+    const token = signToken(payload);
+
+    return { user, token };
   }
 
   async login(email, password) {
@@ -98,12 +100,54 @@ class UsuarioService {
 
     await Usuario.updateLastLogin(user.id);
 
-    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
-      expiresIn: JWT_EXPIRES_IN,
-    });
+    const payload = {
+      sub: user.id,
+      username: user.username,
+    };
+
+    const token = signToken(payload);
     return { user, token };
   }
 }
+
+// Helper functions
+
+const hashPassword = async (password) => {
+  const saltRounds = parseInt(BCRYPT_SALT ?? "10", 10);
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  return hashedPassword;
+};
+
+const signToken = (payload) => {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+};
+
+function parseUsuarioToModel(data) {
+  return {
+    nomeCompleto: data.nome_completo,
+    username: data.username,
+    senha: data.senha ?? undefined,
+    email: data.email,
+    fotoPerfil: data.foto_perfil,
+    dataNascimento: data.data_nascimento,
+    dataCriacao: data.data_cadastro,
+  };
+}
+
+function parseUsuarioFromModel(data) {
+  return {
+    id: data.id,
+    nome_completo: data.nomeCompleto,
+    senha: data.senha ?? undefined,
+    username: data.username,
+    email: data.email,
+    foto_perfil: data.fotoPerfil,
+    data_nascimento: data.dataNascimento,
+    data_cadastro: data.dataCriacao,
+  };
+}
+
+// Validation functions
 
 function validateUuid(id) {
   const uuidSchema = Joi.string().guid({ version: "uuidv4" }).required();
@@ -126,9 +170,9 @@ function validateCreateUser(data) {
       .min(3)
       .required(),
     username: Joi.string().alphanum().min(3).max(30).required(),
-    nomeCompleto: Joi.string().required(),
-    dataNascimento: Joi.date().required(),
-    fotoPerfil: Joi.string().uri().optional(),
+    nome_completo: Joi.string().required(),
+    data_nascimento: Joi.date().required(),
+    foto_perfil: Joi.string().uri().optional(),
   });
   return createUserSchema.validate(data, {
     abortEarly: false,
@@ -139,11 +183,17 @@ function validateCreateUser(data) {
 function validateUpdateUser(data) {
   const updateUserSchema = Joi.object({
     email: Joi.string().email().optional(),
-    senha: Joi.string().optional(),
+    senha: Joi.string()
+      .regex(/\w*[a-z]\w*/) // at least one lowercase letter
+      .regex(/\w*[A-Z]\w*/) // at least one uppercase letter
+      .regex(/\d/) // at least one digit
+      .regex(/\W/) // at least one special character
+      .min(3)
+      .optional(),
     username: Joi.string().alphanum().min(3).max(30).optional(),
-    nomeCompleto: Joi.string().optional(),
-    dataNascimento: Joi.date().optional(),
-    fotoPerfil: Joi.string().uri().optional(),
+    nome_completo: Joi.string().optional(),
+    data_nascimento: Joi.date().optional(),
+    foto_perfil: Joi.string().uri().optional(),
   });
   return updateUserSchema.validate(data, {
     abortEarly: false,
