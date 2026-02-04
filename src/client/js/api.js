@@ -37,6 +37,32 @@ async function fetchWithBackup(endpoint) {
   throw new Error(`All endpoints failed. Last error: ${lastError?.message}`);
 }
 
+async function fetchWrite(endpoint, options = {}) {
+  const baseUrl = "http://localhost:3000/api/v1";
+
+  if (!endpoint?.trim()) {
+    throw new Error("Endpoint is not defined");
+  }
+
+  endpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+
+  const response = await fetch(`${baseUrl}${endpoint}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    ...options,
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `HTTP ${response.status}: ${response.statusText} ${errorText}`.trim(),
+    );
+  }
+
+  return response;
+}
+
 export async function fetchData(endpoint) {
   try {
     const res = await fetchWithBackup(endpoint);
@@ -99,4 +125,36 @@ export async function listaConteudo() {
   const [filmes, series] = await Promise.all([listaFilmes(), listaSeries()]);
 
   return { filmes, series };
+}
+
+export async function createFilme(payload) {
+  const res = await fetchWrite("/filmes", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return await res.json();
+}
+
+export async function updateFilme(id, payload) {
+  if (!id?.trim()) {
+    throw new Error("ID is required");
+  }
+
+  const res = await fetchWrite(`/filmes/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+
+  return await res.json();
+}
+
+export async function deleteFilme(id) {
+  if (!id?.trim()) {
+    throw new Error("ID is required");
+  }
+
+  await fetchWrite(`/filmes/${id}`, {
+    method: "DELETE",
+  });
 }

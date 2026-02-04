@@ -40,10 +40,65 @@
     </header>
 
     <main>
+      <div class="page-actions">
+        <button class="btn action-btn" id="addMovieBtn" type="button">
+          Adicionar filme
+        </button>
+      </div>
       <div class="container">
         <div id="noContent">
           <h2>Carregando...</h2>
           <p>Buscando filmes disponíveis</p>
+        </div>
+      </div>
+      <div class="modal" id="movieModal" aria-hidden="true">
+        <div class="modal__content" role="dialog" aria-modal="true">
+          <div class="modal__header">
+            <h2 id="movieModalTitle">Adicionar filme</h2>
+            <button class="modal__close" type="button" id="movieModalClose">
+              ✕
+            </button>
+          </div>
+          <form id="movieForm" class="form">
+            <label class="form__field">
+              Título
+              <input name="titulo" type="text" required />
+            </label>
+            <label class="form__field">
+              Banner (URL)
+              <input name="banner" type="url" />
+            </label>
+            <label class="form__field">
+              Poster (URL)
+              <input name="poster" type="url" />
+            </label>
+            <label class="form__field">
+              Gêneros (separados por vírgula)
+              <input name="genero" type="text" placeholder="Ação, Drama" />
+            </label>
+            <label class="form__field">
+              Duração (minutos)
+              <input name="duracao_total" type="number" min="1" required />
+            </label>
+            <label class="form__field">
+              Sinopse
+              <textarea name="sinopse" rows="4"></textarea>
+            </label>
+            <label class="form__field">
+              Data de lançamento
+              <input name="data_lancamento" type="date" />
+            </label>
+            <label class="form__field">
+              Classificação
+              <input name="classificacao" type="text" placeholder="12 anos" />
+            </label>
+            <label class="form__checkbox">
+              <input name="destaque" type="checkbox" />
+              Destaque
+            </label>
+            <input type="hidden" name="tipo" value="FILME" />
+            <button class="btn action-btn" type="submit">Salvar</button>
+          </form>
         </div>
       </div>
     </main>

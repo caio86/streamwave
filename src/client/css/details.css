@@ -1,6 +1,12 @@
 @import "./global.css";
 @import "./navbar.css";
 
+.page-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.2em 3.3vw 0;
+}
+
 .backdrop {
   position: fixed;
   bottom: 0;
