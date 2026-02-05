@@ -95,7 +95,7 @@ function validateIntId(id) {
 
 function validateCreate(data) {
   const createEpisodioSchema = Joi.object({
-    numeroEpisodio: Joi.number().integer().min(1).required(),
+    numero: Joi.number().integer().min(1).required(),
     titulo: Joi.string().required(),
     duracao: Joi.number().integer().min(1).required(),
     sinopse: Joi.string().optional(),
@@ -109,7 +109,7 @@ function validateCreate(data) {
 
 function validateUpdate(data) {
   const updateEpisodioSchema = Joi.object({
-    numeroEpisodio: Joi.number().integer().min(1).optional(),
+    numero: Joi.number().integer().min(1).optional(),
     titulo: Joi.string().optional(),
     duracao: Joi.number().integer().min(1).optional(),
     sinopse: Joi.string().optional(),
