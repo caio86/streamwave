@@ -171,6 +171,8 @@ routes.delete("/:conteudoId", FilmeController.delete);
  *           type: string
  *           format: uuid
  *         description: ID do filme
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
