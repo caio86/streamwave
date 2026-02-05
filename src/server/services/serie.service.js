@@ -14,6 +14,8 @@ class SerieService {
     const serie = await Serie.findById(conteudoId);
     if (!serie) throw new Error("Serie not found");
 
+    console.log(serie);
+
     return parseSerieFromModel(serie);
   }
 

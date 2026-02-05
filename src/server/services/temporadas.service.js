@@ -12,7 +12,7 @@ class TemporadaService {
   }
 
   async getById(temporadaId) {
-    const { error } = validateUuid(temporadaId);
+    const { error } = validateId(temporadaId);
     if (error) throw error;
 
     const temporada = await Temporada.findById(temporadaId);
@@ -30,13 +30,16 @@ class TemporadaService {
 
     const parsedData = parseTemporadaToCreateModel(serieId, value);
 
+    console.log({ parsedData });
+    console.log(parsedData.serie);
+
     const created = await Temporada.create(parsedData);
 
     return parseTemporadaFromModel(created);
   }
 
   async update(temporadaId, data) {
-    const { error } = validateUuid(temporadaId);
+    const { error } = validateId(temporadaId);
     if (error) throw error;
 
     const { error: validationError, value } = validateUpdate(data);
@@ -50,7 +53,7 @@ class TemporadaService {
   }
 
   async delete(temporadaId) {
-    const { error } = validateUuid(temporadaId);
+    const { error } = validateId(temporadaId);
     if (error) throw error;
 
     const temporada = await Temporada.findById(temporadaId);
@@ -66,6 +69,11 @@ class TemporadaService {
 
 function validateUuid(id) {
   const uuidSchema = Joi.string().guid({ version: "uuidv4" }).required();
+  return uuidSchema.validate(id);
+}
+
+function validateId(id) {
+  const uuidSchema = Joi.number().required();
   return uuidSchema.validate(id);
 }
 
@@ -106,7 +114,7 @@ function parseTemporadaToCreateModel(serieId, data) {
     sinopse: data.sinopse,
     serie: {
       connect: {
-        id: serieId,
+        conteudoId: serieId,
       },
     },
   };
