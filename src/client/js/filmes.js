@@ -1,32 +1,95 @@
-import { listaFilmes } from "./api.js";
-import { createMediaList, agruparGenero } from "./utils.js";
+import { listaFilmes, createFilme } from "./api.js";
+import { createMediaList, agruparGenero, showToast } from "./utils.js";
 
 const noContent = document.querySelector("#noContent");
 const container = document.querySelector(".container");
+const addMovieBtn = document.querySelector("#addMovieBtn");
+const movieModal = document.querySelector("#movieModal");
+const movieModalClose = document.querySelector("#movieModalClose");
+const movieModalTitle = document.querySelector("#movieModalTitle");
+const movieForm = document.querySelector("#movieForm");
 
-// 1. Busca os filmes na api
-const filmes = await listaFilmes();
+async function renderFilmes() {
+  const filmes = await listaFilmes();
 
-// 2. Verifica se tem conteudo para exibir
-if (filmes && filmes.length > 0) {
-  noContent.style.display = "none";
+  if (filmes && filmes.length > 0) {
+    noContent.style.display = "none";
+    container.querySelectorAll(".list-horizontal-wrapper").forEach((node) => {
+      node.remove();
+    });
 
-  // 3. Agrupa os filmes por genero
-  const filmesGenero = agruparGenero(filmes);
+    const filmesGenero = agruparGenero(filmes);
+    const generosOrdenados = Object.keys(filmesGenero).sort();
 
-  // 4. Cria uma lista para cada genero e adiciona no container
-  const generosOrdenados = Object.keys(filmesGenero).sort();
-
-  generosOrdenados.forEach((genero) => {
-    const lista = createMediaList(
-      genero,
-      filmesGenero[genero],
-      false, // BOTAR TRUE NO DE SERIES
-    );
-    container.appendChild(lista);
-  });
-} else {
-  noContent.querySelector("h2").textContent = "Sem Conteúdo";
-  noContent.querySelector("p").textContent =
-    "Não encontramos filmes no momento.";
+    generosOrdenados.forEach((genero) => {
+      const lista = createMediaList(
+        genero,
+        filmesGenero[genero],
+        false,
+      );
+      container.appendChild(lista);
+    });
+  } else {
+    noContent.querySelector("h2").textContent = "Sem Conteúdo";
+    noContent.querySelector("p").textContent =
+      "Não encontramos filmes no momento.";
+  }
 }
+
+function openModal() {
+  movieModalTitle.textContent = "Adicionar filme";
+  movieForm.reset();
+  movieModal.classList.add("is-open");
+  movieModal.setAttribute("aria-hidden", "false");
+}
+
+function closeModal() {
+  movieModal.classList.remove("is-open");
+  movieModal.setAttribute("aria-hidden", "true");
+}
+
+function parseGenero(value) {
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+movieForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(movieForm);
+
+  const payload = {
+    titulo: formData.get("titulo"),
+    banner: formData.get("banner") || undefined,
+    poster: formData.get("poster") || undefined,
+    genero: parseGenero(formData.get("genero") || ""),
+    duracao_total: Number(formData.get("duracao_total")),
+    sinopse: formData.get("sinopse") || undefined,
+    data_lancamento: formData.get("data_lancamento") || undefined,
+    classificacao: formData.get("classificacao") || undefined,
+    destaque: formData.get("destaque") === "on",
+    tipo: "FILME",
+  };
+
+  try {
+    await createFilme(payload);
+    closeModal();
+    await renderFilmes();
+    showToast("Filme adicionado com sucesso.", "success");
+  } catch (error) {
+    console.error("Erro ao criar filme:", error);
+    showToast("Não foi possível adicionar o filme.", "error");
+  }
+});
+
+addMovieBtn.addEventListener("click", openModal);
+movieModalClose.addEventListener("click", closeModal);
+movieModal.addEventListener("click", (event) => {
+  if (event.target === movieModal) {
+    closeModal();
+  }
+});
+
+await renderFilmes();

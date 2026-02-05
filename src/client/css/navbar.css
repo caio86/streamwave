@@ -1,7 +1,9 @@
 header {
   background: var(--bg-secondary);
   box-shadow: var(--shadow);
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
+  z-index: 10;
 }
 
 .navbar {
@@ -109,6 +111,80 @@ header {
 .auth-buttons {
   display: flex;
   gap: 15px;
+}
+
+.profile-menu {
+  position: relative;
+  z-index: 1200;
+}
+
+.profile-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 12px;
+  padding: 1em;
+  width: 280px;
+  box-shadow: var(--shadow-dark);
+  display: none;
+  z-index: 2000;
+}
+
+.profile-panel.is-open {
+  display: grid;
+  gap: 0.8em;
+}
+
+.profile-panel--mobile {
+  position: static;
+  width: 100%;
+  margin-top: 0.8em;
+}
+
+.profile-header {
+  font-weight: 600;
+}
+
+.profile-field {
+  display: grid;
+  gap: 0.35em;
+  font-size: 0.9em;
+}
+
+.profile-field input {
+  padding: 0.55em 0.65em;
+  border-radius: 6px;
+  border: 1px solid var(--border-secondary);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.profile-actions {
+  display: flex;
+  gap: 0.6em;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.profile-info {
+  display: grid;
+  gap: 0.25em;
+  color: var(--text-secondary);
+}
+
+.profile-info__name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.profile-info__username {
+  font-size: 0.9em;
+}
+
+.profile-info__email {
+  font-size: 0.9em;
 }
 
 .btn {

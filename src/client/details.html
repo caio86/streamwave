@@ -40,6 +40,11 @@
     </header>
 
     <main id="main">
+      <div class="page-actions">
+        <button class="btn action-btn" id="editMediaBtn" type="button">
+          Editar
+        </button>
+      </div>
       <!-- <div class="backdrop"> -->
       <!--   <img -->
       <!--     class="backdrop__img" -->
@@ -69,6 +74,135 @@
       <!--   </div> -->
       <!-- </div> -->
     </main>
+    <section class="seasons is-hidden" id="seasonsSection">
+      <div class="seasons__header">
+        <h2>Temporadas</h2>
+        <button class="btn action-btn" id="addSeasonBtn" type="button">
+          Adicionar temporada
+        </button>
+      </div>
+      <div id="seasonsList"></div>
+    </section>
+    <div class="modal" id="mediaModal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <div class="modal__header">
+          <h2 id="mediaModalTitle">Editar</h2>
+          <button class="modal__close" type="button" id="mediaModalClose">
+            ✕
+          </button>
+        </div>
+        <form id="mediaForm" class="form">
+          <label class="form__field">
+            Título
+            <input name="titulo" type="text" required />
+          </label>
+          <label class="form__field">
+            Banner (URL)
+            <input name="banner" type="url" />
+          </label>
+          <label class="form__field">
+            Poster (URL)
+            <input name="poster" type="url" />
+          </label>
+          <label class="form__field">
+            Gêneros (separados por vírgula)
+            <input name="genero" type="text" placeholder="Ação, Drama" />
+          </label>
+          <label class="form__field" id="duracaoField">
+            Duração (minutos)
+            <input name="duracao_total" type="number" min="1" required />
+          </label>
+          <label class="form__field">
+            Sinopse
+            <textarea name="sinopse" rows="4"></textarea>
+          </label>
+          <label class="form__field">
+            Data de lançamento
+            <input name="data_lancamento" type="date" />
+          </label>
+          <label class="form__field">
+            Classificação
+            <input name="classificacao" type="text" placeholder="12 anos" />
+          </label>
+          <label class="form__checkbox">
+            <input name="destaque" type="checkbox" />
+            Destaque
+          </label>
+          <input type="hidden" name="tipo" value="FILME" />
+          <div class="form__actions">
+            <button class="btn action-btn" type="submit">Salvar</button>
+            <button class="btn btn-login" id="deleteMediaBtn" type="button">
+              Remover
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="seasonModal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <div class="modal__header">
+          <h2 id="seasonModalTitle">Adicionar temporada</h2>
+          <button class="modal__close" type="button" id="seasonModalClose">
+            ✕
+          </button>
+        </div>
+        <form id="seasonForm" class="form">
+          <label class="form__field">
+            Número
+            <input name="numero" type="number" min="1" required />
+          </label>
+          <label class="form__field">
+            Título
+            <input name="titulo" type="text" />
+          </label>
+          <label class="form__field">
+            Sinopse
+            <textarea name="sinopse" rows="3"></textarea>
+          </label>
+          <div class="form__actions">
+            <button class="btn action-btn" type="submit">Salvar</button>
+            <button class="btn btn-login" id="deleteSeasonBtn" type="button">
+              Remover temporada
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="episodeModal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <div class="modal__header">
+          <h2 id="episodeModalTitle">Adicionar episódio</h2>
+          <button class="modal__close" type="button" id="episodeModalClose">
+            ✕
+          </button>
+        </div>
+        <form id="episodeForm" class="form">
+          <label class="form__field">
+            Número
+            <input name="numero" type="number" min="1" required />
+          </label>
+          <label class="form__field">
+            Título
+            <input name="titulo" type="text" required />
+          </label>
+          <label class="form__field">
+            Duração (minutos)
+            <input name="duracao" type="number" min="1" required />
+          </label>
+          <label class="form__field">
+            Sinopse
+            <textarea name="sinopse" rows="3"></textarea>
+          </label>
+          <div class="form__actions">
+            <button class="btn action-btn" type="submit">Salvar</button>
+            <button class="btn btn-login" id="deleteEpisodeBtn" type="button">
+              Remover episódio
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script type="module" src="./js/auth.js"></script>
     <script type="module" src="./js/details.js"></script>
   </body>
 </html>

@@ -107,6 +107,27 @@
                 placeholder="Digite sua senha"
                 required
               />
+              <ul class="password-hints">
+                <li>Ao menos 1 letra minúscula</li>
+                <li>Ao menos 1 letra maiúscula</li>
+                <li>Ao menos 1 número</li>
+                <li>Ao menos 1 caractere especial</li>
+              </ul>
+            </div>
+            <div class="form-group">
+              <label for="passwordConfirm" class="form-label">Confirmar senha</label>
+              <input
+                type="password"
+                name="passwordConfirm"
+                id="passwordConfirm"
+                class="form-control"
+                placeholder="Digite a senha novamente"
+                required
+              />
+              <label class="form-toggle">
+                <input type="checkbox" id="togglePassword" />
+                Mostrar senha
+              </label>
             </div>
 
             <div class="form-group">
@@ -120,5 +141,7 @@
         </div>
       </div>
     </main>
+    <script type="module" src="./js/auth.js"></script>
+    <script type="module" src="./js/register.js"></script>
   </body>
 </html>

@@ -12,7 +12,7 @@ class TemporadaService {
   }
 
   async getById(temporadaId) {
-    const { error } = validateId(temporadaId);
+    const { error } = validateIntId(temporadaId);
     if (error) throw error;
 
     const temporada = await Temporada.findById(temporadaId);
@@ -36,7 +36,7 @@ class TemporadaService {
   }
 
   async update(temporadaId, data) {
-    const { error } = validateId(temporadaId);
+    const { error } = validateIntId(temporadaId);
     if (error) throw error;
 
     const { error: validationError, value } = validateUpdate(data);
@@ -50,7 +50,7 @@ class TemporadaService {
   }
 
   async delete(temporadaId) {
-    const { error } = validateId(temporadaId);
+    const { error } = validateIntId(temporadaId);
     if (error) throw error;
 
     const temporada = await Temporada.findById(temporadaId);
@@ -69,9 +69,9 @@ function validateUuid(id) {
   return uuidSchema.validate(id);
 }
 
-function validateId(id) {
-  const uuidSchema = Joi.number().required();
-  return uuidSchema.validate(id);
+function validateIntId(id) {
+  const intSchema = Joi.number().integer().min(1).required();
+  return intSchema.validate(id);
 }
 
 function validateCreate(data) {
@@ -136,8 +136,9 @@ function parseTemporadaFromModel(temporada) {
       ? temporada.episodios.map((ep) => ({
           id: ep.id,
           titulo: ep.titulo,
-          numero: ep.numero,
+          numero: ep.numeroEpisodio,
           duracao: ep.duracao,
+          sinopse: ep.sinopse,
         }))
       : [],
   };

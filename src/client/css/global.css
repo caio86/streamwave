@@ -65,3 +65,126 @@ body {
   /* padding: 40px 20px; */
   min-height: 100vh;
 }
+
+.action-btn {
+  background: var(--border-accent);
+  color: white;
+}
+
+.action-btn:hover {
+  background: var(--accent-hover);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2em 1.5em;
+  z-index: 3000;
+}
+
+.modal.is-open {
+  display: flex;
+}
+
+.modal__content {
+  width: min(680px, 100%);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 12px;
+  padding: 1.5em;
+  box-shadow: var(--shadow-dark);
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.modal__close {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+.form {
+  display: grid;
+  gap: 0.9em;
+}
+
+.form__field {
+  display: grid;
+  gap: 0.35em;
+  font-size: 0.95em;
+}
+
+.form__field input,
+.form__field textarea {
+  padding: 0.65em 0.75em;
+  border-radius: 6px;
+  border: 1px solid var(--border-secondary);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.form__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.form__actions {
+  display: flex;
+  gap: 0.8em;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.toast-container {
+  position: fixed;
+  right: 1.5em;
+  bottom: 1.5em;
+  display: grid;
+  gap: 0.6em;
+  z-index: 999;
+}
+
+.toast {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  padding: 0.75em 1em;
+  border-radius: 10px;
+  box-shadow: var(--shadow-dark);
+  font-size: 0.9em;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.toast--success {
+  border-color: var(--success);
+}
+
+.toast--error {
+  border-color: var(--error);
+}
+
+.toast--info {
+  border-color: var(--info);
+}
+
+.toast--hide {
+  opacity: 0;
+  transform: translateY(8px);
+}

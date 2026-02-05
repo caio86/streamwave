@@ -7,9 +7,20 @@ class TemporadaModel {
     });
   }
 
+  async findAllBySerie(serieId) {
+    return await prisma.temporada.findMany({
+      where: { serieId },
+      include: {
+        episodios: true,
+      },
+      orderBy: { numero: "asc" },
+    });
+  }
+
   async findById(id) {
+    const temporadaId = Number(id);
     return await prisma.temporada.findUniqueOrThrow({
-      where: { id },
+      where: { id: temporadaId },
       include: {
         episodios: true,
         serie: true,
@@ -18,15 +29,17 @@ class TemporadaModel {
   }
 
   async update(id, data) {
+    const temporadaId = Number(id);
     return await prisma.temporada.update({
-      where: { id },
+      where: { id: temporadaId },
       data,
     });
   }
 
   async delete(id) {
+    const temporadaId = Number(id);
     return await prisma.temporada.delete({
-      where: { id },
+      where: { id: temporadaId },
     });
   }
 

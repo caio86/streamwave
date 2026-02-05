@@ -37,7 +37,7 @@ class SerieModel {
 
   async delete(conteudoId) {
     return await prisma.conteudo.delete({
-      where: { conteudoId },
+      where: { id: conteudoId },
     });
   }
 }
