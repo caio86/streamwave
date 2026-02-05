@@ -12,7 +12,7 @@ class TemporadaService {
   }
 
   async getById(temporadaId) {
-    const { error } = validateUuid(temporadaId);
+    const { error } = validateIntId(temporadaId);
     if (error) throw error;
 
     const temporada = await Temporada.findById(temporadaId);
@@ -36,7 +36,7 @@ class TemporadaService {
   }
 
   async update(temporadaId, data) {
-    const { error } = validateUuid(temporadaId);
+    const { error } = validateIntId(temporadaId);
     if (error) throw error;
 
     const { error: validationError, value } = validateUpdate(data);
@@ -50,7 +50,7 @@ class TemporadaService {
   }
 
   async delete(temporadaId) {
-    const { error } = validateUuid(temporadaId);
+    const { error } = validateIntId(temporadaId);
     if (error) throw error;
 
     const temporada = await Temporada.findById(temporadaId);
@@ -67,6 +67,11 @@ class TemporadaService {
 function validateUuid(id) {
   const uuidSchema = Joi.string().guid({ version: "uuidv4" }).required();
   return uuidSchema.validate(id);
+}
+
+function validateIntId(id) {
+  const intSchema = Joi.number().integer().min(1).required();
+  return intSchema.validate(id);
 }
 
 function validateCreate(data) {
@@ -106,7 +111,7 @@ function parseTemporadaToCreateModel(serieId, data) {
     sinopse: data.sinopse,
     serie: {
       connect: {
-        id: serieId,
+        conteudoId: serieId,
       },
     },
   };
@@ -131,8 +136,9 @@ function parseTemporadaFromModel(temporada) {
       ? temporada.episodios.map((ep) => ({
           id: ep.id,
           titulo: ep.titulo,
-          numero: ep.numero,
+          numero: ep.numeroEpisodio,
           duracao: ep.duracao,
+          sinopse: ep.sinopse,
         }))
       : [],
   };

@@ -83,7 +83,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2em 1.5em;
-  z-index: 100;
+  z-index: 3000;
 }
 
 .modal.is-open {
@@ -146,4 +146,45 @@ body {
   justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.toast-container {
+  position: fixed;
+  right: 1.5em;
+  bottom: 1.5em;
+  display: grid;
+  gap: 0.6em;
+  z-index: 999;
+}
+
+.toast {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  padding: 0.75em 1em;
+  border-radius: 10px;
+  box-shadow: var(--shadow-dark);
+  font-size: 0.9em;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.toast--success {
+  border-color: var(--success);
+}
+
+.toast--error {
+  border-color: var(--error);
+}
+
+.toast--info {
+  border-color: var(--info);
+}
+
+.toast--hide {
+  opacity: 0;
+  transform: translateY(8px);
 }

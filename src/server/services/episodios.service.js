@@ -4,7 +4,7 @@ import Episodio from "../models/Episodio.js";
 
 class EpisodioService {
   async getAllByTemporada(temporadaId) {
-    const { error } = validateUuid(temporadaId);
+    const { error } = validateIntId(temporadaId);
     if (error) throw error;
 
     const episodios = await Episodio.findAllByTemporada(temporadaId);
@@ -12,7 +12,7 @@ class EpisodioService {
   }
 
   async getById(episodioId) {
-    const { error } = validateUuid(episodioId);
+    const { error } = validateIntId(episodioId);
     if (error) throw error;
 
     const episodio = await Episodio.findById(episodioId);
@@ -22,7 +22,7 @@ class EpisodioService {
   }
 
   async create(temporadaId, data) {
-    const { error } = validateUuid(temporadaId);
+    const { error } = validateIntId(temporadaId);
     if (error) throw error;
 
     const { error: validationError, value } = validateCreate(data);
@@ -36,7 +36,7 @@ class EpisodioService {
   }
 
   async update(episodioId, data) {
-    const { error } = validateUuid(episodioId);
+    const { error } = validateIntId(episodioId);
     if (error) throw error;
 
     const { error: validationError, value } = validateUpdate(data);
@@ -50,7 +50,7 @@ class EpisodioService {
   }
 
   async delete(episodioId) {
-    const { error } = validateUuid(episodioId);
+    const { error } = validateIntId(episodioId);
     if (error) throw error;
 
     const episodio = await Episodio.findById(episodioId);
@@ -64,9 +64,9 @@ class EpisodioService {
    VALIDATIONS
 ======================= */
 
-function validateUuid(id) {
-  const uuidSchema = Joi.string().guid({ version: "uuidv4" }).required();
-  return uuidSchema.validate(id);
+function validateIntId(id) {
+  const intSchema = Joi.number().integer().min(1).required();
+  return intSchema.validate(id);
 }
 
 function validateCreate(data) {
@@ -103,13 +103,13 @@ function validateUpdate(data) {
 
 function parseEpisodioToCreateModel(temporadaId, data) {
   return {
-    numero: data.numero,
+    numeroEpisodio: data.numero,
     titulo: data.titulo,
     duracao: data.duracao,
     sinopse: data.sinopse,
     temporada: {
       connect: {
-        id: temporadaId,
+        id: Number(temporadaId),
       },
     },
   };
@@ -117,7 +117,7 @@ function parseEpisodioToCreateModel(temporadaId, data) {
 
 function parseEpisodioToUpdateModel(data) {
   return {
-    numero: data.numero,
+    numeroEpisodio: data.numero,
     titulo: data.titulo,
     duracao: data.duracao,
     sinopse: data.sinopse,
@@ -127,7 +127,7 @@ function parseEpisodioToUpdateModel(data) {
 function parseEpisodioFromModel(episodio) {
   return {
     id: episodio.id,
-    numero: episodio.numero,
+    numero: episodio.numeroEpisodio,
     titulo: episodio.titulo,
     duracao: episodio.duracao,
     sinopse: episodio.sinopse,

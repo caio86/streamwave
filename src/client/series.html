@@ -40,13 +40,65 @@
     </header>
 
     <main>
+      <div class="page-actions">
+        <button class="btn action-btn" id="addSerieBtn" type="button">
+          Adicionar série
+        </button>
+      </div>
       <div class="container">
         <div id="noContent">
           <h2>Carregando...</h2>
           <p>Buscando séries disponíveis</p>
         </div>
       </div>
+      <div class="modal" id="serieModal" aria-hidden="true">
+        <div class="modal__content" role="dialog" aria-modal="true">
+          <div class="modal__header">
+            <h2 id="serieModalTitle">Adicionar série</h2>
+            <button class="modal__close" type="button" id="serieModalClose">
+              ✕
+            </button>
+          </div>
+          <form id="serieForm" class="form">
+            <label class="form__field">
+              Título
+              <input name="titulo" type="text" required />
+            </label>
+            <label class="form__field">
+              Banner (URL)
+              <input name="banner" type="url" />
+            </label>
+            <label class="form__field">
+              Poster (URL)
+              <input name="poster" type="url" />
+            </label>
+            <label class="form__field">
+              Gêneros (separados por vírgula)
+              <input name="genero" type="text" placeholder="Drama, Mistério" />
+            </label>
+            <label class="form__field">
+              Sinopse
+              <textarea name="sinopse" rows="4"></textarea>
+            </label>
+            <label class="form__field">
+              Data de lançamento
+              <input name="data_lancamento" type="date" />
+            </label>
+            <label class="form__field">
+              Classificação
+              <input name="classificacao" type="text" placeholder="12 anos" />
+            </label>
+            <label class="form__checkbox">
+              <input name="destaque" type="checkbox" />
+              Destaque
+            </label>
+            <input type="hidden" name="tipo" value="SERIE" />
+            <button class="btn action-btn" type="submit">Salvar</button>
+          </form>
+        </div>
+      </div>
     </main>
+    <script type="module" src="./js/auth.js"></script>
     <script type="module" src="./js/series.js"></script>
   </body>
 </html>

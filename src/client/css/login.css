@@ -131,3 +131,20 @@ main {
   color: var(--accent-hover);
   text-decoration: underline;
 }
+
+.form-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 0.4em;
+  font-size: 0.85em;
+  color: var(--text-secondary);
+}
+
+.password-hints {
+  margin-top: 0.6em;
+  padding-left: 1.2em;
+  color: var(--text-secondary);
+  font-size: 0.85em;
+  line-height: 1.4;
+}

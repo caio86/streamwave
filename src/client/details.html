@@ -41,8 +41,8 @@
 
     <main id="main">
       <div class="page-actions">
-        <button class="btn action-btn" id="editMovieBtn" type="button">
-          Editar filme
+        <button class="btn action-btn" id="editMediaBtn" type="button">
+          Editar
         </button>
       </div>
       <!-- <div class="backdrop"> -->
@@ -74,15 +74,24 @@
       <!--   </div> -->
       <!-- </div> -->
     </main>
-    <div class="modal" id="movieModal" aria-hidden="true">
+    <section class="seasons is-hidden" id="seasonsSection">
+      <div class="seasons__header">
+        <h2>Temporadas</h2>
+        <button class="btn action-btn" id="addSeasonBtn" type="button">
+          Adicionar temporada
+        </button>
+      </div>
+      <div id="seasonsList"></div>
+    </section>
+    <div class="modal" id="mediaModal" aria-hidden="true">
       <div class="modal__content" role="dialog" aria-modal="true">
         <div class="modal__header">
-          <h2 id="movieModalTitle">Editar filme</h2>
-          <button class="modal__close" type="button" id="movieModalClose">
+          <h2 id="mediaModalTitle">Editar</h2>
+          <button class="modal__close" type="button" id="mediaModalClose">
             ✕
           </button>
         </div>
-        <form id="movieForm" class="form">
+        <form id="mediaForm" class="form">
           <label class="form__field">
             Título
             <input name="titulo" type="text" required />
@@ -99,7 +108,7 @@
             Gêneros (separados por vírgula)
             <input name="genero" type="text" placeholder="Ação, Drama" />
           </label>
-          <label class="form__field">
+          <label class="form__field" id="duracaoField">
             Duração (minutos)
             <input name="duracao_total" type="number" min="1" required />
           </label>
@@ -122,13 +131,78 @@
           <input type="hidden" name="tipo" value="FILME" />
           <div class="form__actions">
             <button class="btn action-btn" type="submit">Salvar</button>
-            <button class="btn btn-login" id="deleteMovieBtn" type="button">
-              Remover filme
+            <button class="btn btn-login" id="deleteMediaBtn" type="button">
+              Remover
             </button>
           </div>
         </form>
       </div>
     </div>
+    <div class="modal" id="seasonModal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <div class="modal__header">
+          <h2 id="seasonModalTitle">Adicionar temporada</h2>
+          <button class="modal__close" type="button" id="seasonModalClose">
+            ✕
+          </button>
+        </div>
+        <form id="seasonForm" class="form">
+          <label class="form__field">
+            Número
+            <input name="numero" type="number" min="1" required />
+          </label>
+          <label class="form__field">
+            Título
+            <input name="titulo" type="text" />
+          </label>
+          <label class="form__field">
+            Sinopse
+            <textarea name="sinopse" rows="3"></textarea>
+          </label>
+          <div class="form__actions">
+            <button class="btn action-btn" type="submit">Salvar</button>
+            <button class="btn btn-login" id="deleteSeasonBtn" type="button">
+              Remover temporada
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="episodeModal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <div class="modal__header">
+          <h2 id="episodeModalTitle">Adicionar episódio</h2>
+          <button class="modal__close" type="button" id="episodeModalClose">
+            ✕
+          </button>
+        </div>
+        <form id="episodeForm" class="form">
+          <label class="form__field">
+            Número
+            <input name="numero" type="number" min="1" required />
+          </label>
+          <label class="form__field">
+            Título
+            <input name="titulo" type="text" required />
+          </label>
+          <label class="form__field">
+            Duração (minutos)
+            <input name="duracao" type="number" min="1" required />
+          </label>
+          <label class="form__field">
+            Sinopse
+            <textarea name="sinopse" rows="3"></textarea>
+          </label>
+          <div class="form__actions">
+            <button class="btn action-btn" type="submit">Salvar</button>
+            <button class="btn btn-login" id="deleteEpisodeBtn" type="button">
+              Remover episódio
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script type="module" src="./js/auth.js"></script>
     <script type="module" src="./js/details.js"></script>
   </body>
 </html>

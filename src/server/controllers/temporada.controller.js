@@ -3,9 +3,9 @@ import TemporadaService from "../services/temporadas.service.js";
 class TemporadaController {
   async index(req, res, next) {
     try {
-      const { serieId } = req.params;
+      const { conteudoId } = req.params;
 
-      const temporadas = await TemporadaService.getAllBySerie(serieId);
+      const temporadas = await TemporadaService.getAllBySerie(conteudoId);
 
       res.json(temporadas);
     } catch (err) {
@@ -27,9 +27,12 @@ class TemporadaController {
 
   async create(req, res, next) {
     try {
-      const { serieId } = req.params;
+      const { conteudoId } = req.params;
 
-      const createdTemporada = await TemporadaService.create(serieId, req.body);
+      const createdTemporada = await TemporadaService.create(
+        conteudoId,
+        req.body
+      );
 
       res.status(201).json(createdTemporada);
     } catch (err) {

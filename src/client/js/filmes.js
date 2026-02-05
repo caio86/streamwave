@@ -1,5 +1,5 @@
 import { listaFilmes, createFilme } from "./api.js";
-import { createMediaList, agruparGenero } from "./utils.js";
+import { createMediaList, agruparGenero, showToast } from "./utils.js";
 
 const noContent = document.querySelector("#noContent");
 const container = document.querySelector(".container");
@@ -77,9 +77,10 @@ movieForm.addEventListener("submit", async (event) => {
     await createFilme(payload);
     closeModal();
     await renderFilmes();
+    showToast("Filme adicionado com sucesso.", "success");
   } catch (error) {
     console.error("Erro ao criar filme:", error);
-    alert("Nao foi possivel adicionar o filme.");
+    showToast("Não foi possível adicionar o filme.", "error");
   }
 });
 
