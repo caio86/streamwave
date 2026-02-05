@@ -12,6 +12,7 @@ async function main() {
   console.log("Seeding database...");
 
   await prisma.conteudo.deleteMany();
+  await prisma.usuario.deleteMany();
 
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
@@ -20,7 +21,7 @@ async function main() {
   const seed = JSON.parse(readFileSync(file, "utf-8"));
 
   for (const usuario of seed.usuarios) {
-    console.log(`Seeding usuario: ${usuario.nomeCompleto}`);
+    console.log(`Seeding usuario: ${usuario.nome_completo}`);
     await usuarioService.create(usuario);
   }
 

@@ -1,6 +1,10 @@
 import Joi from "joi";
 
 import Filme from "../models/Filme.js";
+import storageService from "./storage.service.js";
+import videoService from "./ffmpeg.service.js";
+
+const FILME_FOLDER = "filmes";
 
 class FilmeService {
   async getAll() {
@@ -50,7 +54,29 @@ class FilmeService {
     const filme = await Filme.findById(conteudoId);
     if (!filme) throw new Error("Filme not found");
 
+    await storageService.deleteFile(filme.arquivoKey);
+
     await Filme.delete(conteudoId);
+  }
+
+  async uploadVideo(conteudoId, file) {
+    const { error } = validateUuid(conteudoId);
+    if (error) throw error;
+
+    const filme = await Filme.findById(conteudoId);
+    if (!filme) throw new Error("Filme not found");
+
+    if (filme.arquivoKey) {
+      storageService.deleteFile(filme.arquivoKey);
+    }
+
+    file = await videoService.convertToMp4(file);
+
+    const key = await storageService.uploadFile(file, FILME_FOLDER);
+
+    const updated = await Filme.update(conteudoId, { arquivoKey: key });
+
+    return parseFilmeFromModel(updated);
   }
 }
 
