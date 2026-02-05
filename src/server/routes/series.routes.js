@@ -1,6 +1,6 @@
 import { Router } from "express";
 import SerieController from "../controllers/serie.controller.js";
-import temporadaRoutes from "./temporada.routes.js";
+import temporadaRoutes from "./temporadas.routes.js";
 
 const routes = Router();
 
