@@ -1,4 +1,4 @@
-import EpisodioService from "../services/episodio.service.js";
+import EpisodioService from "../services/episodios.service.js";
 
 class EpisodioController {
   async index(req, res, next) {
@@ -31,7 +31,7 @@ class EpisodioController {
 
       const createdEpisodio = await EpisodioService.create(
         temporadaId,
-        req.body,
+        req.body
       );
 
       res.status(201).json(createdEpisodio);
@@ -46,7 +46,7 @@ class EpisodioController {
 
       const updatedEpisodio = await EpisodioService.update(
         episodioId,
-        req.body,
+        req.body
       );
 
       res.json(updatedEpisodio);

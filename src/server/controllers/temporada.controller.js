@@ -1,4 +1,4 @@
-import TemporadaService from "../services/temporada.service.js";
+import TemporadaService from "../services/temporadas.service.js";
 
 class TemporadaController {
   async index(req, res, next) {
@@ -43,7 +43,7 @@ class TemporadaController {
 
       const updatedTemporada = await TemporadaService.update(
         temporadaId,
-        req.body,
+        req.body
       );
 
       res.json(updatedTemporada);

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import EpisodioController from "../controllers/episodio.controller.js";
+import EpisodioController from "../controllers/episodios.controller.js";
 
 const routes = Router({ mergeParams: true });
 
