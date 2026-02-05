@@ -121,6 +121,7 @@ model Episodio {
   numeroEpisodio Int
   duracao        Int
   sinopse        String?
+  arquivoKey     String?
 
   temporadaId Int
   temporada   Temporada @relation(fields: [temporadaId], references: [id], onDelete: Cascade)

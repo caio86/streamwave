@@ -1,5 +1,21 @@
 import { Router } from "express";
 import EpisodioController from "../controllers/episodios.controller.js";
+import multer from "multer";
+import AppError, { STATUS_CODE } from "../utils/appError.js";
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith("video/")) {
+      cb(null, true);
+    } else {
+      cb(
+        new AppError("Only video files are allowed!", STATUS_CODE.BAD_REQUEST),
+        false
+      );
+    }
+  },
+});
 
 /**
  * @swagger
@@ -170,5 +186,61 @@ routes.get("/:episodioId", EpisodioController.getByID);
 routes.post("/", EpisodioController.create);
 routes.put("/:episodioId", EpisodioController.update);
 routes.delete("/:episodioId", EpisodioController.delete);
+
+/**
+ * @swagger
+ * /series/{serieId}/temporadas/{temporadaId}/episodios/{episodioId}/upload:
+ *   post:
+ *     summary: Envia um arquivo de vídeo para um episodio
+ *     description: Faz o upload de um arquivo de vídeo associado a um episodio específico.
+ *     tags: [Episodios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: serieId
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: temporadaId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: episodioId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               video:
+ *                 type: string
+ *                 format: binary
+ *                 description: Arquivo de vídeo a ser enviado
+ *     responses:
+ *       200:
+ *         description: Arquivo enviado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Episodio'
+ *       400:
+ *         description: Requisição inválida
+ *       404:
+ *         description: Episodio não encontrado
+ *       500:
+ *         description: Erro interno do servidor
+ */
+routes.post(
+  "/:episodioId/upload",
+  upload.single("video"),
+  EpisodioController.uploadFile
+);
 
 export default routes;
