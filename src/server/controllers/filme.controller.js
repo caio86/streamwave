@@ -54,6 +54,22 @@ class FilmeController {
       next(err);
     }
   }
+
+  async uploadFile(req, res, next) {
+    try {
+      const { conteudoId } = req.params;
+
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+
+      const updatedFilme = await FilmeService.uploadVideo(conteudoId, req.file);
+
+      res.json(updatedFilme);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 export default new FilmeController();

@@ -1,6 +1,10 @@
 import Joi from "joi";
 
 import Episodio from "../models/Episodio.js";
+import storageService from "./storage.service.js";
+import ffmpegService from "./ffmpeg.service.js";
+
+const EPISODIO_FOLDER = "episodios";
 
 class EpisodioService {
   async getAllByTemporada(temporadaId) {
@@ -58,6 +62,26 @@ class EpisodioService {
 
     await Episodio.delete(episodioId);
   }
+
+  async uploadVideo(episodioId, file) {
+    const { error } = validateId(episodioId);
+    if (error) throw error;
+
+    const episodio = await Episodio.findById(episodioId);
+    if (!episodio) throw new Error("Filme not found");
+
+    if (episodio.arquivoKey) {
+      storageService.deleteFile(episodio.arquivoKey);
+    }
+
+    file = await ffmpegService.convertToMp4(file);
+
+    const key = await storageService.uploadFile(file, EPISODIO_FOLDER);
+
+    const updated = await Episodio.update(episodioId, { arquivoKey: key });
+
+    return parseEpisodioFromModel(updated);
+  }
 }
 
 /* =======================
@@ -71,7 +95,7 @@ function validateIntId(id) {
 
 function validateCreate(data) {
   const createEpisodioSchema = Joi.object({
-    numero: Joi.number().integer().min(1).required(),
+    numeroEpisodio: Joi.number().integer().min(1).required(),
     titulo: Joi.string().required(),
     duracao: Joi.number().integer().min(1).required(),
     sinopse: Joi.string().optional(),
@@ -85,7 +109,7 @@ function validateCreate(data) {
 
 function validateUpdate(data) {
   const updateEpisodioSchema = Joi.object({
-    numero: Joi.number().integer().min(1).optional(),
+    numeroEpisodio: Joi.number().integer().min(1).optional(),
     titulo: Joi.string().optional(),
     duracao: Joi.number().integer().min(1).optional(),
     sinopse: Joi.string().optional(),

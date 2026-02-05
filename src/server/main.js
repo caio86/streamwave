@@ -4,6 +4,7 @@ import cors from "cors";
 import routes from "./routes/index.js";
 import { PORT } from "./config/env.config.js";
 import errorHandler from "./middlewares/errorHandler.js";
+import storageService from "./services/storage.service.js";
 
 import swaggerUi from "swagger-ui-express";
 import swaggerSpecs from "./docs/swagger.js";
@@ -28,13 +29,23 @@ app.get("/api/health", (_req, res) => {
 
 app.use((_req, res) => {
   res.status(404).json({
-    status: 404,
-    message: "404 - Not Found",
+    message: "404 - Rota inexistente",
   });
 });
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log("Server is running...");
-});
+const startServer = async () => {
+  try {
+    await storageService.initBucket();
+
+    app.listen(PORT, () => {
+      console.log("Server is running...");
+    });
+  } catch (error) {
+    console.log("Error starting server:", error);
+    process.exit(1);
+  }
+};
+
+startServer();

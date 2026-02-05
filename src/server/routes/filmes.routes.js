@@ -1,7 +1,23 @@
 import { Router } from "express";
 import FilmeController from "../controllers/filme.controller.js";
+import multer from "multer";
+import AppError, { STATUS_CODE } from "../utils/appError.js";
 
 const routes = Router();
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith("video/")) {
+      cb(null, true);
+    } else {
+      cb(
+        new AppError("Only video files are allowed!", STATUS_CODE.BAD_REQUEST),
+        false
+      );
+    }
+  },
+});
 
 /**
  * @swagger
@@ -11,6 +27,8 @@ const routes = Router();
  *     description: Retorna uma lista de todos os filmes disponíveis na plataforma.
  *     tags:
  *       - Filmes
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de filmes retornada com sucesso
@@ -31,6 +49,8 @@ routes.get("/", FilmeController.index);
  *     description: Adiciona um novo filme à plataforma.
  *     tags:
  *       - Filmes
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -55,6 +75,8 @@ routes.post("/", FilmeController.create);
  *     description: Retorna os detalhes de um filme específico pelo seu ID.
  *     tags:
  *       - Filmes
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: conteudoId
@@ -82,6 +104,8 @@ routes.get("/:conteudoId", FilmeController.getByID);
  *     description: Atualiza as informações de um filme existente.
  *     tags:
  *       - Filmes
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: conteudoId
@@ -115,6 +139,8 @@ routes.put("/:conteudoId", FilmeController.update);
  *     description: Remove um filme da plataforma pelo seu ID.
  *     tags:
  *       - Filmes
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: conteudoId
@@ -129,5 +155,51 @@ routes.put("/:conteudoId", FilmeController.update);
  *         description: Filme não encontrado
  */
 routes.delete("/:conteudoId", FilmeController.delete);
+
+/**
+ * @swagger
+ * /filmes/{conteudoId}/upload:
+ *   post:
+ *     summary: Envia um arquivo de vídeo para um filme
+ *     description: Faz o upload de um arquivo de vídeo associado a um filme específico.
+ *     tags: [Filmes]
+ *     parameters:
+ *       - in: path
+ *         name: conteudoId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: ID do filme
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               video:
+ *                 type: string
+ *                 format: binary
+ *                 description: Arquivo de vídeo a ser enviado
+ *     responses:
+ *       200:
+ *         description: Arquivo enviado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Filme'
+ *       400:
+ *         description: Requisição inválida
+ *       404:
+ *         description: Filme não encontrado
+ *       500:
+ *         description: Erro interno do servidor
+ */
+routes.post(
+  "/:conteudoId/upload",
+  upload.single("video"),
+  FilmeController.uploadFile
+);
 
 export default routes;

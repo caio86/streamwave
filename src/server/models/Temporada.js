@@ -42,6 +42,15 @@ class TemporadaModel {
       where: { id: temporadaId },
     });
   }
+
+  async findAllBySerie(id) {
+    return await prisma.temporada.findMany({
+      where: { serieId: id },
+      include: {
+        episodios: true,
+      },
+    });
+  }
 }
 
 export default new TemporadaModel();

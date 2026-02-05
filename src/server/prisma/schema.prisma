@@ -80,6 +80,8 @@ model Filme {
   conteudoId   String @id @db.Uuid
   duracaoTotal Int
 
+  arquivoKey String?
+
   conteudo Conteudo @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
 
   @@map("filmes")
@@ -119,6 +121,7 @@ model Episodio {
   numeroEpisodio Int
   duracao        Int
   sinopse        String?
+  arquivoKey     String?
 
   temporadaId Int
   temporada   Temporada @relation(fields: [temporadaId], references: [id], onDelete: Cascade)

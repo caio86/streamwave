@@ -36,6 +36,12 @@ class EpisodioModel {
       where: { id: episodioId },
     });
   }
+
+  async findAllByTemporada(id) {
+    return await prisma.episodio.findMany({
+      where: { temporadaId: id },
+    });
+  }
 }
 
 export default new EpisodioModel();
