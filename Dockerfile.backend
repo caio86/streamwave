@@ -1,0 +1,24 @@
+FROM node:24-alpine
+
+WORKDIR /app
+
+# Copia arquivos de package (ajuste se package.json estiver em outra pasta)
+COPY package*.json ./
+
+# Instala dependências de produção
+RUN npm ci
+
+RUN apk update && apk add --no-cache ffmpeg
+
+# Copia todo o código do projeto
+COPY . .
+
+RUN npm run prisma:generate
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
+EXPOSE 3000
+
+# Ajuste o comando de start se seu package.json usar outro script
+CMD ["npm", "run", "prisma:migrate:deploy", "&&", "npm", "start"]
