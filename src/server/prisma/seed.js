@@ -6,11 +6,14 @@ import { prisma } from "./prisma.js";
 
 import usuarioService from "../services/usuario.service.js";
 import filmeService from "../services/filme.service.js";
-// import serieService from "../services/serie.service.js";
+import serieService from "../services/serie.service.js";
+import temporadasService from "../services/temporadas.service.js";
+import episodiosService from "../services/episodios.service.js";
 
 async function main() {
   console.log("Seeding database...");
 
+  // limpa conteúdos antes do seed
   await prisma.conteudo.deleteMany();
   await prisma.usuario.deleteMany();
 
@@ -20,18 +23,43 @@ async function main() {
 
   const seed = JSON.parse(readFileSync(file, "utf-8"));
 
-  for (const usuario of seed.usuarios) {
-    console.log(`Seeding usuario: ${usuario.nome_completo}`);
-    await usuarioService.create(usuario);
+  // Usuarios
+  if (Array.isArray(seed.usuarios)) {
+    for (const usuario of seed.usuarios) {
+      console.log(
+        `Seeding usuario: ${usuario.nome_completo || usuario.username}`
+      );
+      await usuarioService.create({
+        ...usuario,
+        // mapeie nomes de campo se necessário pelo service (ex.: dataNascimento)
+      });
+    }
   }
 
-  for (const filme of seed.filmes) {
-    console.log(`Seeding filme: ${filme.titulo}`);
-    await filmeService.create(filme);
+  // Filmes
+  if (Array.isArray(seed.filmes)) {
+    for (const filme of seed.filmes) {
+      console.log(`Seeding filme: ${filme.titulo}`);
+      await filmeService.create(filme);
+    }
   }
 
-  // for (const series of seed.series) {
-  // }
+  // Series (com temporadas e episódios embutidos)
+  if (Array.isArray(seed.series)) {
+    for (const serie of seed.series) {
+      console.log(`Seeding serie: ${serie.titulo}`);
+      const { id: idSerie } = await serieService.create(serie);
+      for (let temporada of serie.temporadas) {
+        const { id: idTemporada } = await temporadasService.create(
+          idSerie,
+          temporada
+        );
+        for (let episodio of temporada.episodios) {
+          await episodiosService.create(idTemporada, episodio);
+        }
+      }
+    }
+  }
 
   console.log("Database seeded successfully.");
 }

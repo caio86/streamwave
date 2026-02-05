@@ -32,24 +32,31 @@
       "poster": "https://picsum.photos/300/169?random=6",
       "genero": ["Crime", "Drama", "Thriller"],
       "sinopse": "Um professor de química se envolve no mundo do crime ao tentar garantir o futuro financeiro de sua família após ser diagnosticado com câncer terminal.",
-      "data_lancamento": "2008-01-20",
+      "dataLancamento": "2008-01-20",
       "classificacao": "18 anos",
-      "episodios": [
-        {
-          "titulo": "Piloto",
-          "numero_temporada": 1,
-          "numero_episodio": 1,
-          "duracao": 58
-        },
-        {
-          "titulo": "Cat's in the Bag",
-          "numero_temporada": 1,
-          "numero_episodio": 2,
-          "duracao": 48
-        }
-      ],
       "destaque": true,
-      "tipo": "serie"
+      "tipo": "SERIE",
+      "temporadas": [
+        {
+          "numero": 1,
+          "titulo": "Temporada 1",
+          "sinopse": "Introdução à transformação de Walter White de professor a produtor de metanfetamina.",
+          "episodios": [
+            {
+              "titulo": "Piloto",
+              "numeroEpisodio": 1,
+              "duracao": 58,
+              "sinopse": "Walter White recebe o diagnóstico e faz escolhas que mudam sua vida."
+            },
+            {
+              "titulo": "Cat's in the Bag",
+              "numeroEpisodio": 2,
+              "duracao": 48,
+              "sinopse": "Conseqüências imediatas das decisões de Walter e Jesse enquanto tentam lidar com um problema inesperado."
+            }
+          ]
+        }
+      ]
     },
     {
       "titulo": "Friends",
@@ -57,99 +64,127 @@
       "poster": "https://picsum.photos/300/169?random=7",
       "genero": ["Comedia", "Romance"],
       "sinopse": "Seis amigos que moram em Nova York enfrentam as situações da vida com humor e apoio uns dos outros.",
-      "data_lancamento": "1994-09-22",
+      "dataLancamento": "1994-09-22",
       "classificacao": "10 anos",
-      "episodios": [
-        {
-          "titulo": "The One Where Monica Gets a Roommate",
-          "numero_temporada": 1,
-          "numero_episodio": 1,
-          "duracao": 22
-        },
-        {
-          "titulo": "The One with the Sonogram at the End",
-          "numero_temporada": 1,
-          "numero_episodio": 2,
-          "duracao": 22
-        }
-      ],
       "destaque": false,
-      "tipo": "serie"
+      "tipo": "SERIE",
+      "temporadas": [
+        {
+          "numero": 1,
+          "titulo": "Temporada 1",
+          "sinopse": "Apresentação do grupo de amigos, suas relações e primeiros conflitos cômicos.",
+          "episodios": [
+            {
+              "titulo": "The One Where Monica Gets a Roommate",
+              "numeroEpisodio": 1,
+              "duracao": 22,
+              "sinopse": "Rachel foge do próprio casamento e encontra apoio no grupo de amigos."
+            },
+            {
+              "titulo": "The One with the Sonogram at the End",
+              "numeroEpisodio": 2,
+              "duracao": 22,
+              "sinopse": "A gravidez de Ross cria situações embaraçosas e momentos de humor entre os amigos."
+            }
+          ]
+        }
+      ]
     },
     {
       "titulo": "Stranger Things",
       "banner": "https://picsum.photos/300/169?random=8",
       "poster": "https://picsum.photos/300/169?random=8",
-      "genero": "Drama, Horror, Mistério",
+      "genero": ["Drama", "Terror", "Mistério"],
       "sinopse": "Quando uma criança desaparece, um grupo de amigos começa uma investigação sobre o caso e acaba desvendando uma série de mistérios sobrenaturais.",
-      "data_lancamento": "2016-07-15",
+      "dataLancamento": "2016-07-15",
       "classificacao": "16 anos",
-      "episodios": [
-        {
-          "titulo": "Chapter One: The Vanishing of Will Byers",
-          "numero_temporada": 1,
-          "numero_episodio": 1,
-          "duracao": 47
-        },
-        {
-          "titulo": "Chapter Two: The Weirdo on Maple Street",
-          "numero_temporada": 1,
-          "numero_episodio": 2,
-          "duracao": 48
-        }
-      ],
       "destaque": true,
-      "tipo": "serie"
+      "tipo": "SERIE",
+      "temporadas": [
+        {
+          "numero": 1,
+          "titulo": "Temporada 1",
+          "sinopse": "Um desaparecimento desencadeia ocorrências sobrenaturais e a aparição de uma menina com poderes estranhos.",
+          "episodios": [
+            {
+              "titulo": "Chapter One: The Vanishing of Will Byers",
+              "numeroEpisodio": 1,
+              "duracao": 47,
+              "sinopse": "Will desaparece e a cidade começa a buscar respostas; aparecem pistas de algo além do natural."
+            },
+            {
+              "titulo": "Chapter Two: The Weirdo on Maple Street",
+              "numeroEpisodio": 2,
+              "duracao": 48,
+              "sinopse": "Amigos e familiares tentam lidar com o desaparecimento; Eleven aparece com comportamentos enigmáticos."
+            }
+          ]
+        }
+      ]
     },
     {
       "titulo": "The Crown",
       "banner": "https://picsum.photos/300/169?random=9",
       "poster": "https://picsum.photos/300/169?random=9",
-      "genero": "Biografia, Drama, História",
+      "genero": ["Drama", "Biografia", "História"],
       "sinopse": "A série conta a história da vida da rainha Elizabeth II e dos eventos históricos durante seu reinado.",
-      "data_lancamento": "2016-11-04",
+      "dataLancamento": "2016-11-04",
       "classificacao": "12 anos",
-      "episodios": [
-        {
-          "titulo": "Wolferton Splash",
-          "numero_temporada": 1,
-          "numero_episodio": 1,
-          "duracao": 60
-        },
-        {
-          "titulo": "The Queen's Speech",
-          "numero_temporada": 1,
-          "numero_episodio": 2,
-          "duracao": 60
-        }
-      ],
       "destaque": false,
-      "tipo": "serie"
+      "tipo": "SERIE",
+      "temporadas": [
+        {
+          "numero": 1,
+          "titulo": "Temporada 1",
+          "sinopse": "Primeiros anos do reinado de Elizabeth II, com foco em política e vida pessoal da monarquia.",
+          "episodios": [
+            {
+              "titulo": "Wolferton Splash",
+              "numeroEpisodio": 1,
+              "duracao": 60,
+              "sinopse": "A ascensão de Elizabeth ao trono e os desafios iniciais enquanto se adapta ao papel."
+            },
+            {
+              "titulo": "The Queen's Speech",
+              "numeroEpisodio": 2,
+              "duracao": 60,
+              "sinopse": "Conflitos políticos e expectativas públicas influenciam as decisões da jovem rainha."
+            }
+          ]
+        }
+      ]
     },
     {
       "titulo": "Black Mirror",
       "banner": "https://picsum.photos/300/169?random=10",
       "poster": "https://picsum.photos/300/169?random=10",
-      "genero": "Sci-Fi, Drama, Thriller",
+      "genero": ["Ficcao Cientifica", "Drama", "Thriller"],
       "sinopse": "Cada episódio da série apresenta uma história autônoma que explora os impactos da tecnologia na sociedade.",
-      "data_lancamento": "2011-12-04",
+      "dataLancamento": "2011-12-04",
       "classificacao": "16 anos",
-      "episodios": [
-        {
-          "titulo": "The National Anthem",
-          "numero_temporada": 1,
-          "numero_episodio": 1,
-          "duracao": 60
-        },
-        {
-          "titulo": "Fifteen Million Merits",
-          "numero_temporada": 1,
-          "numero_episodio": 2,
-          "duracao": 60
-        }
-      ],
       "destaque": true,
-      "tipo": "serie"
+      "tipo": "SERIE",
+      "temporadas": [
+        {
+          "numero": 1,
+          "titulo": "Temporada 1",
+          "sinopse": "Episódios antológicos que investigam consequências inesperadas da tecnologia.",
+          "episodios": [
+            {
+              "titulo": "The National Anthem",
+              "numeroEpisodio": 1,
+              "duracao": 60,
+              "sinopse": "Um escândalo político força o país a encarar dilemas éticos e a mídia sensacionalista."
+            },
+            {
+              "titulo": "Fifteen Million Merits",
+              "numeroEpisodio": 2,
+              "duracao": 60,
+              "sinopse": "Um futuro distópico domina a vida das pessoas; um homem tenta desafiar o sistema."
+            }
+          ]
+        }
+      ]
     }
   ],
   "filmes": [

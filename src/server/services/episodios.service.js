@@ -4,7 +4,7 @@ import Episodio from "../models/Episodio.js";
 
 class EpisodioService {
   async getAllByTemporada(temporadaId) {
-    const { error } = validateUuid(temporadaId);
+    const { error } = validateId(temporadaId);
     if (error) throw error;
 
     const episodios = await Episodio.findAllByTemporada(temporadaId);
@@ -12,7 +12,7 @@ class EpisodioService {
   }
 
   async getById(episodioId) {
-    const { error } = validateUuid(episodioId);
+    const { error } = validateId(episodioId);
     if (error) throw error;
 
     const episodio = await Episodio.findById(episodioId);
@@ -22,7 +22,7 @@ class EpisodioService {
   }
 
   async create(temporadaId, data) {
-    const { error } = validateUuid(temporadaId);
+    const { error } = validateId(temporadaId);
     if (error) throw error;
 
     const { error: validationError, value } = validateCreate(data);
@@ -36,7 +36,7 @@ class EpisodioService {
   }
 
   async update(episodioId, data) {
-    const { error } = validateUuid(episodioId);
+    const { error } = validateId(episodioId);
     if (error) throw error;
 
     const { error: validationError, value } = validateUpdate(data);
@@ -50,7 +50,7 @@ class EpisodioService {
   }
 
   async delete(episodioId) {
-    const { error } = validateUuid(episodioId);
+    const { error } = validateId(episodioId);
     if (error) throw error;
 
     const episodio = await Episodio.findById(episodioId);
@@ -64,14 +64,14 @@ class EpisodioService {
    VALIDATIONS
 ======================= */
 
-function validateUuid(id) {
-  const uuidSchema = Joi.string().guid({ version: "uuidv4" }).required();
+function validateId(id) {
+  const uuidSchema = Joi.number().required();
   return uuidSchema.validate(id);
 }
 
 function validateCreate(data) {
   const createEpisodioSchema = Joi.object({
-    numero: Joi.number().integer().min(1).required(),
+    numeroEpisodio: Joi.number().integer().min(1).required(),
     titulo: Joi.string().required(),
     duracao: Joi.number().integer().min(1).required(),
     sinopse: Joi.string().optional(),
@@ -85,7 +85,7 @@ function validateCreate(data) {
 
 function validateUpdate(data) {
   const updateEpisodioSchema = Joi.object({
-    numero: Joi.number().integer().min(1).optional(),
+    numeroEpisodio: Joi.number().integer().min(1).optional(),
     titulo: Joi.string().optional(),
     duracao: Joi.number().integer().min(1).optional(),
     sinopse: Joi.string().optional(),
@@ -103,7 +103,7 @@ function validateUpdate(data) {
 
 function parseEpisodioToCreateModel(temporadaId, data) {
   return {
-    numero: data.numero,
+    numeroEpisodio: data.numeroEpisodio,
     titulo: data.titulo,
     duracao: data.duracao,
     sinopse: data.sinopse,
@@ -117,7 +117,7 @@ function parseEpisodioToCreateModel(temporadaId, data) {
 
 function parseEpisodioToUpdateModel(data) {
   return {
-    numero: data.numero,
+    numeroEpisodio: data.numero,
     titulo: data.titulo,
     duracao: data.duracao,
     sinopse: data.sinopse,
