@@ -7,7 +7,7 @@ const authMiddleware = (req, res, next) => {
   if (!token)
     throw new AppError(
       "Authentication token missing",
-      STATUS_CODE.UNAUTHORIZED,
+      STATUS_CODE.UNAUTHORIZED
     );
 
   try {
@@ -22,7 +22,6 @@ const authMiddleware = (req, res, next) => {
 
 const extractToken = (req) => {
   const [type, token] = req.headers.authorization?.split(" ") ?? [];
-  console.log({ req, type, token });
   return type === "Bearer" ? token : null;
 };
 

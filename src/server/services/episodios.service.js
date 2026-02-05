@@ -1,6 +1,10 @@
 import Joi from "joi";
 
 import Episodio from "../models/Episodio.js";
+import storageService from "./storage.service.js";
+import ffmpegService from "./ffmpeg.service.js";
+
+const EPISODIO_FOLDER = "episodios";
 
 class EpisodioService {
   async getAllByTemporada(temporadaId) {
@@ -57,6 +61,26 @@ class EpisodioService {
     if (!episodio) throw new Error("Episodio not found");
 
     await Episodio.delete(episodioId);
+  }
+
+  async uploadVideo(episodioId, file) {
+    const { error } = validateId(episodioId);
+    if (error) throw error;
+
+    const episodio = await Episodio.findById(episodioId);
+    if (!episodio) throw new Error("Filme not found");
+
+    if (episodio.arquivoKey) {
+      storageService.deleteFile(episodio.arquivoKey);
+    }
+
+    file = await ffmpegService.convertToMp4(file);
+
+    const key = await storageService.uploadFile(file, EPISODIO_FOLDER);
+
+    const updated = await Episodio.update(episodioId, { arquivoKey: key });
+
+    return parseEpisodioFromModel(updated);
   }
 }
 

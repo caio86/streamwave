@@ -27,7 +27,7 @@ async function main() {
   if (Array.isArray(seed.usuarios)) {
     for (const usuario of seed.usuarios) {
       console.log(
-        `Seeding usuario: ${usuario.nomeCompleto || usuario.username}`
+        `Seeding usuario: ${usuario.nome_completo || usuario.username}`
       );
       await usuarioService.create({
         ...usuario,

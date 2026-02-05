@@ -66,6 +66,25 @@ class EpisodioController {
       next(err);
     }
   }
+
+  async uploadFile(req, res, next) {
+    try {
+      const { episodioId } = req.params;
+
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+
+      const updatedEpisodio = await EpisodioService.uploadVideo(
+        episodioId,
+        req.file
+      );
+
+      res.json(updatedEpisodio);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 export default new EpisodioController();
