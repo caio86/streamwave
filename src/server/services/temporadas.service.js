@@ -30,9 +30,6 @@ class TemporadaService {
 
     const parsedData = parseTemporadaToCreateModel(serieId, value);
 
-    console.log({ parsedData });
-    console.log(parsedData.serie);
-
     const created = await Temporada.create(parsedData);
 
     return parseTemporadaFromModel(created);

@@ -49,7 +49,6 @@ async function main() {
     for (const serie of seed.series) {
       console.log(`Seeding serie: ${serie.titulo}`);
       const { id: idSerie } = await serieService.create(serie);
-      console.log(idSerie);
       for (let temporada of serie.temporadas) {
         const { id: idTemporada } = await temporadasService.create(
           idSerie,
