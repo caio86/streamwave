@@ -5,9 +5,7 @@ class EpisodioController {
     try {
       const { temporadaId } = req.params;
 
-      const episodios = await EpisodioService.getAllByTemporada(
-        temporadaId
-      );
+      const episodios = await EpisodioService.getAllByTemporada(temporadaId);
 
       res.json(episodios);
     } catch (err) {
@@ -33,7 +31,7 @@ class EpisodioController {
 
       const createdEpisodio = await EpisodioService.create(
         temporadaId,
-        req.body
+        req.body,
       );
 
       res.status(201).json(createdEpisodio);
@@ -48,7 +46,7 @@ class EpisodioController {
 
       const updatedEpisodio = await EpisodioService.update(
         episodioId,
-        req.body
+        req.body,
       );
 
       res.json(updatedEpisodio);

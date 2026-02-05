@@ -29,10 +29,7 @@ class TemporadaController {
     try {
       const { serieId } = req.params;
 
-      const createdTemporada = await TemporadaService.create(
-        serieId,
-        req.body
-      );
+      const createdTemporada = await TemporadaService.create(serieId, req.body);
 
       res.status(201).json(createdTemporada);
     } catch (err) {
@@ -46,7 +43,7 @@ class TemporadaController {
 
       const updatedTemporada = await TemporadaService.update(
         temporadaId,
-        req.body
+        req.body,
       );
 
       res.json(updatedTemporada);
