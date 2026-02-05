@@ -11,6 +11,8 @@ async function fetchWithBackup(endpoint) {
     throw new Error("Endpoint is not defined");
   }
 
+  const token = localStorage.getItem("streamwave_token");
+
   endpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
 
   if (endpoint[0] != "/") {
@@ -21,7 +23,11 @@ async function fetchWithBackup(endpoint) {
 
   for (const baseUrl of urls) {
     try {
-      const response = await fetch(`${baseUrl}${endpoint}`);
+	  const response = await fetch(`${baseUrl}${endpoint}`, {
+	    headers: {
+	      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+	    },
+	  });
 
       if (response.ok) {
         return response;

@@ -32,7 +32,7 @@ registerForm?.addEventListener("submit", async (event) => {
 
   try {
     const { token } = await registerUsuario(payload);
-    localStorage.setItem("streamwave_token", token);
+    localStorage.setItem("streamwave_token", token.token);
     showToast("Cadastro realizado com sucesso.", "success");
     window.location.href = "./index.html";
   } catch (error) {

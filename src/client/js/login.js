@@ -18,7 +18,7 @@ loginForm?.addEventListener("submit", async (event) => {
 
   try {
     const { token } = await loginUsuario(email, senha);
-    localStorage.setItem("streamwave_token", token);
+    localStorage.setItem("streamwave_token", token.token);
     showToast("Login realizado com sucesso.", "success");
     window.location.href = "./index.html";
   } catch (error) {
