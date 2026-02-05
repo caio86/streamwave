@@ -11,6 +11,8 @@ const routes = Router();
  *     description: Retorna uma lista de todos os filmes disponíveis na plataforma.
  *     tags:
  *       - Filmes
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de filmes retornada com sucesso
@@ -31,6 +33,8 @@ routes.get("/", FilmeController.index);
  *     description: Adiciona um novo filme à plataforma.
  *     tags:
  *       - Filmes
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -55,6 +59,8 @@ routes.post("/", FilmeController.create);
  *     description: Retorna os detalhes de um filme específico pelo seu ID.
  *     tags:
  *       - Filmes
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: conteudoId
@@ -82,6 +88,8 @@ routes.get("/:conteudoId", FilmeController.getByID);
  *     description: Atualiza as informações de um filme existente.
  *     tags:
  *       - Filmes
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: conteudoId
@@ -115,6 +123,8 @@ routes.put("/:conteudoId", FilmeController.update);
  *     description: Remove um filme da plataforma pelo seu ID.
  *     tags:
  *       - Filmes
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: conteudoId

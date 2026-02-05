@@ -6,6 +6,8 @@
  *     description: Retorna as temporadas pertencentes a uma série.
  *     tags:
  *       - Temporadas
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: serieId
@@ -28,6 +30,8 @@
  *     description: Cria uma nova temporada vinculada à série informada.
  *     tags:
  *       - Temporadas
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: serieId
@@ -54,6 +58,8 @@
  *     description: Retorna os dados de uma temporada específica.
  *     tags:
  *       - Temporadas
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: serieId
@@ -78,6 +84,8 @@
  *     description: Atualiza os dados de uma temporada existente.
  *     tags:
  *       - Temporadas
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: serieId
@@ -108,6 +116,8 @@
  *     description: Remove uma temporada e seus episódios (cascata).
  *     tags:
  *       - Temporadas
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: serieId

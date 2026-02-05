@@ -9,6 +9,8 @@ import EpisodioController from "../controllers/episodios.controller.js";
  *     description: Retorna a lista de episódios pertencentes a uma temporada específica.
  *     tags:
  *       - Episodios
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: serieId
@@ -37,6 +39,8 @@ import EpisodioController from "../controllers/episodios.controller.js";
  *     description: Cria um novo episódio para a temporada especificada.
  *     tags:
  *       - Episodios
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: serieId
@@ -68,6 +72,8 @@ import EpisodioController from "../controllers/episodios.controller.js";
  *     description: Retorna os dados de um episódio específico.
  *     tags:
  *       - Episodios
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: serieId
@@ -97,6 +103,8 @@ import EpisodioController from "../controllers/episodios.controller.js";
  *     description: Atualiza os dados de um episódio existente.
  *     tags:
  *       - Episodios
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: serieId
@@ -132,6 +140,8 @@ import EpisodioController from "../controllers/episodios.controller.js";
  *     description: Remove um episódio da temporada.
  *     tags:
  *       - Episodios
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: serieId

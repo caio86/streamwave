@@ -65,7 +65,6 @@ routes.post("/register", usuarioController.register);
 routes.post("/login", usuarioController.login);
 
 // --- Authenticated Routes ---
-routes.use(authMiddleware);
 
 /**
  * @swagger
@@ -90,7 +89,7 @@ routes.use(authMiddleware);
  *             schema:
  *               $ref: '#/components/schemas/Usuario'
  */
-routes.get("/:username", usuarioController.getByUsername);
+routes.get("/:username", authMiddleware, usuarioController.getByUsername);
 
 /**
  * @swagger
@@ -121,7 +120,7 @@ routes.get("/:username", usuarioController.getByUsername);
  *             schema:
  *               $ref: '#/components/schemas/Usuario'
  */
-routes.put("/:id", usuarioController.update);
+routes.put("/:id", authMiddleware, usuarioController.update);
 
 /**
  * @swagger
@@ -141,6 +140,6 @@ routes.put("/:id", usuarioController.update);
  *       204:
  *         description: User deleted successfully
  */
-routes.delete("/:id", usuarioController.delete);
+routes.delete("/:id", authMiddleware, usuarioController.delete);
 
 export default routes;

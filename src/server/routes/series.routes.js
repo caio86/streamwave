@@ -10,6 +10,8 @@ import temporadaRoutes from "./temporadas.routes.js";
  *     description: Retorna uma lista de séries disponíveis.
  *     tags:
  *       - Series
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de séries retornada com sucesso
@@ -25,6 +27,8 @@ import temporadaRoutes from "./temporadas.routes.js";
  *     description: Cria um novo conteúdo do tipo série.
  *     tags:
  *       - Series
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -45,6 +49,8 @@ import temporadaRoutes from "./temporadas.routes.js";
  *     description: Retorna uma série pelo conteudoId.
  *     tags:
  *       - Series
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: conteudoId
@@ -65,6 +71,8 @@ import temporadaRoutes from "./temporadas.routes.js";
  *     description: Atualiza os dados da série indicada por conteudoId.
  *     tags:
  *       - Series
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: conteudoId
@@ -90,6 +98,8 @@ import temporadaRoutes from "./temporadas.routes.js";
  *     description: Remove a série e seus relacionamentos (cascata).
  *     tags:
  *       - Series
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: conteudoId
