@@ -1,10 +1,9 @@
 {
   "usuarios": [
     {
-      "id": "u1",
       "username": "johndoe",
       "email": "johndoe@email.com",
-      "senha": "hashed_password_123",
+      "senha": "!R2d2",
       "nome_completo": "John Doe",
       "data_nascimento": "1990-05-15",
       "foto_perfil": "https://example.com/images/johndoe.jpg",
@@ -14,10 +13,9 @@
       "favoritos": ["s1", "s3", "f1"]
     },
     {
-      "id": "u2",
       "username": "janedoe",
       "email": "janedoe@email.com",
-      "senha": "hashed_password_456",
+      "senha": "@C3po",
       "nome_completo": "Jane Doe",
       "data_nascimento": "1995-07-22",
       "foto_perfil": "https://example.com/images/janedoe.jpg",

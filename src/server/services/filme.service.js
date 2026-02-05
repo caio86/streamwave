@@ -128,7 +128,7 @@ function parseFilmeToUpdateModel(data) {
         poster: data.poster,
         genero: data.genero,
         sinopse: data.sinopse,
-        data_lancamento: data.data_lancamento,
+        dataLancamento: data.data_lancamento,
         classificacao: data.classificacao,
         destaque: data.destaque,
         tipo: data.tipo,
