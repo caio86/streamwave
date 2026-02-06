@@ -37,7 +37,10 @@ registerForm?.addEventListener("submit", async (event) => {
     window.location.href = "./index.html";
   } catch (error) {
     console.error("Erro ao cadastrar:", error);
-    if (error?.status === 409 || String(error?.message || "").includes("Duplicate field value entered")) {
+    if (
+      error?.status === 409 ||
+      String(error?.message || "").includes("Duplicate field value entered")
+    ) {
       const campo = error?.data?.field;
       if (campo === "email") {
         showToast("Este e-mail já está cadastrado.", "error");

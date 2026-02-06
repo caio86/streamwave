@@ -1,11 +1,10 @@
+const VITE_API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
+
 /**
  * @param {string} endpoint
  */
 async function fetchWithBackup(endpoint) {
-  const urls = [
-    "http://localhost:3000/api/v1",
-    "https://my-json-server.typicode.com/caio86/streamwave",
-  ];
+  const urls = [VITE_API_ENDPOINT];
 
   if (!endpoint?.trim()) {
     throw new Error("Endpoint is not defined");
@@ -23,11 +22,11 @@ async function fetchWithBackup(endpoint) {
 
   for (const baseUrl of urls) {
     try {
-	  const response = await fetch(`${baseUrl}${endpoint}`, {
-	    headers: {
-	      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-	    },
-	  });
+      const response = await fetch(`${baseUrl}${endpoint}`, {
+        headers: {
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      });
 
       if (response.ok) {
         return response;
@@ -44,7 +43,7 @@ async function fetchWithBackup(endpoint) {
 }
 
 async function fetchWrite(endpoint, options = {}) {
-  const baseUrl = "http://localhost:3000/api/v1";
+  const baseUrl = VITE_API_ENDPOINT;
 
   if (!endpoint?.trim()) {
     throw new Error("Endpoint is not defined");
@@ -77,7 +76,7 @@ async function fetchWrite(endpoint, options = {}) {
     }
 
     const error = new Error(
-      `HTTP ${response.status}: ${response.statusText} ${errorText}`.trim(),
+      `HTTP ${response.status}: ${response.statusText} ${errorText}`.trim()
     );
     error.status = response.status;
     error.data = errorData;
@@ -247,13 +246,10 @@ export async function updateTemporada(serieId, temporadaId, payload) {
     throw new Error("ID is required");
   }
 
-  const res = await fetchWrite(
-    `/series/${serieId}/temporadas/${temporadaId}`,
-    {
-      method: "PUT",
-      body: JSON.stringify(payload),
-    }
-  );
+  const res = await fetchWrite(`/series/${serieId}/temporadas/${temporadaId}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
 
   return await res.json();
 }
